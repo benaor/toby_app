@@ -1,9 +1,9 @@
 export const useAuthentication = () => {
-  const isLoggedIn = false;
-  const isDisconnected = !isLoggedIn;
+  const isConnected = false;
+  const isDisconnected = !isConnected;
 
   return {
-    isLoggedIn,
+    isConnected,
     isDisconnected,
   };
 };
