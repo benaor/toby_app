@@ -1,4 +1,0 @@
-{
-  "*.{js,jsx,ts,tsx}": ["pnpm format", "pnpm lint"],
-  "*.{json,md,mdx,yml,yaml}": ["pnpm format"]
-}
