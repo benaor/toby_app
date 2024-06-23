@@ -1,4 +1,4 @@
-import { useAuthentication } from "@/src/useAuthentication.hook";
+import { useAuthentication } from "@authentication/useAuthentication";
 import { Redirect } from "expo-router";
 
 export default function RootScreen() {
