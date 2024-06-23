@@ -4,7 +4,9 @@
     "strict": true,
     "paths": {
       "@/*": ["./*"],
-      "@authentication/*": ["./src/modules/authentication/*"]
+      "@authentication/*": ["./src/modules/authentication/*"],
+      "@theme/*": ["./src/themes/*"],
+      "@images/*": ["./assets/images/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]

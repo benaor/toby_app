@@ -1,13 +1,22 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
+
+import { createStyleSheet } from "@theme/createStyleSheet";
+import OnboardingSVG from "@images/onboarding-1.svg";
 
 export default function OnboardingScreen() {
   return (
-    <View>
-      <Text>Welcome to your Onboarding!</Text>
-      <Text>
-        This is your onboarding screen. You can edit
-        <Text>app/onboarding.tsx</Text> to customize this screen.
-      </Text>
+    <View style={styles.container}>
+      <OnboardingSVG />
     </View>
   );
 }
+
+const styles = createStyleSheet((theme) => ({
+  container: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+}));
