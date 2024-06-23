@@ -8,7 +8,7 @@ export default function DisconnectedLayout() {
 
   return (
     <Stack>
-      <Stack.Screen name="onboarding" />
+      <Stack.Screen name="onboarding" options={{ headerShown: false }} />
     </Stack>
   );
 }

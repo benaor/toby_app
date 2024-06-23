@@ -1,21 +1,16 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
+import { SafeAreaView } from "react-native";
+import { createStyleSheet } from "@/src/themes/createStyleSheet";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -27,8 +22,16 @@ export default function RootLayout() {
   if (!loaded) return null;
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <SafeAreaView style={styles.container}>
       <Slot />
-    </ThemeProvider>
+    </SafeAreaView>
   );
 }
+
+const styles = createStyleSheet((theme) => ({
+  container: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: theme.colors.background.low,
+  },
+}));

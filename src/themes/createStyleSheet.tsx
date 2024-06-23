@@ -2,12 +2,12 @@ import { StyleSheet } from "react-native";
 import { AppTheme, theme } from "./theme";
 
 type StyleBuilder<T> =
-  | ((theme: AppTheme) => T & StyleSheet.NamedStyles<unknown>)
-  | (T & StyleSheet.NamedStyles<unknown>);
+  | ((theme: AppTheme) => T & StyleSheet.NamedStyles<T>)
+  | (T & StyleSheet.NamedStyles<T>);
 
 const createStyleSheetBuilder =
   (theme: AppTheme) =>
-  <T extends StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<unknown>>(
+  <T extends StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<T>>(
     styleBuilder: StyleBuilder<T>,
   ): T => {
     const styles =
