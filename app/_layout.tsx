@@ -6,6 +6,8 @@ import "react-native-reanimated";
 
 import { SafeAreaView } from "react-native";
 import { createStyleSheet } from "@/src/themes/createStyleSheet";
+import { ThemeProvider } from "@theme/useTheme";
+import { theme } from "@theme/theme";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -22,9 +24,11 @@ export default function RootLayout() {
   if (!loaded) return null;
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Slot />
-    </SafeAreaView>
+    <ThemeProvider theme={theme}>
+      <SafeAreaView style={styles.container}>
+        <Slot />
+      </SafeAreaView>
+    </ThemeProvider>
   );
 }
 
