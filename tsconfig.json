@@ -5,8 +5,9 @@
     "paths": {
       "@/*": ["./*"],
       "@authentication/*": ["./src/modules/authentication/*"],
-      "@theme/*": ["./src/themes/*"],
-      "@images/*": ["./assets/images/*"]
+      "@themes/*": ["./src/themes/*"],
+      "@images/*": ["./assets/images/*"],
+      "@components/*": ["./src/components/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
