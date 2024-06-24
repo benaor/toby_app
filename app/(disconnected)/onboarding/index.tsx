@@ -4,8 +4,20 @@ import { createStyleSheet } from "@themes/createStyleSheet";
 import OnboardingSVG from "@images/onboarding-1.svg";
 import { Typography } from "@/src/components/Typography";
 import { Button } from "@components/Button";
+import { useRouter } from "expo-router";
+import { useCallback } from "react";
 
 export default function OnboardingScreen() {
+  const { replace } = useRouter();
+
+  const goToSignUp = useCallback(() => {
+    replace("/sign-up");
+  }, [replace]);
+
+  const goToSignIn = useCallback(() => {
+    replace("/sign-in");
+  }, [replace]);
+
   return (
     <View style={styles.container}>
       <OnboardingSVG />
@@ -18,10 +30,10 @@ export default function OnboardingScreen() {
         </Typography.Body>
       </View>
       <View style={styles.ButtonView}>
-        <Button onPress={() => {}}>
+        <Button onPress={goToSignUp}>
           <Button.Label label="S'inscrire" />
         </Button>
-        <Button variant="text" onPress={() => {}}>
+        <Button variant="text" onPress={goToSignIn}>
           <Button.Label label="Se connecter" />
         </Button>
       </View>
