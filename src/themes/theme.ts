@@ -8,10 +8,10 @@ export const theme = {
     typography: {
       high: "#2D2D2D",
       medium: "#2D2D2DCC",
-      low: "",
+      low: "#ffffff",
     },
     background: {
-      high: "",
+      high: "#2D2D2DCC",
       medium: "#E8EEF3",
       low: "#ffffff",
     },
