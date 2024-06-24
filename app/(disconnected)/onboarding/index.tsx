@@ -21,6 +21,9 @@ export default function OnboardingScreen() {
         <Button onPress={() => {}}>
           <Button.Label label="S'inscrire" />
         </Button>
+        <Button variant="text" onPress={() => {}}>
+          <Button.Label label="Se connecter" />
+        </Button>
       </View>
     </View>
   );
@@ -47,6 +50,7 @@ const styles = createStyleSheet((theme) => ({
     color: theme.colors.typography.medium,
   },
   ButtonView: {
-    paddingVertical: 50,
+    paddingTop: 50,
+    gap: 10,
   },
 }));
