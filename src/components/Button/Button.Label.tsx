@@ -1,16 +1,20 @@
-import { FC } from "react";
-import { Typography, TypographyBodyProps } from "../Typography";
+import { FC, useMemo } from "react";
+import { Typography } from "../Typography";
 import { useButtonProps } from "./useButtonProps";
+import { ColorAndLevelTuple } from "@/src/themes/theme";
 
-type ColorAndLvlTuple = [
-  TypographyBodyProps["color"],
-  TypographyBodyProps["lvlColor"],
-];
+type LabelProps = {
+  label: string;
+  colors?: ColorAndLevelTuple;
+  bold?: boolean;
+};
 
-export const Label: FC<{ label: string }> = ({ label }) => {
+export const Label: FC<LabelProps> = ({ label, colors, bold }) => {
   const { variant } = useButtonProps();
 
-  const computeTextColor = (): ColorAndLvlTuple => {
+  const [color, lvlColor]: ColorAndLevelTuple = useMemo(() => {
+    if (colors) return colors;
+
     switch (variant) {
       case "text":
         return ["typography", "high"];
@@ -18,12 +22,13 @@ export const Label: FC<{ label: string }> = ({ label }) => {
       default:
         return ["typography", "low"];
     }
-  };
+  }, [variant, colors]);
 
   return (
     <Typography.Body
-      color={computeTextColor()[0]}
-      lvlColor={computeTextColor()[1]}
+      color={color}
+      lvlColor={lvlColor}
+      bold={bold}
       textAlign="center"
     >
       {label}

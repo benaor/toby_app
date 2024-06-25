@@ -1,16 +1,16 @@
 import { FC, createContext, useContext } from "react";
-import { ButtonProps } from "./Button";
+import { ButtonContextProps } from "./Button";
 
 const ButtonProvider: FC<{
   children: React.ReactNode;
-  props: ButtonProps;
+  props: ButtonContextProps;
 }> = ({ props, children }) => {
   return (
     <ButtonContext.Provider value={props}>{children}</ButtonContext.Provider>
   );
 };
 
-const ButtonContext = createContext({} as ButtonProps);
+const ButtonContext = createContext({} as ButtonContextProps);
 
 const useButtonProps = () => {
   const context = useContext(ButtonContext);

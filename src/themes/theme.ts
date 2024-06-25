@@ -15,6 +15,11 @@ export const theme = {
       medium: "#E8EEF3",
       low: "#ffffff",
     },
+    border: {
+      high: "#2D2D2D",
+      medium: "#ACB8C2",
+      low: "#D4D4D4",
+    },
   },
   fonts: {
     family: {
@@ -70,3 +75,6 @@ export type FontHeaderSize = keyof AppTheme["fonts"]["header"];
 
 // Level of the colors
 export type ColorLevel = "high" | "medium" | "low";
+
+// Tuple of color and level
+export type ColorAndLevelTuple = [ColorName, ColorLevel];
