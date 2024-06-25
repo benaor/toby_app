@@ -6,16 +6,17 @@ import { Typography } from "@/src/components/Typography";
 import { Button } from "@components/Button";
 import { useRouter } from "expo-router";
 import { useCallback } from "react";
+import { screens } from "@/src/constants/screens";
 
 export default function OnboardingScreen() {
   const { replace } = useRouter();
 
   const goToSignUp = useCallback(() => {
-    replace("/sign-up");
+    replace(screens.signUp);
   }, [replace]);
 
   const goToSignIn = useCallback(() => {
-    replace("/sign-in");
+    replace(screens.signIn);
   }, [replace]);
 
   return (

@@ -6,12 +6,13 @@ import { Button } from "@components/Button";
 import { SocialButton } from "@/src/components/SocialButton";
 import { useCallback } from "react";
 import { useRouter } from "expo-router";
+import { screens } from "@/src/constants/screens";
 
 export default function SignUpScreen() {
   const { replace } = useRouter();
 
   const goToLoginScreen = useCallback(() => {
-    replace("sign-in");
+    replace(screens.signIn);
   }, [replace]);
 
   return (

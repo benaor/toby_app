@@ -1,3 +1,4 @@
+import { screens } from "@/src/constants/screens";
 import { useAuthentication } from "@authentication/useAuthentication";
 import { Redirect } from "expo-router";
 
@@ -6,8 +7,8 @@ export default function RootScreen() {
 
   return (
     <>
-      {isConnected && <Redirect href="home" />}
-      {isDisconnected && <Redirect href="onboarding" />}
+      {isConnected && <Redirect href={screens.home} />}
+      {isDisconnected && <Redirect href={screens.onboarding} />}
     </>
   );
 }
