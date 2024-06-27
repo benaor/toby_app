@@ -1,3 +1,4 @@
+import { screens } from "@constants/screens";
 import { useRouter } from "expo-router";
 import { useCallback } from "react";
 
@@ -5,7 +6,7 @@ export const useSignUpWelcomeScreen = () => {
   const { replace } = useRouter();
 
   const redirectToHome = useCallback(() => {
-    replace("home");
+    replace(screens.home);
   }, [replace]);
 
   return {

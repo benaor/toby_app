@@ -3,7 +3,7 @@ import { SignInSecurityCodeScreen } from "@authentication/ui/screens/SignInSecur
 import { SignInWelcomeScreen } from "@authentication/ui/screens/SignInWelcomeScreen";
 
 export default function SignInScreen() {
-  const step: number = 1;
+  const step: number = 3;
   return (
     <>
       {step === 1 && <SignInCredentialsScreen />}
