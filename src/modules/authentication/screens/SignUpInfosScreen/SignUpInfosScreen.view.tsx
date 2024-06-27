@@ -38,6 +38,6 @@ const styles = createStyleSheet((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     padding: 25,
-    gap: 20,
+    gap: 16,
   },
 }));

@@ -3,7 +3,7 @@ import { SignUpSecurityCodeScreen } from "@authentication/screens/SignUpSecurity
 import { SignUpWelcomeScreen } from "@authentication/screens/SignUpWelcomeScreen";
 
 export default function SignUpScreen() {
-  const step: number = 3;
+  const step: number = 1;
 
   return (
     <>

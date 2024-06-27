@@ -1,3 +1,7 @@
 export const useSignUpSecurityCodeScreen = () => {
-  return {};
+  const goToWelcomeSignInScreen = () => {};
+
+  return {
+    goToWelcomeSignInScreen,
+  };
 };

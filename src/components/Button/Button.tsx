@@ -48,7 +48,7 @@ export function Button({
     container: {
       display: "flex",
       flexDirection: "row",
-      gap: 5,
+      gap: 12,
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: computeBgColor(),
