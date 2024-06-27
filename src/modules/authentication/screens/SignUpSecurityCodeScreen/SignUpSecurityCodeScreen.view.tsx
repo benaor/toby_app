@@ -8,8 +8,7 @@ import { Button } from "@components/Button";
 import { useTheme } from "@themes/useTheme";
 
 export const SignUpSecurityCodeScreen = () => {
-  const { goToWelcomeSignInScreen: goToWelcomePage } =
-    useSignUpSecurityCodeScreen();
+  const { verifySecurityCode } = useSignUpSecurityCodeScreen();
   const { colors } = useTheme();
 
   return (
@@ -22,7 +21,7 @@ export const SignUpSecurityCodeScreen = () => {
           adresse mail.
         </Typography.Body>
         <TextInput keyboardType="decimal-pad" placeholder="Code de sécurité" />
-        <Button fullWidth onPress={goToWelcomePage}>
+        <Button fullWidth onPress={verifySecurityCode}>
           <Button.Label label="Valider" />
           <Button.Icon name="arrowright" color={colors.typography.low} />
         </Button>

@@ -7,7 +7,7 @@ import { createStyleSheet } from "@themes/createStyleSheet";
 import { useSignUpInfosScreen } from "./SignUpInfosScreen.controller";
 
 export const SignUpInfosScreen = () => {
-  const { goToLoginScreen } = useSignUpInfosScreen();
+  const { goToLoginScreen, registerNewUser } = useSignUpInfosScreen();
 
   return (
     <View style={styles.container}>
@@ -16,7 +16,7 @@ export const SignUpInfosScreen = () => {
       <TextInput placeholder="Nom" />
       <TextInput placeholder="Adresse e-mail" keyboardType="email-address" />
       <TextInput placeholder="Mot de passe" secureTextEntry />
-      <Button fullWidth>
+      <Button fullWidth onPress={registerNewUser}>
         <Button.Label label="S'inscrire" />
       </Button>
       <SocialButton network="google" />

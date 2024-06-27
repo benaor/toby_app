@@ -1,7 +1,7 @@
 export const useSignUpSecurityCodeScreen = () => {
-  const goToWelcomeSignInScreen = () => {};
+  const verifySecurityCode = () => {};
 
   return {
-    goToWelcomeSignInScreen,
+    verifySecurityCode,
   };
 };
