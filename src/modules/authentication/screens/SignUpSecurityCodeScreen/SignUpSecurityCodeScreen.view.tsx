@@ -6,8 +6,9 @@ import CodeSecrureSVG from "@images/code-secure.svg";
 import { TextInput } from "@components/TextInput";
 import { Button } from "@components/Button";
 import { useTheme } from "@themes/useTheme";
+import { FC } from "react";
 
-export const SignUpSecurityCodeScreen = () => {
+export const SignUpSecurityCodeScreen: FC = () => {
   const { verifySecurityCode } = useSignUpSecurityCodeScreen();
   const { colors } = useTheme();
 

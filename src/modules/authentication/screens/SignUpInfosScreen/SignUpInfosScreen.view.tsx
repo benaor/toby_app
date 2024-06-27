@@ -5,8 +5,9 @@ import { Button } from "@components/Button";
 import { SocialButton } from "@/src/components/SocialButton";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { useSignUpInfosScreen } from "./SignUpInfosScreen.controller";
+import { FC } from "react";
 
-export const SignUpInfosScreen = () => {
+export const SignUpInfosScreen: FC = () => {
   const { goToLoginScreen, registerNewUser } = useSignUpInfosScreen();
 
   return (
