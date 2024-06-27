@@ -59,11 +59,11 @@
   "private": true,
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "pnpm run format",
-      "pnpm run lint"
+      "pnpm run format .",
+      "pnpm run lint ."
     ],
     "*.{json,md,mdx,yml,yaml}": [
-      "pnpm run format"
+      "pnpm run format ."
     ]
   }
 }
