@@ -1,5 +1,6 @@
 {
   "expo": {
+    "jsEngine": "hermes",
     "name": "toby_app",
     "slug": "toby_app",
     "version": "1.0.0",
