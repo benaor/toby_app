@@ -14,7 +14,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    "Noto Sans": require("../assets/fonts/NotoSans-Variable.ttf"),
   });
 
   useEffect(() => {
