@@ -1,6 +1,6 @@
-import { SignUpInfosScreen } from "@authentication/screens/SignUpInfosScreen";
-import { SignUpSecurityCodeScreen } from "@authentication/screens/SignUpSecurityCodeScreen";
-import { SignUpWelcomeScreen } from "@authentication/screens/SignUpWelcomeScreen";
+import { SignUpInfosScreen } from "@authentication/ui/screens/SignUpInfosScreen";
+import { SignUpSecurityCodeScreen } from "@authentication/ui/screens/SignUpSecurityCodeScreen";
+import { SignUpWelcomeScreen } from "@authentication/ui/screens/SignUpWelcomeScreen";
 
 export default function SignUpScreen() {
   const step: number = 1;

@@ -1,20 +1,24 @@
-import { View } from "react-native";
-import { createStyleSheet } from "@themes/createStyleSheet";
-import { useSignUpSecurityCodeScreen } from "./SignUpSecurityCodeScreen.controller";
 import { Typography } from "@components/Typography";
-import CodeSecrureSVG from "@images/code-secure.svg";
+import { useTheme } from "@themes/useTheme";
+import { createStyleSheet } from "@themes/createStyleSheet";
+import React, { FC } from "react";
+import { View } from "react-native";
+import CodeSecureSVG from "@images/code-secure.svg";
 import { TextInput } from "@components/TextInput";
 import { Button } from "@components/Button";
-import { useTheme } from "@themes/useTheme";
-import { FC } from "react";
 
-export const SignUpSecurityCodeScreen: FC = () => {
-  const { verifySecurityCode } = useSignUpSecurityCodeScreen();
+type SecurityCodeScreenProps = {
+  onValidate: () => void;
+};
+
+export const SecurityCodeScreen: FC<SecurityCodeScreenProps> = ({
+  onValidate,
+}) => {
   const { colors } = useTheme();
 
   return (
     <View style={styles.container}>
-      <CodeSecrureSVG />
+      <CodeSecureSVG />
       <View style={styles.textContainer}>
         <Typography.Header size="large">Code de sécurité</Typography.Header>
         <Typography.Body>
@@ -22,7 +26,7 @@ export const SignUpSecurityCodeScreen: FC = () => {
           adresse mail.
         </Typography.Body>
         <TextInput keyboardType="decimal-pad" placeholder="Code de sécurité" />
-        <Button fullWidth onPress={verifySecurityCode}>
+        <Button fullWidth onPress={onValidate}>
           <Button.Label label="Valider" />
           <Button.Icon name="arrowright" color={colors.typography.low} />
         </Button>
