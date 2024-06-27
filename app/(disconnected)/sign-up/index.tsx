@@ -1,49 +1,15 @@
-import { Typography } from "@components/Typography";
-import { TextInput } from "@components/TextInput";
-import { createStyleSheet } from "@themes/createStyleSheet";
-import { View } from "react-native";
-import { Button } from "@components/Button";
-import { SocialButton } from "@/src/components/SocialButton";
-import { useCallback } from "react";
-import { useRouter } from "expo-router";
-import { screens } from "@/src/constants/screens";
+import { SignUpInfosScreen } from "@authentication/screens/SignUpInfosScreen";
+import { SignUpSecurityCodeScreen } from "@authentication/screens/SignUpSecurityCodeScreen";
+import { SignUpWelcomeScreen } from "@authentication/screens/SignUpWelcomeScreen";
 
 export default function SignUpScreen() {
-  const { replace } = useRouter();
-
-  const goToLoginScreen = useCallback(() => {
-    replace(screens.signIn);
-  }, [replace]);
+  const step: number = 3;
 
   return (
-    <View style={styles.container}>
-      <Typography.Header size="large">Inscription</Typography.Header>
-      <TextInput placeholder="Prénom" />
-      <TextInput placeholder="Nom" />
-      <TextInput placeholder="Adresse e-mail" keyboardType="email-address" />
-      <TextInput placeholder="Mot de passe" secureTextEntry />
-      <Button fullWidth>
-        <Button.Label label="S'inscrire" />
-      </Button>
-      <SocialButton network="google" />
-      <SocialButton network="apple" />
-      <Button fullWidth variant="text" onPress={goToLoginScreen}>
-        <Button.Label label="Vous avez déjà un compte ?" />
-        <Button.Label label="Connectez-vous !" bold />
-      </Button>
-    </View>
+    <>
+      {step === 1 && <SignUpInfosScreen />}
+      {step === 2 && <SignUpSecurityCodeScreen />}
+      {step === 3 && <SignUpWelcomeScreen />}
+    </>
   );
 }
-
-const styles = createStyleSheet((theme) => ({
-  container: {
-    backgroundColor: theme.colors.background.low,
-    height: "100%",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: 25,
-    gap: 20,
-  },
-}));
