@@ -1,5 +1,5 @@
 export const useAuthentication = () => {
-  const isConnected = false;
+  const isConnected = true;
   const isDisconnected = !isConnected;
 
   return {
