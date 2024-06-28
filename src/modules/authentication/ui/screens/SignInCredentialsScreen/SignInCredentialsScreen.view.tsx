@@ -10,7 +10,8 @@ import { useTheme } from "@themes/useTheme";
 import { SocialButton } from "@components/SocialButton";
 
 export const SignInCredentialsScreen: FC = () => {
-  const { goToSignUpScreen } = useSignInCredentialsScreen();
+  const { goToSignUpScreen, goToForgetPasswordScreen } =
+    useSignInCredentialsScreen();
   const { colors } = useTheme();
 
   return (
@@ -20,7 +21,7 @@ export const SignInCredentialsScreen: FC = () => {
         <Typography.Header size="large">Connexion</Typography.Header>
         <TextInput placeholder="Adresse mail" />
         <TextInput placeholder="Mot de passe" secureTextEntry />
-        <Button fullWidth variant="text">
+        <Button fullWidth variant="text" onPress={goToForgetPasswordScreen}>
           <Button.Label
             colors={["primary", "medium"]}
             label="Mot de passe perdu?"

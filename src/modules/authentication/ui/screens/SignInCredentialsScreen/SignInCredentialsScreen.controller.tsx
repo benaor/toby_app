@@ -5,11 +5,16 @@ import { useCallback } from "react";
 export const useSignInCredentialsScreen = () => {
   const { replace } = useRouter();
 
+  const goToForgetPasswordScreen = useCallback(() => {
+    replace(screens.forgotPassword);
+  }, [replace]);
+
   const goToSignUpScreen = useCallback(() => {
     replace(screens.signUp);
   }, [replace]);
 
   return {
     goToSignUpScreen,
+    goToForgetPasswordScreen,
   };
 };

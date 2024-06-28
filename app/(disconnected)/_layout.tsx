@@ -15,6 +15,10 @@ export default function DisconnectedLayout() {
       />
       <Stack.Screen name={screens.signIn} options={{ headerShown: false }} />
       <Stack.Screen name={screens.signUp} options={{ headerShown: false }} />
+      <Stack.Screen
+        name={screens.forgotPassword}
+        options={{ headerShown: false }}
+      />
     </Stack>
   );
 }
