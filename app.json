@@ -36,11 +36,7 @@
       [
         "expo-font",
         {
-          "fonts": [
-            "./assets/fonts/NotoSans-Variable.ttf",
-            "./assets/fonts/NotoSans-Italic-Variable.ttf",
-            "./assets/fonts/NotoSans-Bold.ttf"
-          ]
+          "fonts": ["./assets/fonts/NotoSans-Variable.ttf"]
         }
       ]
     ],
