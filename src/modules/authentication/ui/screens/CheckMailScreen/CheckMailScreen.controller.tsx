@@ -1,3 +1,5 @@
 export const useCheckMailScreen = () => {
-  return {};
+  const confirmEmailReception = () => {};
+
+  return { confirmEmailReception };
 };

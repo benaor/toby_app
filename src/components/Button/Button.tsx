@@ -53,7 +53,7 @@ export function Button({
       justifyContent: "center",
       backgroundColor: computeBgColor(),
       paddingVertical: 12,
-      paddingHorizontal: 66,
+      paddingHorizontal: fullWidth ? 0 : 66,
       borderRadius: fullWidth ? 4 : 10,
       overflow: "hidden",
       width: fullWidth ? "100%" : "auto",

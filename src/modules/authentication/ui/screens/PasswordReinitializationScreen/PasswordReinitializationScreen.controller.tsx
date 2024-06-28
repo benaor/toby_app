@@ -1,3 +1,6 @@
 export const usePasswordReinitializationScreen = () => {
-  return {};
+  const sendEmailForForgotPassword = () => {};
+  return {
+    sendEmailForForgotPassword,
+  };
 };

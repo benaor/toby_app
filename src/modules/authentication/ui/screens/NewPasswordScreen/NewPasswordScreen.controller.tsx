@@ -1,3 +1,5 @@
 export const useNewPasswordScreen = () => {
-  return {};
+  const validateNewPassword = () => {};
+
+  return { validateNewPassword };
 };
