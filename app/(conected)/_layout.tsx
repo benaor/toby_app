@@ -1,4 +1,4 @@
-import { useAuthentication } from "@authentication/useAuthentication";
+import { useAuthentication } from "@authentication/ui/hooks/useAuthentication";
 import { Redirect, Stack } from "expo-router";
 
 export default function ConnectedLayout() {
