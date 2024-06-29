@@ -15,6 +15,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded] = useFonts({
     "Noto Sans": require("../assets/fonts/NotoSans-Variable.ttf"),
+    "Noto Sans Bold": require("../assets/fonts/NotoSans-Bold.ttf"),
   });
 
   useEffect(() => {
