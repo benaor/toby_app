@@ -1,5 +1,10 @@
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 
 export default function HomeLayout() {
-  return <Slot />;
+  return (
+    <Stack>
+      <Stack.Screen name="events" options={{ headerShown: false }} />
+      <Stack.Screen name="archives" options={{ headerShown: false }} />
+    </Stack>
+  );
 }

@@ -4,4 +4,5 @@ export const screens = {
   forgotPassword: "forgot-password",
   home: "home",
   onboarding: "onboarding",
+  archives: "home/archives",
 };

@@ -5,8 +5,10 @@ import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
 import { View } from "react-native";
 import { EventsList } from "../../components/EventsList/EventsList.view";
+import { useEventsListScreen } from "./EventsListScreen.controller";
 
 export const EventsListScreen: FC = () => {
+  const { goToArchives } = useEventsListScreen();
   return (
     <View style={styles.container}>
       <View style={styles.containerTop}>
@@ -19,7 +21,11 @@ export const EventsListScreen: FC = () => {
         </Typography.Header>
         <View style={styles.filters}>
           <SquareButton icon="search1" title="Recherche" onPress={() => {}} />
-          <SquareButton icon="folder1" title="Archives" onPress={() => {}} />
+          <SquareButton
+            icon="folder1"
+            title="Archives"
+            onPress={goToArchives}
+          />
         </View>
       </View>
       <EventsList />
