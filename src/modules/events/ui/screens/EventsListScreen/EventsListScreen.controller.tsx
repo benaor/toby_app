@@ -1,15 +1,22 @@
 import { screens } from "@constants/screens";
 import { useRouter } from "expo-router";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 export const useEventsListScreen = () => {
+  const [editMode, setEditMode] = useState(false);
   const { push } = useRouter();
+
+  const toggleEditMode = useCallback(() => {
+    setEditMode((em) => !em);
+  }, []);
 
   const goToArchives = useCallback(() => {
     push(screens.archives);
   }, [push]);
 
   return {
+    editMode,
     goToArchives,
+    toggleEditMode,
   };
 };

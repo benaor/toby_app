@@ -3,17 +3,23 @@ import { SquareButton } from "@components/SquareButton";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
-import { View } from "react-native";
-import { EventsList } from "../../components/EventsList/EventsList.view";
+import { Pressable, View } from "react-native";
+import { EventsList } from "../../components/EventsList";
 import { useEventsListScreen } from "./EventsListScreen.controller";
+import { EventsListSelection } from "../../components/EventsListSelection";
 
 export const EventsListScreen: FC = () => {
-  const { goToArchives } = useEventsListScreen();
+  const { goToArchives, editMode, toggleEditMode } = useEventsListScreen();
+
   return (
     <View style={styles.container}>
       <View style={styles.containerTop}>
         <View style={styles.header}>
-          <Typography.Body color="primary">Modifier</Typography.Body>
+          <Pressable onPress={toggleEditMode}>
+            <Typography.Body color="primary">
+              {editMode ? "Terminer" : "Modifier"}
+            </Typography.Body>
+          </Pressable>
           <IconButton name="pluscircle" size={24} />
         </View>
         <Typography.Header size="large" color="primary">
@@ -28,7 +34,7 @@ export const EventsListScreen: FC = () => {
           />
         </View>
       </View>
-      <EventsList />
+      {editMode ? <EventsListSelection /> : <EventsList />}
     </View>
   );
 };
