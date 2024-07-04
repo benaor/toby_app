@@ -19,7 +19,7 @@ export const ArchivesScreen: FC = () => {
           Archives
         </Typography.Header>
         <Typography.Body>
-          Faites un saut dans le passé et redécouvrez vos évènements archivés.{" "}
+          Faites un saut dans le passé et redécouvrez vos évènements archivés.
         </Typography.Body>
         <ArchivesList />
       </View>
