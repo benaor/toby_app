@@ -8,7 +8,7 @@ import { Image, View } from "react-native";
 type EventCardProps = {
   title: string;
   image: string;
-  isAdmin: boolean;
+  isAdmin?: boolean;
   nbOfNotification?: number;
   nbOfGuest: number;
   date: Date;

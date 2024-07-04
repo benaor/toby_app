@@ -1,5 +1,1 @@
-import { Typography } from "@components/Typography";
-
-export default function ArchivesScreens() {
-  return <Typography.Header>Archives</Typography.Header>;
-}
+export { ArchivesScreen as default } from "@/src/modules/events/ui/screens/ArchivesScreen";

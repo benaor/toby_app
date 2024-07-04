@@ -1,12 +1,12 @@
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
 import { View } from "react-native";
-import { useEventsList } from "./EventsList.controller";
+import { useArchivesList } from "./ArchivesList.controller";
 import { EventCard } from "../EventCard";
 import { NoEventText } from "../NoEventText";
 
-export const EventsList: FC = () => {
-  const { events } = useEventsList();
+export const ArchivesList: FC = () => {
+  const { events } = useArchivesList();
 
   return (
     <View style={styles.container}>
@@ -17,11 +17,9 @@ export const EventsList: FC = () => {
           <EventCard
             key={event.id}
             date={event.date}
-            isAdmin={event.isAdmin}
             image={event.image}
             nbOfGuest={event.guests.length}
             title={event.title}
-            nbOfNotification={event.notification.count}
           />
         ))
       )}
