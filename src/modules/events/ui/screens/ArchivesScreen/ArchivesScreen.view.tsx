@@ -4,7 +4,6 @@ import { View } from "react-native";
 import { IconButton } from "@components/IconButton";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { Typography } from "@components/Typography";
-import { EventsList } from "../../components/EventsList";
 import { ArchivesList } from "../../components/ArchivesList";
 
 export const ArchivesScreen: FC = () => {
