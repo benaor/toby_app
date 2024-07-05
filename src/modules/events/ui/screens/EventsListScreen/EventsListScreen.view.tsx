@@ -9,7 +9,8 @@ import { useEventsListScreen } from "./EventsListScreen.controller";
 import { EventsListSelection } from "../../components/EventsListSelection";
 
 export const EventsListScreen: FC = () => {
-  const { goToArchives, editMode, toggleEditMode } = useEventsListScreen();
+  const { goToArchives, editMode, toggleEditMode, opencreateEventModal } =
+    useEventsListScreen();
 
   return (
     <View style={styles.container}>
@@ -20,7 +21,11 @@ export const EventsListScreen: FC = () => {
               {editMode ? "Terminer" : "Modifier"}
             </Typography.Body>
           </Pressable>
-          <IconButton name="pluscircle" size={24} />
+          <IconButton
+            name="pluscircle"
+            size={24}
+            onPress={opencreateEventModal}
+          />
         </View>
         <Typography.Header size="large" color="primary">
           Vos événements

@@ -14,9 +14,14 @@ export const useEventsListScreen = () => {
     push(screens.archives);
   }, [push]);
 
+  const opencreateEventModal = useCallback(() => {
+    push(screens.newEvent);
+  }, [push]);
+
   return {
     editMode,
     goToArchives,
     toggleEditMode,
+    opencreateEventModal,
   };
 };

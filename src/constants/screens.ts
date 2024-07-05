@@ -5,4 +5,5 @@ export const screens = {
   home: "home",
   onboarding: "onboarding",
   archives: "home/archives",
+  newEvent: "home/events/create",
 };
