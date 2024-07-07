@@ -1,3 +1,7 @@
 export const useEventInformationsModal = () => {
-  return {};
+  const submitGeneralInformations = () => {};
+
+  return {
+    submitGeneralInformations,
+  };
 };
