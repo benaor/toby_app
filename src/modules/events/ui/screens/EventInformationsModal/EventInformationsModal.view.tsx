@@ -47,6 +47,7 @@ const styles = createStyleSheet(() => ({
     display: "flex",
     flexDirection: "column",
     gap: 20,
+    padding: 10,
   },
   pictureBtn: {
     display: "flex",
