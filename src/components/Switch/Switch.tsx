@@ -15,7 +15,9 @@ export const Switch: FC<SwitchProps> = ({ label, ...switchProps }) => {
   if (label)
     return (
       <View style={styles.container}>
-        <Typography.Body>{label}</Typography.Body>
+        <Typography.Body size="small" style={styles.label}>
+          {label}
+        </Typography.Body>
         <RNSwitch {...switchProps} />
       </View>
     );
@@ -30,5 +32,8 @@ const styles = createStyleSheet(() => ({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  label: {
+    maxWidth: "80%",
   },
 }));
