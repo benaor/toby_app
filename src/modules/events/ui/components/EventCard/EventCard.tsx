@@ -3,7 +3,7 @@ import { Chip } from "@components/Chip";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
-import { Image, View } from "react-native";
+import { Image, Pressable, View } from "react-native";
 
 type EventCardProps = {
   title: string;
@@ -12,11 +12,12 @@ type EventCardProps = {
   nbOfNotification?: number;
   nbOfGuest: number;
   date: Date;
+  onPress: () => void;
 };
 
 export const EventCard: FC<EventCardProps> = (props) => {
   return (
-    <View style={styles.eventCard}>
+    <Pressable style={styles.eventCard} onPress={props.onPress}>
       <Image source={{ uri: props.image }} style={styles.eventCardImage} />
       <View style={styles.eventCardInfos}>
         <View style={styles.badgeView}>
@@ -32,7 +33,7 @@ export const EventCard: FC<EventCardProps> = (props) => {
           {props.nbOfGuest} pers. | {toHumanDate(props.date)}
         </Typography.Body>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

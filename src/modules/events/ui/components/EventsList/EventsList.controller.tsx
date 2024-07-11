@@ -1,6 +1,10 @@
+import { useCallback } from "react";
 import { Event } from "../../../core/Event.model";
+import { screens } from "@constants/screens";
+import { useRouter } from "expo-router";
 
 export const useEventsList = () => {
+  const { navigate } = useRouter();
   const events: Event[] = [
     {
       id: "1",
@@ -26,7 +30,13 @@ export const useEventsList = () => {
     },
   ];
 
+  const goToEvent = useCallback(
+    (eventId: string) => navigate(screens.event(eventId)),
+    [navigate],
+  );
+
   return {
     events,
+    goToEvent,
   };
 };

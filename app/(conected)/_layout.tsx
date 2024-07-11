@@ -9,6 +9,7 @@ export default function ConnectedLayout() {
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="event" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
     </Stack>
   );

@@ -6,4 +6,5 @@ export const screens = {
   onboarding: "onboarding",
   archives: "home/archives",
   newEvent: "home/events/create",
+  event: (id: string) => `event/${id}`,
 };

@@ -6,7 +6,7 @@ import { EventCard } from "../EventCard";
 import { NoEventText } from "../NoEventText";
 
 export const EventsList: FC = () => {
-  const { events } = useEventsList();
+  const { events, goToEvent } = useEventsList();
 
   return (
     <View style={styles.container}>
@@ -22,6 +22,7 @@ export const EventsList: FC = () => {
             nbOfGuest={event.guests.length}
             title={event.title}
             nbOfNotification={event.notification.count}
+            onPress={() => goToEvent(event.id)}
           />
         ))
       )}
