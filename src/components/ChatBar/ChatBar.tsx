@@ -1,15 +1,15 @@
 import { TextInput } from "@components/TextInput";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
-import { View } from "react-native";
+import { InputAccessoryView, View } from "react-native";
 
 export const ChatBar: FC = () => {
   return (
-    <View style={styles.container}>
+    <InputAccessoryView style={styles.container}>
       <View style={styles.leftButtons} />
       <TextInput style={styles.textInput} />
       <View style={styles.rightButtons} />
-    </View>
+    </InputAccessoryView>
   );
 };
 
