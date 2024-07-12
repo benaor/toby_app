@@ -3,6 +3,7 @@ import { useChatScreen } from "./ChatScreen.controller";
 import { View } from "react-native";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { Header } from "@components/Header";
+import { ChatBar } from "@components/ChatBar";
 
 type ChatScreenProps = {
   eventId: string;
@@ -26,6 +27,7 @@ export const ChatScreen: FC<ChatScreenProps> = ({ eventId }) => {
         button="infocirlce"
         onButtonPress={() => {}}
       />
+      <ChatBar />
     </View>
   );
 };
@@ -34,6 +36,7 @@ const styles = createStyleSheet(() => ({
   container: {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-between",
     gap: 30,
     width: "100%",
     height: "100%",
