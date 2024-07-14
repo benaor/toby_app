@@ -26,6 +26,7 @@ export const EventsListSelection: FC = () => {
               nbOfGuest={event.guests.length}
               title={event.title}
               nbOfNotification={event.notification.count}
+              onPress={() => {}}
             />
           </View>
         ))

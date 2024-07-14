@@ -1,13 +1,13 @@
-import { AntDesign } from "@expo/vector-icons";
 import { useTheme } from "@themes/useTheme";
 import { FC } from "react";
 import { Pressable, PressableProps } from "react-native";
 import { Typography } from "..";
 import { createStyleSheet } from "@themes/createStyleSheet";
-import { IconListFromAntDesign } from "@utils/icons/IconListFromExpo";
+import { IconListFromExpo } from "@utils/icons/IconListFromExpo";
+import { Icon } from "@components/Icon";
 
 type SquareButtonProps = PressableProps & {
-  icon: IconListFromAntDesign;
+  icon: IconListFromExpo;
   title: string;
 };
 
@@ -21,11 +21,7 @@ export const SquareButton: FC<SquareButtonProps> = ({
   return (
     <Pressable {...pressableProps} style={styles.container}>
       <Typography.Body textAlign="center">
-        <AntDesign
-          name={icon}
-          size={25}
-          color={theme.colors.typography.medium}
-        />
+        <Icon name={icon} size={25} color={theme.colors.typography.medium} />
       </Typography.Body>
       <Typography.Body
         size="small"

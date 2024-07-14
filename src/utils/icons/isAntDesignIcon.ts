@@ -6,5 +6,5 @@ import {
 export const isAntDesignIcon = (
   iconName: string,
 ): iconName is IconListFromAntDesign => {
-  return iconListFromAntDesign.includes(iconName as any);
+  return iconListFromAntDesign.includes(iconName as never);
 };

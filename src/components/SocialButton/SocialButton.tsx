@@ -1,21 +1,18 @@
 import { createStyleSheet } from "@/src/themes/createStyleSheet";
-import { ColorValue, PressableProps, View } from "react-native";
+import { PressableProps, View } from "react-native";
 
 import { FC, useMemo } from "react";
 
 import { firstCharToUppercase } from "@/src/utils/strings/firstCharToUppercase";
 import { Button } from "../Button";
 import { ColorAndLevelTuple } from "@/src/themes/theme";
-import { IconListFromAntDesign } from "../../utils/icons/IconListFromExpo";
-import { useTheme } from "@/src/themes/useTheme";
+import { IconListFromExpo } from "../../utils/icons/IconListFromExpo";
 
 type SocialButtonProps = Pick<PressableProps, "onPress"> & {
   network: "apple" | "google";
 };
 
 export const SocialButton: FC<SocialButtonProps> = ({ network, ...props }) => {
-  const { colors } = useTheme();
-
   const [btnColor, btnLvlColor]: ColorAndLevelTuple = useMemo(() => {
     switch (network) {
       case "apple":
@@ -34,7 +31,7 @@ export const SocialButton: FC<SocialButtonProps> = ({ network, ...props }) => {
     }
   }, [network]);
 
-  const iconName: IconListFromAntDesign = useMemo(() => {
+  const iconName: IconListFromExpo = useMemo(() => {
     switch (network) {
       case "apple":
         return "apple1";
@@ -43,25 +40,24 @@ export const SocialButton: FC<SocialButtonProps> = ({ network, ...props }) => {
     }
   }, [network]);
 
-  const iconColor: ColorValue = useMemo(() => {
+  const iconColors: ColorAndLevelTuple = useMemo(() => {
     switch (network) {
       case "apple":
-        return colors.typography.low;
+        return ["typography", "low"];
       case "google":
-        return colors.typography.high;
+        return ["typography", "high"];
     }
-  }, [network, colors]);
+  }, [network]);
 
   return (
     <Button
       fullWidth
       variant="contained"
-      color={btnColor}
-      lvlColor={btnLvlColor}
+      colors={[btnColor, btnLvlColor]}
       style={styles.button}
       {...props}
     >
-      <Button.Icon name={iconName} color={iconColor} />
+      <Button.Icon name={iconName} colors={iconColors} />
       <View style={{ width: 5 }} />
       <Button.Label
         colors={[labelColor, labelLvlColor]}

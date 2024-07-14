@@ -1,13 +1,13 @@
 import { FC } from "react";
-import { AntDesign } from "@expo/vector-icons";
-import { IconListFromAntDesign } from "../../utils/icons/IconListFromExpo";
+import { IconListFromExpo } from "../../utils/icons/IconListFromExpo";
 import { ColorValue } from "react-native";
+import { Icon as IconComponent } from "@components/Icon";
 
 type BtnIconProps = {
-  name: IconListFromAntDesign;
+  name: IconListFromExpo;
   color?: ColorValue;
 };
 
 export const Icon: FC<BtnIconProps> = ({ name, color }) => {
-  return <AntDesign name={name} size={20} color={color} />;
+  return <IconComponent name={name} size={20} color={color} />;
 };

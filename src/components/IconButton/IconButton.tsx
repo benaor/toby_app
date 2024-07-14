@@ -1,46 +1,35 @@
-import type { IconListFromExpo } from "@utils/icons/IconListFromExpo";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
-import { ColorAndLevelTuple } from "@themes/theme";
-import { useTheme } from "@themes/useTheme";
 import { FC } from "react";
-import { Pressable, PressableProps } from "react-native";
+import { ColorValue, Pressable, PressableProps } from "react-native";
 import { Typography } from "..";
-import { isAntDesignIcon } from "@utils/icons/isAntDesignIcon";
-import { isFontAwesomeIcon } from "@utils/icons/isFontAwesomeIcon";
+import { Icon, IconProps } from "@components/Icon/Icon";
+import { createStyleSheet } from "@themes/createStyleSheet";
 
 type IconButtonProps = PressableProps & {
-  name: IconListFromExpo;
-  colors?: ColorAndLevelTuple;
-  size?: number;
+  name: IconProps["name"];
+  size?: IconProps["size"];
+  iconColor?: IconProps["color"];
+  backgroundColor?: ColorValue;
 };
 
 export const IconButton: FC<IconButtonProps> = ({
   name,
   size = 24,
-  colors,
+  iconColor,
+  backgroundColor,
   ...pressableProps
 }) => {
-  const [color, level] = colors ?? ["typography", "high"];
-
-  const theme = useTheme();
-  const iconColor = theme.colors[color][level];
-
-  const IconFromExpoFacade = () => {
-    if (isAntDesignIcon(name))
-      return <AntDesign name={name} size={size} color={iconColor} />;
-
-    if (isFontAwesomeIcon(name))
-      return <FontAwesome name={name} size={size} color={iconColor} />;
-
-    throw new Error(
-      "property name must be an AntDesign or Fontawesome icons name",
-    );
-  };
+  const styles = createStyleSheet(() => ({
+    container: {
+      backgroundColor: backgroundColor ?? "transparent",
+      borderRadius: 50,
+      padding: 5,
+    },
+  }));
 
   return (
-    <Pressable {...pressableProps}>
+    <Pressable style={styles.container} {...pressableProps}>
       <Typography.Body>
-        <IconFromExpoFacade />
+        <Icon name={name} size={size} color={iconColor} />
       </Typography.Body>
     </Pressable>
   );

@@ -20,6 +20,7 @@ export const ArchivesList: FC = () => {
             image={event.image}
             nbOfGuest={event.guests.length}
             title={event.title}
+            onPress={() => {}}
           />
         ))
       )}

@@ -6,5 +6,5 @@ import {
 export const isFontAwesomeIcon = (
   iconName: string,
 ): iconName is IconListFromFontAwesome => {
-  return iconListFromFontAwesome.includes(iconName as any);
+  return iconListFromFontAwesome.includes(iconName as never);
 };
