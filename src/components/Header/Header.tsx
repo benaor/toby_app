@@ -1,7 +1,7 @@
-import { IconListFromExpo } from "@components/Button/IconListFromExpo.type";
 import { IconButton } from "@components/IconButton";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
+import { IconListFromExpo } from "@utils/icons/IconListFromExpo";
 import { useRouter } from "expo-router";
 import { FC } from "react";
 import { View } from "react-native";

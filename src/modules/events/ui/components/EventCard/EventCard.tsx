@@ -1,4 +1,4 @@
-import { toHumanDate } from "@/src/utils/toHumanDate";
+import { toHumanDate } from "@/src/utils/dates/toHumanDate";
 import { Chip } from "@components/Chip";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";

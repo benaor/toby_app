@@ -1,4 +1,4 @@
-import { toHumanDate } from "../utils/toHumanDate";
+import { toHumanDate } from "./toHumanDate";
 
 test.each([
   [new Date(2022, 0, 1), "01/01/2022"],

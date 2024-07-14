@@ -1,10 +1,10 @@
-import { IconListFromExpo } from "@components/Button/IconListFromExpo.type";
 import { AntDesign } from "@expo/vector-icons";
 import { useTheme } from "@themes/useTheme";
 import { FC } from "react";
 import { Pressable, PressableProps } from "react-native";
 import { Typography } from "..";
 import { createStyleSheet } from "@themes/createStyleSheet";
+import { IconListFromExpo } from "@utils/icons/IconListFromExpo";
 
 type SquareButtonProps = PressableProps & {
   icon: IconListFromExpo;

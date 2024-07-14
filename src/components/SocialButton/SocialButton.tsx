@@ -3,10 +3,10 @@ import { ColorValue, PressableProps, View } from "react-native";
 
 import { FC, useMemo } from "react";
 
-import { firstCharToUppercase } from "@/src/utils/firstCharToUppercase";
+import { firstCharToUppercase } from "@/src/utils/strings/firstCharToUppercase";
 import { Button } from "../Button";
 import { ColorAndLevelTuple } from "@/src/themes/theme";
-import { IconListFromExpo } from "../Button/IconListFromExpo.type";
+import { IconListFromAntDesign } from "../../utils/icons/IconListFromExpo";
 import { useTheme } from "@/src/themes/useTheme";
 
 type SocialButtonProps = Pick<PressableProps, "onPress"> & {
@@ -34,7 +34,7 @@ export const SocialButton: FC<SocialButtonProps> = ({ network, ...props }) => {
     }
   }, [network]);
 
-  const iconName: IconListFromExpo = useMemo(() => {
+  const iconName: IconListFromAntDesign = useMemo(() => {
     switch (network) {
       case "apple":
         return "apple1";

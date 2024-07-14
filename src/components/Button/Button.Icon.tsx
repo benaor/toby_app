@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { AntDesign } from "@expo/vector-icons";
-import { IconListFromExpo } from "./IconListFromExpo.type";
+import { IconListFromAntDesign } from "../../utils/icons/IconListFromExpo";
 import { ColorValue } from "react-native";
 
 type BtnIconProps = {
-  name: IconListFromExpo;
+  name: IconListFromAntDesign;
   color?: ColorValue;
 };
 
