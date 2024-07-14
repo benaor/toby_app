@@ -4,10 +4,10 @@ import { FC } from "react";
 import { Pressable, PressableProps } from "react-native";
 import { Typography } from "..";
 import { createStyleSheet } from "@themes/createStyleSheet";
-import { IconListFromExpo } from "@utils/icons/IconListFromExpo";
+import { IconListFromAntDesign } from "@utils/icons/IconListFromExpo";
 
 type SquareButtonProps = PressableProps & {
-  icon: IconListFromExpo;
+  icon: IconListFromAntDesign;
   title: string;
 };
 
