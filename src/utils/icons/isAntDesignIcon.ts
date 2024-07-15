@@ -1,10 +1,6 @@
-import {
-  iconListFromAntDesign,
-  IconListFromAntDesign,
-} from "./IconListFromExpo";
+import { AntDesign } from "@expo/vector-icons";
+import { AntDesignIconName } from "./IconListFromExpo";
 
 export const isAntDesignIcon = (
   iconName: string,
-): iconName is IconListFromAntDesign => {
-  return iconListFromAntDesign.includes(iconName as never);
-};
+): iconName is AntDesignIconName => iconName in AntDesign.glyphMap;
