@@ -11,7 +11,7 @@
     "test:watch": "jest --watchAll",
     "prepare": "husky",
     "format": "prettier --write",
-    "lint": "eslint --fix"
+    "lint": "pnpm tsc && eslint --fix"
   },
   "jest": {
     "preset": "jest-expo"

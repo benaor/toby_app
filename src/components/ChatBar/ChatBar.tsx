@@ -17,6 +17,7 @@ export const ChatBar: FC = () => {
         <IconButton name="photo-camera" size={20} />
       </View>
 
+      {/* @ts-ignore */}
       <TextInput
         style={styles.textInput}
         variant="filled"
@@ -47,7 +48,6 @@ const styles = createStyleSheet((theme) => ({
   leftButtons: {
     flex: 2.5,
     flexDirection: "row",
-
     justifyContent: "space-around",
     alignItems: "center",
   },

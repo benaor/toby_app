@@ -1,8 +1,14 @@
-import { Event } from "@/src/modules/events/core/Event.model";
+import { EventList } from "@/src/modules/events/core/EventList.model";
 import { Message } from "../../../core/message.model";
+import { useCallback } from "react";
+import { screens } from "@constants/screens";
+import { useRouter } from "expo-router";
 
 export const useChatScreen = (eventId: string) => {
-  const event: Event = {
+  const { navigate } = useRouter();
+  const userId = "2";
+
+  const event: EventList[number] = {
     id: "1",
     image: "https://picsum.photos/204",
     title: "Anniversaire Marco",
@@ -90,11 +96,14 @@ export const useChatScreen = (eventId: string) => {
     },
   ];
 
-  const userId = "2";
-
+  const goToEventSummary = useCallback(
+    () => navigate(screens.eventSummary(eventId)),
+    [eventId, navigate],
+  );
   return {
     event,
     messages,
     userId,
+    goToEventSummary,
   };
 };

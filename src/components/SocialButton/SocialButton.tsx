@@ -1,5 +1,5 @@
 import { createStyleSheet } from "@/src/themes/createStyleSheet";
-import { PressableProps, View } from "react-native";
+import { ColorValue, PressableProps, View } from "react-native";
 
 import { FC, useMemo } from "react";
 
@@ -7,12 +7,15 @@ import { firstCharToUppercase } from "@/src/utils/strings/firstCharToUppercase";
 import { Button } from "../Button";
 import { ColorAndLevelTuple } from "@/src/themes/theme";
 import { IconListFromExpo } from "../../utils/icons/IconListFromExpo";
+import { useTheme } from "@themes/useTheme";
 
 type SocialButtonProps = Pick<PressableProps, "onPress"> & {
   network: "apple" | "google";
 };
 
 export const SocialButton: FC<SocialButtonProps> = ({ network, ...props }) => {
+  const theme = useTheme();
+
   const [btnColor, btnLvlColor]: ColorAndLevelTuple = useMemo(() => {
     switch (network) {
       case "apple":
@@ -40,24 +43,25 @@ export const SocialButton: FC<SocialButtonProps> = ({ network, ...props }) => {
     }
   }, [network]);
 
-  const iconColors: ColorAndLevelTuple = useMemo(() => {
+  const iconColors: ColorValue = useMemo(() => {
     switch (network) {
       case "apple":
-        return ["typography", "low"];
+        return theme.colors.typography.low;
       case "google":
-        return ["typography", "high"];
+        return theme.colors.typography.high;
     }
-  }, [network]);
+  }, [network, theme]);
 
   return (
     <Button
       fullWidth
       variant="contained"
-      colors={[btnColor, btnLvlColor]}
+      color={btnColor}
+      lvlColor={btnLvlColor}
       style={styles.button}
       {...props}
     >
-      <Button.Icon name={iconName} colors={iconColors} />
+      <Button.Icon name={iconName} color={iconColors} />
       <View style={{ width: 5 }} />
       <Button.Label
         colors={[labelColor, labelLvlColor]}

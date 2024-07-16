@@ -1,7 +1,7 @@
-import { Event } from "../../../core/Event.model";
+import { EventList } from "../../../core/EventList.model";
 
 export const useEventsListSelection = () => {
-  const events: Event[] = [
+  const events: EventList = [
     {
       id: "1",
       image: "https://picsum.photos/204",

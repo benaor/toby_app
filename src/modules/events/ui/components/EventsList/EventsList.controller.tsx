@@ -1,11 +1,11 @@
 import { useCallback } from "react";
-import { Event } from "../../../core/Event.model";
+import { EventList } from "../../../core/EventList.model";
 import { screens } from "@constants/screens";
 import { useRouter } from "expo-router";
 
 export const useEventsList = () => {
   const { navigate } = useRouter();
-  const events: Event[] = [
+  const events: EventList = [
     {
       id: "1",
       image: "https://picsum.photos/204",

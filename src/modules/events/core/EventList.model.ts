@@ -1,4 +1,4 @@
-export type Event = {
+export type EventList = {
   id: string;
   image: string;
   title: string;
@@ -8,4 +8,4 @@ export type Event = {
     count: number;
   };
   isAdmin: boolean;
-};
+}[];
