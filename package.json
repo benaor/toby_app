@@ -11,7 +11,8 @@
     "test:watch": "jest --watchAll",
     "prepare": "husky",
     "format": "prettier --write",
-    "lint": "pnpm tsc && eslint --fix"
+    "lint": "eslint --fix",
+    "type:check": "tsc"
   },
   "jest": {
     "preset": "jest-expo"
@@ -60,7 +61,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "pnpm run format .",
-      "pnpm run lint ."
+      "pnpm run lint .",
+      "pnpm run type:check"
     ],
     "*.{json,md,mdx,yml,yaml}": [
       "pnpm run format ."
