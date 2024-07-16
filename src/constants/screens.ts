@@ -7,4 +7,5 @@ export const screens = {
   archives: "home/archives",
   newEvent: "home/events/create",
   event: (id: string) => `event/${id}`,
+  eventSummary: (id: string) => `event/${id}/summary`,
 };

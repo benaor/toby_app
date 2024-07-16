@@ -11,7 +11,7 @@ type ChatScreenProps = {
 };
 
 export const ChatScreen: FC<ChatScreenProps> = ({ eventId }) => {
-  const { event, messages, userId } = useChatScreen(eventId);
+  const { event, messages, userId, goToEventSummary } = useChatScreen(eventId);
 
   const nbParticipants = event.guests.length;
 
@@ -26,7 +26,7 @@ export const ChatScreen: FC<ChatScreenProps> = ({ eventId }) => {
         title={event.title}
         subtitle={subtitle}
         button="infocirlce"
-        onButtonPress={() => {}}
+        onButtonPress={goToEventSummary}
       />
       <ScrollView
         contentContainerStyle={styles.chatContainer}

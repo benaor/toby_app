@@ -12,6 +12,7 @@ module.exports = {
     semi: ["error", "always"],
     "no-console": ["warn", { allow: ["info", "error"] }],
     "@typescript-eslint/no-unused-vars": ["warn"],
+    "@typescript-eslint/ban-ts-comment": "off",
     "no-unused-vars": "warn",
   },
 };
