@@ -1,8 +1,9 @@
+import { Avatar } from "@components/Avatar";
 import { IconButton } from "@components/IconButton";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
-import { Image, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import { View } from "react-native";
 
 type MemberInputProps =
@@ -27,7 +28,7 @@ export const MemberInput: FC<MemberInputProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: image }} style={styles.guestImage} />
+      <Avatar uri={image} />
       <Typography.Body lvlColor="high">{name}</Typography.Body>
       {onDelete && (
         <IconButton name="closecircle" size={15} onPress={onDelete} />
@@ -47,10 +48,5 @@ const styles = createStyleSheet(() => ({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-  },
-  guestImage: {
-    width: 30,
-    height: 30,
-    borderRadius: 100,
   },
 }));

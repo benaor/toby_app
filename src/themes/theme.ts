@@ -5,6 +5,11 @@ export const theme = {
       medium: "#E63946CC",
       low: "#E6394699",
     },
+    secondary: {
+      high: "#A8DADC",
+      medium: "#A8DADCCC",
+      low: "#A8DADC99",
+    },
     typography: {
       high: "#2D2D2D",
       medium: "#2D2D2DCC",
@@ -14,6 +19,11 @@ export const theme = {
       high: "#2D2D2DCC",
       medium: "#E8EEF3",
       low: "#ffffff",
+    },
+    backgroundBis: {
+      high: "",
+      medium: "#DFE5EE99",
+      low: "",
     },
     border: {
       high: "#2D2D2D",
