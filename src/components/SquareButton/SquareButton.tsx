@@ -1,36 +1,18 @@
-import { useTheme } from "@themes/useTheme";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { Pressable, PressableProps } from "react-native";
-import { Typography } from "..";
 import { createStyleSheet } from "@themes/createStyleSheet";
-import { IconListFromExpo } from "@utils/icons/IconListFromExpo";
-import { Icon } from "@components/Icon";
 
 type SquareButtonProps = PressableProps & {
-  icon: IconListFromExpo;
-  title: string;
+  children: ReactNode;
 };
 
 export const SquareButton: FC<SquareButtonProps> = ({
-  icon,
-  title,
+  children,
   ...pressableProps
 }) => {
-  const theme = useTheme();
-
   return (
     <Pressable {...pressableProps} style={styles.container}>
-      <Typography.Body textAlign="center">
-        <Icon name={icon} size={25} color={theme.colors.typography.medium} />
-      </Typography.Body>
-      <Typography.Body
-        size="small"
-        color="typography"
-        lvlColor="medium"
-        textAlign="center"
-      >
-        {title}
-      </Typography.Body>
+      {children}
     </Pressable>
   );
 };

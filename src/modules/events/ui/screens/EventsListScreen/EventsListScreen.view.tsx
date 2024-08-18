@@ -7,8 +7,12 @@ import { Pressable, View } from "react-native";
 import { EventsList } from "../../components/EventsList";
 import { useEventsListScreen } from "./EventsListScreen.controller";
 import { EventsListSelection } from "../../components/EventsListSelection";
+import { useTheme } from "@themes/useTheme";
+import { Icon } from "@components/Icon";
 
 export const EventsListScreen: FC = () => {
+  const theme = useTheme();
+
   const { goToArchives, editMode, toggleEditMode, opencreateEventModal } =
     useEventsListScreen();
 
@@ -31,12 +35,41 @@ export const EventsListScreen: FC = () => {
           Vos événements
         </Typography.Header>
         <View style={styles.filters}>
-          <SquareButton icon="search1" title="Recherche" onPress={() => {}} />
-          <SquareButton
-            icon="folder1"
-            title="Archives"
-            onPress={goToArchives}
-          />
+          <SquareButton onPress={() => {}}>
+            <Typography.Body textAlign="center">
+              <Icon
+                name="search1"
+                size={25}
+                color={theme.colors.typography.medium}
+              />
+            </Typography.Body>
+            <Typography.Body
+              size="small"
+              color="typography"
+              lvlColor="medium"
+              textAlign="center"
+            >
+              Recherche
+            </Typography.Body>
+          </SquareButton>
+
+          <SquareButton onPress={goToArchives}>
+            <Typography.Body textAlign="center">
+              <Icon
+                name="folder1"
+                size={25}
+                color={theme.colors.typography.medium}
+              />
+            </Typography.Body>
+            <Typography.Body
+              size="small"
+              color="typography"
+              lvlColor="medium"
+              textAlign="center"
+            >
+              Archives
+            </Typography.Body>
+          </SquareButton>
         </View>
       </View>
       {editMode ? <EventsListSelection /> : <EventsList />}
