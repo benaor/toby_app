@@ -3,6 +3,7 @@ import { FC } from "react";
 import { Image, View } from "react-native";
 import { useEventSummaryScreen } from "./EventSummaryScreen.controller";
 import { AcceptOrRefuseButton } from "@components/AcceptOrRefuseButton";
+import { Typography } from "@components/Typography";
 
 type EventSummaryScreenProps = {
   eventId: string;
@@ -34,7 +35,31 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
             active={event.invitationAccepted}
           />
         </View>
-        <View></View>
+        <View style={styles.infosContainer}>
+          <Typography.Header style={styles.title} size="medium" color="primary">
+            Résumé
+          </Typography.Header>
+
+          <View style={styles.chipsContainer}>
+            <View style={styles.chip}>
+              <Typography.Body lvlColor="low" textAlign="center">
+                022
+              </Typography.Body>
+            </View>
+
+            <View style={styles.chip}>
+              <Typography.Body lvlColor="low" textAlign="center">
+                {event.guests.length ?? 0} pers.
+              </Typography.Body>
+            </View>
+
+            <View style={styles.chip}>
+              <Typography.Body lvlColor="low" textAlign="center">
+                {event.address.city}
+              </Typography.Body>
+            </View>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -65,5 +90,30 @@ const styles = createStyleSheet((theme) => ({
     flexDirection: "row",
     gap: 10,
     transform: [{ translateY: -22 }],
+  },
+  title: {
+    paddingVertical: 10,
+    marginLeft: 0,
+  },
+  infosContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
+  },
+  chipsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+    height: "auto",
+  },
+  chip: {
+    height: "auto",
+    display: "flex",
+    flex: 3,
+    backgroundColor: theme.colors.typography.high,
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    color: theme.colors.typography.low,
   },
 }));

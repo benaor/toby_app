@@ -11,6 +11,9 @@ export const useEventSummaryScreen = () => {
     },
     isAdmin: false,
     invitationAccepted: true,
+    address: {
+      city: "Paris",
+    },
   };
 
   const acceptInvitation = () => {};
