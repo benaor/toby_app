@@ -10,9 +10,16 @@ export const useEventSummaryScreen = () => {
       count: 0,
     },
     isAdmin: false,
+    invitationAccepted: true,
   };
+
+  const acceptInvitation = () => {};
+
+  const refuseInvitation = () => {};
 
   return {
     event,
+    acceptInvitation,
+    refuseInvitation,
   };
 };

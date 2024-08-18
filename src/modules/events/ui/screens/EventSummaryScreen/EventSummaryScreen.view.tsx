@@ -2,6 +2,7 @@ import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
 import { Image, View } from "react-native";
 import { useEventSummaryScreen } from "./EventSummaryScreen.controller";
+import { AcceptOrRefuseButton } from "@components/AcceptOrRefuseButton";
 
 type EventSummaryScreenProps = {
   eventId: string;
@@ -10,7 +11,7 @@ type EventSummaryScreenProps = {
 export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
   eventId,
 }) => {
-  const { event } = useEventSummaryScreen();
+  const { event, acceptInvitation, refuseInvitation } = useEventSummaryScreen();
 
   return (
     <View style={styles.container}>
@@ -20,7 +21,21 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
         }}
         style={styles.coverPicture}
       />
-      <View style={styles.summaryView}></View>
+      <View style={styles.summaryView}>
+        <View style={styles.acceptOrRefuseSection}>
+          <AcceptOrRefuseButton
+            accept
+            onAccept={acceptInvitation}
+            active={event.invitationAccepted}
+          />
+          <AcceptOrRefuseButton
+            refuse
+            onRefuse={refuseInvitation}
+            active={event.invitationAccepted}
+          />
+        </View>
+        <View></View>
+      </View>
     </View>
   );
 };
@@ -35,10 +50,20 @@ const styles = createStyleSheet((theme) => ({
     gap: -20,
   },
   coverPicture: {
-    height: "30%",
+    height: "32%",
     width: "100%",
   },
   summaryView: {
+    paddingHorizontal: 24,
     height: "70%",
+    borderRadius: 20,
+    transform: [{ translateY: -20 }],
+    backgroundColor: theme.colors.background.low,
+  },
+  acceptOrRefuseSection: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+    transform: [{ translateY: -22 }],
   },
 }));
