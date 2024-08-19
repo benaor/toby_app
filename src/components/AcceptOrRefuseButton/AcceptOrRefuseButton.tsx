@@ -3,7 +3,6 @@ import { SquareButton } from "@components/SquareButton";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { useTheme } from "@themes/useTheme";
 import { FC } from "react";
-import { Pressable } from "react-native";
 
 export type AcceptOrRefuseButtonProps =
   | {
