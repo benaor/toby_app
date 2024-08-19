@@ -1,4 +1,5 @@
 import { Icon } from "@components/Icon";
+import { SquareButton } from "@components/SquareButton";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { useTheme } from "@themes/useTheme";
 import { FC } from "react";
@@ -8,14 +9,14 @@ export type AcceptOrRefuseButtonProps =
   | {
       active: boolean;
       accept: boolean;
-      onAccept: () => void;
+      onAccept: VoidFunction;
       refuse?: never;
       onRefuse?: never;
     }
   | {
       active: boolean;
       refuse: boolean;
-      onRefuse: () => void;
+      onRefuse: VoidFunction;
       accept?: never;
       onAccept?: never;
     };
@@ -31,10 +32,7 @@ export const AcceptOrRefuseButton: FC<AcceptOrRefuseButtonProps> = ({
 
   const AcceptButton = () => {
     return (
-      <Pressable
-        style={styles.container}
-        onPress={accept ? onAccept : onRefuse}
-      >
+      <SquareButton size="small" style={styles.container} onPress={onAccept}>
         <Icon
           name="checkcircle"
           size={27}
@@ -44,13 +42,13 @@ export const AcceptOrRefuseButton: FC<AcceptOrRefuseButtonProps> = ({
               : theme.colors.background.medium
           }
         />
-      </Pressable>
+      </SquareButton>
     );
   };
 
   const RefuseButton = () => {
     return (
-      <Pressable style={styles.container} onPress={onRefuse}>
+      <SquareButton size="small" style={styles.container} onPress={onRefuse}>
         <Icon
           name="closecircle"
           size={27}
@@ -60,7 +58,7 @@ export const AcceptOrRefuseButton: FC<AcceptOrRefuseButtonProps> = ({
               : theme.colors.background.medium
           }
         />
-      </Pressable>
+      </SquareButton>
     );
   };
 

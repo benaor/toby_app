@@ -43,7 +43,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
           <View style={styles.chipsContainer}>
             <View style={styles.chip}>
               <Typography.Body lvlColor="low" textAlign="center">
-                022
+                {event.date.getFullYear()}
               </Typography.Body>
             </View>
 
