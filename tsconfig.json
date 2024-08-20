@@ -4,7 +4,7 @@
     "strict": true,
     "paths": {
       "@authentication/*": ["./src/modules/authentication/*"],
-      "@themes/*": ["./src/themes/*"],
+      "@themes/*": ["./src/ui/themes/*"],
       "@images/*": ["./assets/images/*"],
       "@components/*": ["./src/components/*"],
       "@constants/*": ["./src/constants/*"],

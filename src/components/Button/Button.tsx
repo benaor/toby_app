@@ -1,10 +1,10 @@
-import { createStyleSheet } from "@/src/themes/createStyleSheet";
+import { createStyleSheet } from "@themes/createStyleSheet";
 import { PropsWithChildren } from "react";
 import { Pressable, PressableProps, StyleProp, ViewStyle } from "react-native";
 import { Label } from "./Button.Label";
 import { ButtonProvider } from "./useButtonProps";
-import { useTheme } from "@/src/themes/useTheme";
-import { ColorLevel, ColorName } from "@/src/themes/theme";
+import { useTheme } from "@themes/useTheme";
+import { ColorLevel, ColorName } from "@themes/theme";
 import { Icon } from "./Button.Icon";
 
 export type ButtonContextProps = PropsWithChildren<

@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
 import { Typography } from "../Typography";
 import { useButtonProps } from "./useButtonProps";
-import { ColorAndLevelTuple } from "@/src/themes/theme";
+import { ColorAndLevelTuple } from "@themes/theme";
 
 type LabelProps = {
   label: string;

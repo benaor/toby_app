@@ -5,9 +5,10 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { SafeAreaView } from "react-native";
-import { createStyleSheet } from "@/src/themes/createStyleSheet";
+import { createStyleSheet } from "@themes/createStyleSheet";
 import { ThemeProvider } from "@themes/useTheme";
 import { theme } from "@themes/theme";
+import { FeatureFlagProvider } from "@/src/ui/contexts/useFeatureFlag";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -26,9 +27,11 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SafeAreaView style={styles.container}>
-        <Slot />
-      </SafeAreaView>
+      <FeatureFlagProvider>
+        <SafeAreaView style={styles.container}>
+          <Slot />
+        </SafeAreaView>
+      </FeatureFlagProvider>
     </ThemeProvider>
   );
 }

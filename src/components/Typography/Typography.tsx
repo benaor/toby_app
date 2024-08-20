@@ -1,10 +1,10 @@
-import { createStyleSheet } from "@/src/themes/createStyleSheet";
+import { createStyleSheet } from "@themes/createStyleSheet";
 import {
   ColorName,
   ColorLevel,
   FontBodySize,
   FontHeaderSize,
-} from "@/src/themes/theme";
+} from "@themes/theme";
 import { FC, ReactNode } from "react";
 import { Text, TextStyle } from "react-native";
 

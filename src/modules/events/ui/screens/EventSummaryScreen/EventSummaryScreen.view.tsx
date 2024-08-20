@@ -12,6 +12,7 @@ import CalendarSVG from "@images/calendar.svg";
 import BellSVG from "@images/bell.svg";
 import EnvelopSVG from "@images/envelop.svg";
 import NotesSVG from "@images/notes.svg";
+import { useFeatureFlag } from "@/src/ui/contexts/useFeatureFlag";
 
 type EventSummaryScreenProps = {
   eventId: string;
@@ -21,6 +22,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
   eventId,
 }) => {
   const { event, acceptInvitation, refuseInvitation } = useEventSummaryScreen();
+  const { locationModule } = useFeatureFlag();
 
   return (
     <View style={styles.container}>

@@ -1,4 +1,4 @@
-import { createStyleSheet } from "@/src/themes/createStyleSheet";
+import { createStyleSheet } from "@themes/createStyleSheet";
 import { Typography } from "@components/Typography";
 import { FC } from "react";
 import {

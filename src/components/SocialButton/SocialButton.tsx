@@ -1,11 +1,11 @@
-import { createStyleSheet } from "@/src/themes/createStyleSheet";
+import { createStyleSheet } from "@themes/createStyleSheet";
 import { ColorValue, PressableProps, View } from "react-native";
 
 import { FC, useMemo } from "react";
 
 import { firstCharToUppercase } from "@/src/utils/strings/firstCharToUppercase";
 import { Button } from "../Button";
-import { ColorAndLevelTuple } from "@/src/themes/theme";
+import { ColorAndLevelTuple } from "@themes/theme";
 import { IconListFromExpo } from "../../utils/icons/IconListFromExpo";
 import { useTheme } from "@themes/useTheme";
 
