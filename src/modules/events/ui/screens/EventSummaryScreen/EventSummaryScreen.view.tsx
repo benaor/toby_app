@@ -13,6 +13,12 @@ import BellSVG from "@images/bell.svg";
 import EnvelopSVG from "@images/envelop.svg";
 import NotesSVG from "@images/notes.svg";
 import { useFeatureFlag } from "@/src/ui/contexts/useFeatureFlag";
+import { SummarySubSection } from "../../components/SummarySubSection/SummarySubSection";
+
+import LocationSVG from "@images/location.svg";
+import { Button } from "@components/Button";
+import { getDatesInRange } from "@utils/dates/getDateInRange";
+import { ActivityItem } from "../../components/ActivityItem";
 
 type EventSummaryScreenProps = {
   eventId: string;
@@ -22,10 +28,12 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
   eventId,
 }) => {
   const { event, acceptInvitation, refuseInvitation } = useEventSummaryScreen();
-  const { locationModule } = useFeatureFlag();
+  const { locationModule, activityModule } = useFeatureFlag();
+
+  const dates: Date[] = getDatesInRange(event.dates.start, event.dates.end);
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Image
         source={{
           uri: "https://picsum.photos/200/300",
@@ -46,80 +54,148 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
           />
         </View>
         <View style={styles.infosContainer}>
-          <Typography.Header style={styles.title} size="medium" color="primary">
-            Résumé
-          </Typography.Header>
+          <SummarySubSection title="Résumé">
+            <View style={styles.chipsContainer}>
+              <View style={styles.chip}>
+                <Typography.Body lvlColor="low" textAlign="center">
+                  {event.dates.start.getFullYear()}
+                </Typography.Body>
+              </View>
 
-          <View style={styles.chipsContainer}>
-            <View style={styles.chip}>
-              <Typography.Body lvlColor="low" textAlign="center">
-                {event.date.getFullYear()}
-              </Typography.Body>
+              <View style={styles.chip}>
+                <Typography.Body lvlColor="low" textAlign="center">
+                  {event.guests.length ?? 0} pers.
+                </Typography.Body>
+              </View>
+
+              <View style={styles.chip}>
+                <Typography.Body lvlColor="low" textAlign="center">
+                  {event.address.city}
+                </Typography.Body>
+              </View>
             </View>
 
-            <View style={styles.chip}>
-              <Typography.Body lvlColor="low" textAlign="center">
-                {event.guests.length ?? 0} pers.
-              </Typography.Body>
-            </View>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.infoSquareBtnList}
+            >
+              <View style={styles.infoSquareBtn}>
+                <SquareButton>
+                  <MemberSVG />
+                </SquareButton>
+                <Typography.Body>Membres</Typography.Body>
+              </View>
 
-            <View style={styles.chip}>
-              <Typography.Body lvlColor="low" textAlign="center">
-                {event.address.city}
-              </Typography.Body>
-            </View>
-          </View>
+              <View style={styles.infoSquareBtn}>
+                <SquareButton>
+                  <CalendarSVG />
+                </SquareButton>
+                <Typography.Body>Dates</Typography.Body>
+              </View>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={styles.infoSquareBtnList}
-          >
-            <View style={styles.infoSquareBtn}>
-              <SquareButton>
-                <MemberSVG />
-              </SquareButton>
-              <Typography.Body>Membres</Typography.Body>
-            </View>
+              {locationModule && (
+                <View style={styles.infoSquareBtn}>
+                  <SquareButton>
+                    <MapSvg />
+                  </SquareButton>
+                  <Typography.Body>Lieux</Typography.Body>
+                </View>
+              )}
 
-            <View style={styles.infoSquareBtn}>
-              <SquareButton>
-                <CalendarSVG />
-              </SquareButton>
-              <Typography.Body>Dates</Typography.Body>
-            </View>
+              <View style={styles.infoSquareBtn}>
+                <SquareButton>
+                  <EnvelopSVG />
+                </SquareButton>
+                <Typography.Body>Importants</Typography.Body>
+              </View>
 
-            <View style={styles.infoSquareBtn}>
-              <SquareButton>
-                <MapSvg />
-              </SquareButton>
-              <Typography.Body>Lieux</Typography.Body>
-            </View>
+              <View style={styles.infoSquareBtn}>
+                <SquareButton>
+                  <NotesSVG />
+                </SquareButton>
+                <Typography.Body>Notes</Typography.Body>
+              </View>
 
-            <View style={styles.infoSquareBtn}>
-              <SquareButton>
-                <EnvelopSVG />
-              </SquareButton>
-              <Typography.Body>Importants</Typography.Body>
-            </View>
+              <View style={styles.infoSquareBtn}>
+                <SquareButton>
+                  <BellSVG />
+                </SquareButton>
+                <Typography.Body>Calendrier</Typography.Body>
+              </View>
+            </ScrollView>
+          </SummarySubSection>
 
-            <View style={styles.infoSquareBtn}>
-              <SquareButton>
-                <NotesSVG />
-              </SquareButton>
-              <Typography.Body>Notes</Typography.Body>
-            </View>
+          <SummarySubSection title="Description">
+            <Typography.Body>{event.description}</Typography.Body>
+          </SummarySubSection>
 
-            <View style={styles.infoSquareBtn}>
-              <SquareButton>
-                <BellSVG />
-              </SquareButton>
-              <Typography.Body>Calendrier</Typography.Body>
-            </View>
-          </ScrollView>
+          {locationModule && (
+            <SummarySubSection title="Lieu">
+              <LocationSVG />
+            </SummarySubSection>
+          )}
+
+          {activityModule && (
+            <SummarySubSection title="Activités" onEdit={() => null}>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.activityScrollView}
+              >
+                {dates.map((date, i) =>
+                  i === 0 ? (
+                    <Button
+                      key={date.toISOString()}
+                      variant="contained"
+                      color="background"
+                      lvlColor="high"
+                    >
+                      <Button.Label
+                        label={date.toLocaleDateString()}
+                        colors={["typography", "low"]}
+                      />
+                    </Button>
+                  ) : (
+                    <Button
+                      key={date.toISOString()}
+                      variant="contained"
+                      color="background"
+                      lvlColor="medium"
+                    >
+                      <Button.Label
+                        label={date.toLocaleDateString()}
+                        colors={["typography", "high"]}
+                      />
+                    </Button>
+                  ),
+                )}
+              </ScrollView>
+              <View style={styles.activityList}>
+                <ActivityItem
+                  hours="14h"
+                  info="info"
+                  title="title"
+                  onPress={() => null}
+                />
+                <ActivityItem
+                  hours="14h"
+                  info="info"
+                  title="title"
+                  onPress={() => null}
+                />
+                <ActivityItem
+                  hours="14h"
+                  info="info"
+                  title="title"
+                  onPress={() => null}
+                />
+              </View>
+            </SummarySubSection>
+          )}
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -128,9 +204,9 @@ const styles = createStyleSheet((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    height: "100%",
     backgroundColor: theme.colors.background.low,
     gap: -20,
+    paddingBottom: 280,
   },
   coverPicture: {
     height: "32%",
@@ -138,7 +214,6 @@ const styles = createStyleSheet((theme) => ({
   },
   summaryView: {
     paddingHorizontal: 24,
-    height: "70%",
     borderRadius: 20,
     transform: [{ translateY: -20 }],
     backgroundColor: theme.colors.background.low,
@@ -149,10 +224,7 @@ const styles = createStyleSheet((theme) => ({
     gap: 10,
     transform: [{ translateY: -22 }],
   },
-  title: {
-    paddingVertical: 10,
-    marginLeft: 0,
-  },
+
   infosContainer: {
     display: "flex",
     flexDirection: "column",
@@ -176,12 +248,22 @@ const styles = createStyleSheet((theme) => ({
   },
   infoSquareBtnList: {
     marginVertical: 20,
+    gap: 12,
   },
   infoSquareBtn: {
-    paddingHorizontal: 6,
     display: "flex",
     flexDirection: "column",
     gap: 5,
     alignItems: "center",
+  },
+  activityScrollView: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+  },
+  activityList: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
   },
 }));

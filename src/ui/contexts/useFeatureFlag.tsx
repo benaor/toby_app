@@ -2,10 +2,12 @@ import { createContext, useContext } from "react";
 
 type FeatureFlagContext = {
   locationModule: boolean;
+  activityModule: boolean;
 };
 
-const featureFlags = {
+const featureFlags: FeatureFlagContext = {
   locationModule: true,
+  activityModule: true,
 };
 
 const featureFlagContext = createContext<FeatureFlagContext | null>(null);
