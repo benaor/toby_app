@@ -7,13 +7,22 @@ import { useTheme } from "@themes/useTheme";
 import { ColorLevel, ColorName } from "@themes/theme";
 import { Icon } from "./Button.Icon";
 
+type WidthProps =
+  | {
+      fullWidth?: boolean;
+      width?: never;
+    }
+  | {
+      fullWidth?: never;
+      width?: number;
+    };
+
 export type ButtonContextProps = PropsWithChildren<
   Pick<PressableProps, "onPress" | "onPressIn" | "onPressOut"> & {
     variant?: "contained" | "text";
-    fullWidth?: boolean;
     color?: ColorName;
     lvlColor?: ColorLevel;
-  }
+  } & WidthProps
 >;
 
 type ButtonProps = ButtonContextProps & {
@@ -30,6 +39,7 @@ export function Button({
   lvlColor,
   variant = "contained",
   fullWidth = false,
+  width,
   ...props
 }: ButtonProps) {
   const theme = useTheme();
@@ -53,10 +63,10 @@ export function Button({
       justifyContent: "center",
       backgroundColor: computeBgColor(),
       paddingVertical: 12,
-      paddingHorizontal: fullWidth ? 0 : 66,
+      paddingHorizontal: fullWidth ? 0 : width ? 0 : 66,
       borderRadius: fullWidth ? 4 : 10,
       overflow: "hidden",
-      width: fullWidth ? "100%" : "auto",
+      width: fullWidth ? "100%" : width ?? "auto",
     },
   }));
 

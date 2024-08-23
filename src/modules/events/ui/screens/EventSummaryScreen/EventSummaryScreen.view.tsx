@@ -173,23 +173,26 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
               </ScrollView>
               <View style={styles.activityList}>
                 <ActivityItem
-                  hours="14h"
-                  info="info"
-                  title="title"
+                  schedule="14h"
+                  title="Five"
+                  info="Rendez-vous à 13H30"
                   onPress={() => null}
                 />
                 <ActivityItem
-                  hours="14h"
-                  info="info"
-                  title="title"
+                  schedule="14h"
+                  title="Restaurant"
+                  info="Réservation au nom de Pierre"
                   onPress={() => null}
                 />
                 <ActivityItem
-                  hours="14h"
-                  info="info"
-                  title="title"
+                  schedule="14h"
+                  title="soirée café OZ"
+                  info="Entrée gratuite jusqu’à 23h"
                   onPress={() => null}
                 />
+                <Button style={styles.marginAuto} width={160}>
+                  <Button.Label label="Ajouter une activité" />
+                </Button>
               </View>
             </SummarySubSection>
           )}
@@ -206,7 +209,7 @@ const styles = createStyleSheet((theme) => ({
     justifyContent: "space-between",
     backgroundColor: theme.colors.background.low,
     gap: -20,
-    paddingBottom: 280,
+    paddingBottom: 400,
   },
   coverPicture: {
     height: "32%",
@@ -264,6 +267,9 @@ const styles = createStyleSheet((theme) => ({
   activityList: {
     display: "flex",
     flexDirection: "column",
-    gap: 10,
+    gap: 15,
+  },
+  marginAuto: {
+    margin: "auto",
   },
 }));
