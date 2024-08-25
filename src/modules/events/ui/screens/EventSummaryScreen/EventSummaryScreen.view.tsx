@@ -21,6 +21,7 @@ import { getDatesInRange } from "@utils/dates/getDateInRange";
 import { ActivityItem } from "../../components/ActivityItem";
 
 import BirthdaySVG from "@images/birthday.svg";
+import { Icon } from "@components/Icon";
 
 type EventSummaryScreenProps = {
   eventId: string;
@@ -30,7 +31,8 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
   eventId,
 }) => {
   const { event, acceptInvitation, refuseInvitation } = useEventSummaryScreen();
-  const { locationModule, activityModule, budgetModule } = useFeatureFlag();
+  const { locationModule, activityModule, budgetModule, cagnotteModule } =
+    useFeatureFlag();
 
   const dates: Date[] = getDatesInRange(event.dates.start, event.dates.end);
 
@@ -209,13 +211,38 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
                   <Typography.Header size="small" lvlColor="high">
                     {event.title}
                   </Typography.Header>
-                  <Typography.Body>Dépensé</Typography.Body>
                   <Button variant="text" width={120}>
                     <Button.Icon name="clipboard" />
                     <Button.Label label="Copier le lien" />
                   </Button>
                   <Button width={120}>
                     <Button.Label label="Voir le budget" />
+                  </Button>
+                </View>
+              </View>
+            </SummarySubSection>
+          )}
+          {cagnotteModule && (
+            <SummarySubSection title="Cagnotte" onEdit={() => {}}>
+              <View style={styles.card}>
+                <View style={styles.cardLeftPart}>
+                  <Icon name="gift" size={40} />
+                  <Typography.Body size="small" lvlColor="medium">
+                    {event.pool.hasParticipated
+                      ? "J'ai Participé !"
+                      : "Je n'ai pas participé !"}
+                  </Typography.Body>
+                </View>
+                <View style={styles.cardRightPart}>
+                  <Typography.Header size="small" lvlColor="high">
+                    {event.pool.title}
+                  </Typography.Header>
+                  <Button variant="text" width={120}>
+                    <Button.Icon name="clipboard" />
+                    <Button.Label label="Copier le lien" />
+                  </Button>
+                  <Button width={120}>
+                    <Button.Label label="Voir la cagnotte" />
                   </Button>
                 </View>
               </View>
@@ -312,6 +339,7 @@ const styles = createStyleSheet((theme) => ({
   },
   cardLeftPart: {
     flex: 2,
+    gap: 8,
     justifyContent: "center",
     alignItems: "center",
   },

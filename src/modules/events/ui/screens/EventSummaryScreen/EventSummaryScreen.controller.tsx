@@ -17,6 +17,12 @@ export const useEventSummaryScreen = () => {
     address: {
       city: "Paris",
     },
+    pool: {
+      title: "cadeau d'anniversaire",
+      amount: 0,
+      participants: 0,
+      hasParticipated: true,
+    },
   };
 
   const acceptInvitation = () => {};
