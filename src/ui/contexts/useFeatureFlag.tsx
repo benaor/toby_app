@@ -1,22 +1,20 @@
-import { createContext, useContext } from "react";
+import { createContext, PropsWithChildren, useContext } from "react";
 
 type FeatureFlagContext = {
   locationModule: boolean;
   activityModule: boolean;
+  budgetModule: boolean;
 };
 
 const featureFlags: FeatureFlagContext = {
   locationModule: true,
   activityModule: true,
+  budgetModule: true,
 };
 
 const featureFlagContext = createContext<FeatureFlagContext | null>(null);
 
-export const FeatureFlagProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const FeatureFlagProvider = ({ children }: PropsWithChildren) => {
   return (
     <featureFlagContext.Provider value={featureFlags}>
       {children}

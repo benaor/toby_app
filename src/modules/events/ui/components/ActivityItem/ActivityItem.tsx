@@ -42,6 +42,7 @@ const styles = createStyleSheet((theme) => ({
     flexDirection: "row",
     borderWidth: 1,
     borderColor: theme.colors.border.low,
+    backgroundColor: theme.colors.background.low,
     borderRadius: 10,
     oveflow: "hidden",
   },
@@ -52,13 +53,17 @@ const styles = createStyleSheet((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
     paddingHorizontal: 15,
   },
   infos: {
     flex: 3,
-
     backgroundColor: theme.colors.background.low,
     paddingHorizontal: 20,
     paddingVertical: 10,
+    overflow: "hidden",
+    borderTopEndRadius: 10,
+    borderBottomEndRadius: 10,
   },
 }));

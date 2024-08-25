@@ -1,7 +1,7 @@
 export const useEventSummaryScreen = () => {
   const event = {
     id: "1",
-    title: "Event Title",
+    title: "Weekend Anniversaire",
     description: `C’est l’anniversaire de Marco ! Notez bien la date dans vos agendas, ça va être une sacrée soirée, je compte sur vous ! \n\n Toutes les infos sur l’organisation 👇👇 `,
     dates: {
       start: new Date("2025-03-01"),

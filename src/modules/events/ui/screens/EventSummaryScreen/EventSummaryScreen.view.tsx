@@ -20,6 +20,8 @@ import { Button } from "@components/Button";
 import { getDatesInRange } from "@utils/dates/getDateInRange";
 import { ActivityItem } from "../../components/ActivityItem";
 
+import BirthdaySVG from "@images/birthday.svg";
+
 type EventSummaryScreenProps = {
   eventId: string;
 };
@@ -28,7 +30,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
   eventId,
 }) => {
   const { event, acceptInvitation, refuseInvitation } = useEventSummaryScreen();
-  const { locationModule, activityModule } = useFeatureFlag();
+  const { locationModule, activityModule, budgetModule } = useFeatureFlag();
 
   const dates: Date[] = getDatesInRange(event.dates.start, event.dates.end);
 
@@ -196,6 +198,29 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
               </View>
             </SummarySubSection>
           )}
+
+          {budgetModule && (
+            <SummarySubSection title="Budget" onEdit={() => {}}>
+              <View style={styles.card}>
+                <View style={styles.cardLeftPart}>
+                  <BirthdaySVG />
+                </View>
+                <View style={styles.cardRightPart}>
+                  <Typography.Header size="small" lvlColor="high">
+                    {event.title}
+                  </Typography.Header>
+                  <Typography.Body>Dépensé</Typography.Body>
+                  <Button variant="text" width={120}>
+                    <Button.Icon name="clipboard" />
+                    <Button.Label label="Copier le lien" />
+                  </Button>
+                  <Button width={120}>
+                    <Button.Label label="Voir le budget" />
+                  </Button>
+                </View>
+              </View>
+            </SummarySubSection>
+          )}
         </View>
       </View>
     </ScrollView>
@@ -209,7 +234,7 @@ const styles = createStyleSheet((theme) => ({
     justifyContent: "space-between",
     backgroundColor: theme.colors.background.low,
     gap: -20,
-    paddingBottom: 400,
+    paddingBottom: 800,
   },
   coverPicture: {
     height: "32%",
@@ -271,5 +296,31 @@ const styles = createStyleSheet((theme) => ({
   },
   marginAuto: {
     margin: "auto",
+  },
+  card: {
+    flex: 6,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 20,
+    gap: 20,
+    borderWidth: 1,
+    borderColor: theme.colors.border.low,
+    backgroundColor: theme.colors.background.low,
+    borderRadius: 10,
+  },
+  cardLeftPart: {
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cardRightPart: {
+    flex: 4,
+    gap: 10,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
   },
 }));
