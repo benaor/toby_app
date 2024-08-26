@@ -25,12 +25,36 @@ export const useEventSummaryScreen = () => {
     },
   };
 
+  const survey = {
+    title: "Vote pour la date !",
+    isPending: true,
+    guests: [
+      {
+        id: 1,
+        avatar: "https://picsum.photos/200/300",
+      },
+      {
+        id: 2,
+        avatar: "https://picsum.photos/200/300",
+      },
+      {
+        id: 3,
+        avatar: "https://picsum.photos/200/300",
+      },
+      {
+        id: 4,
+        avatar: "https://picsum.photos/200/300",
+      },
+    ],
+  };
+
   const acceptInvitation = () => {};
 
   const refuseInvitation = () => {};
 
   return {
     event,
+    survey,
     acceptInvitation,
     refuseInvitation,
   };

@@ -5,6 +5,7 @@ type FeatureFlagContext = {
   activityModule: boolean;
   budgetModule: boolean;
   cagnotteModule: boolean;
+  surveyModule: boolean;
 };
 
 const featureFlags: FeatureFlagContext = {
@@ -12,6 +13,7 @@ const featureFlags: FeatureFlagContext = {
   activityModule: true,
   budgetModule: true,
   cagnotteModule: true,
+  surveyModule: true,
 };
 
 const featureFlagContext = createContext<FeatureFlagContext | null>(null);

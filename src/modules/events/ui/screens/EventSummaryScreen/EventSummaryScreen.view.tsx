@@ -1,6 +1,6 @@
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
-import { Image, ScrollView, View } from "react-native";
+import { Image, Pressable, ScrollView, View } from "react-native";
 import { useEventSummaryScreen } from "./EventSummaryScreen.controller";
 import { AcceptOrRefuseButton } from "@components/AcceptOrRefuseButton";
 import { Typography } from "@components/Typography";
@@ -22,6 +22,7 @@ import { ActivityItem } from "../../components/ActivityItem";
 
 import BirthdaySVG from "@images/birthday.svg";
 import { Icon } from "@components/Icon";
+import { Avatar } from "@components/Avatar";
 
 type EventSummaryScreenProps = {
   eventId: string;
@@ -30,9 +31,15 @@ type EventSummaryScreenProps = {
 export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
   eventId,
 }) => {
-  const { event, acceptInvitation, refuseInvitation } = useEventSummaryScreen();
-  const { locationModule, activityModule, budgetModule, cagnotteModule } =
-    useFeatureFlag();
+  const { event, survey, acceptInvitation, refuseInvitation } =
+    useEventSummaryScreen();
+  const {
+    locationModule,
+    activityModule,
+    budgetModule,
+    cagnotteModule,
+    surveyModule,
+  } = useFeatureFlag();
 
   const dates: Date[] = getDatesInRange(event.dates.start, event.dates.end);
 
@@ -222,6 +229,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
               </View>
             </SummarySubSection>
           )}
+
           {cagnotteModule && (
             <SummarySubSection title="Cagnotte" onEdit={() => {}}>
               <View style={styles.card}>
@@ -248,6 +256,68 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
               </View>
             </SummarySubSection>
           )}
+
+          {surveyModule && (
+            <SummarySubSection title="Sondage" onEdit={() => {}}>
+              <Typography.Body>
+                {survey.isPending ? "En cours ..." : "Terminé !"}
+              </Typography.Body>
+              <Pressable style={styles.surveyPressable} onPress={() => {}}>
+                <View style={styles.avatarsGrouped}>
+                  {survey.guests.map((guest, index) => (
+                    <Avatar
+                      key={guest.id}
+                      uri={guest.avatar}
+                      style={index !== 0 ? { marginLeft: -15 } : undefined}
+                    />
+                  ))}
+                </View>
+                <Typography.Body lvlColor="high">
+                  {survey.title}
+                </Typography.Body>
+                <Icon name="chevron-right" />
+              </Pressable>
+              <View style={styles.surveyButtons}>
+                <Button width={160}>
+                  <Button.Label label="Tous les sondages" />
+                </Button>
+
+                <Button width={160} color="background" lvlColor="medium">
+                  <Button.Label
+                    colors={["typography", "medium"]}
+                    label="Créer un sondage"
+                  />
+                </Button>
+              </View>
+            </SummarySubSection>
+          )}
+
+          <SummarySubSection title="Album photos">
+            <View style={styles.imageCard}>
+              <View style={[styles.imgViewCol1, styles.paddingImg1]}>
+                <Image
+                  style={styles.img1}
+                  source={{ uri: "https://picsum.photos/200/300" }}
+                />
+              </View>
+
+              <View style={styles.imgViewCol2}>
+                <View style={styles.paddingImg2}>
+                  <Image
+                    style={styles.img2}
+                    source={{ uri: "https://picsum.photos/200/300" }}
+                  />
+                </View>
+
+                <View style={styles.paddingImg3}>
+                  <Image
+                    style={styles.img3}
+                    source={{ uri: "https://picsum.photos/200/300" }}
+                  />
+                </View>
+              </View>
+            </View>
+          </SummarySubSection>
         </View>
       </View>
     </ScrollView>
@@ -279,7 +349,6 @@ const styles = createStyleSheet((theme) => ({
     gap: 10,
     transform: [{ translateY: -22 }],
   },
-
   infosContainer: {
     display: "flex",
     flexDirection: "column",
@@ -350,5 +419,67 @@ const styles = createStyleSheet((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "flex-start",
+  },
+  surveyPressable: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: theme.colors.border.low,
+    borderRadius: 10,
+    backgroundColor: theme.colors.background.low,
+    overflow: "hidden",
+  },
+  avatarsGrouped: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  surveyButtons: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "space-between",
+    marginTop: 15,
+  },
+  imageCard: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  imgViewCol1: {
+    width: "60%",
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
+  },
+  imgViewCol2: {
+    width: "40%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  paddingImg1: {
+    paddingRight: 5,
+  },
+  paddingImg2: {
+    paddingLeft: 5,
+    paddingBottom: 5,
+  },
+  paddingImg3: {
+    paddingTop: 5,
+    paddingLeft: 5,
+  },
+  img1: {
+    height: 210,
+    borderRadius: 5,
+  },
+  img2: {
+    height: 100,
+    borderRadius: 5,
+  },
+  img3: {
+    height: 100,
+    borderRadius: 5,
   },
 }));
