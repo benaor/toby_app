@@ -318,6 +318,36 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
               </View>
             </View>
           </SummarySubSection>
+
+          <SummarySubSection title="Options" subTitle="administrateur">
+            <Typography.Body style={styles.mt10} color="primary">
+              Relance automatique :
+            </Typography.Body>
+
+            <Pressable style={styles.card} onPress={() => {}}>
+              <Typography.Body>
+                Relancer les invités n’ayant pas répondus
+              </Typography.Body>
+              <Icon name="chevron-right" />
+            </Pressable>
+
+            <Typography.Body style={styles.mt10} color="primary">
+              Autres :
+            </Typography.Body>
+
+            <Button variant="text">
+              <Button.Label label="Quitter l'évènement" />
+            </Button>
+            <Button variant="text">
+              <Button.Label label="Archiver l'évènement" />
+            </Button>
+            <Button variant="text">
+              <Button.Label
+                colors={["primary", "high"]}
+                label="Supprimer l'évènement"
+              />
+            </Button>
+          </SummarySubSection>
         </View>
       </View>
     </ScrollView>
@@ -331,10 +361,11 @@ const styles = createStyleSheet((theme) => ({
     justifyContent: "space-between",
     backgroundColor: theme.colors.background.low,
     gap: -20,
-    paddingBottom: 800,
+    paddingBottom: 300,
   },
   coverPicture: {
     height: "32%",
+    maxHeight: "32%",
     width: "100%",
   },
   summaryView: {
@@ -481,5 +512,8 @@ const styles = createStyleSheet((theme) => ({
   img3: {
     height: 100,
     borderRadius: 5,
+  },
+  mt10: {
+    marginTop: 20,
   },
 }));
