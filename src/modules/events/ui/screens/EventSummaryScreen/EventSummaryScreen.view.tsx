@@ -31,8 +31,19 @@ type EventSummaryScreenProps = {
 export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
   eventId,
 }) => {
-  const { event, survey, acceptInvitation, refuseInvitation } =
-    useEventSummaryScreen();
+  const {
+    event,
+    survey,
+    acceptInvitation,
+    refuseInvitation,
+    openEditLocationModal,
+    openEditGuestsModal,
+    openEditDatesModal,
+    openEditImportantMsgModal,
+    openEditNotesModal,
+    goToCalendar,
+  } = useEventSummaryScreen();
+
   const {
     locationModule,
     activityModule,
@@ -92,14 +103,14 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
               contentContainerStyle={styles.infoSquareBtnList}
             >
               <View style={styles.infoSquareBtn}>
-                <SquareButton>
+                <SquareButton onPress={openEditGuestsModal}>
                   <MemberSVG />
                 </SquareButton>
                 <Typography.Body>Membres</Typography.Body>
               </View>
 
               <View style={styles.infoSquareBtn}>
-                <SquareButton>
+                <SquareButton onPress={openEditDatesModal}>
                   <CalendarSVG />
                 </SquareButton>
                 <Typography.Body>Dates</Typography.Body>
@@ -107,7 +118,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
 
               {locationModule && (
                 <View style={styles.infoSquareBtn}>
-                  <SquareButton>
+                  <SquareButton onPress={openEditLocationModal}>
                     <MapSvg />
                   </SquareButton>
                   <Typography.Body>Lieux</Typography.Body>
@@ -115,21 +126,21 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
               )}
 
               <View style={styles.infoSquareBtn}>
-                <SquareButton>
+                <SquareButton onPress={openEditImportantMsgModal}>
                   <EnvelopSVG />
                 </SquareButton>
                 <Typography.Body>Importants</Typography.Body>
               </View>
 
               <View style={styles.infoSquareBtn}>
-                <SquareButton>
+                <SquareButton onPress={openEditNotesModal}>
                   <NotesSVG />
                 </SquareButton>
                 <Typography.Body>Notes</Typography.Body>
               </View>
 
               <View style={styles.infoSquareBtn}>
-                <SquareButton>
+                <SquareButton onPress={goToCalendar}>
                   <BellSVG />
                 </SquareButton>
                 <Typography.Body>Calendrier</Typography.Body>

@@ -1,3 +1,7 @@
+import { screens } from "@constants/screens";
+import { useRouter } from "expo-router";
+import { useCallback } from "react";
+
 export const useEventSummaryScreen = () => {
   const event = {
     id: "1",
@@ -52,10 +56,42 @@ export const useEventSummaryScreen = () => {
 
   const refuseInvitation = () => {};
 
+  const { push, navigate } = useRouter();
+
+  const openEditLocationModal = useCallback(() => {
+    push(screens.editLocation(event.id));
+  }, [event.id, push]);
+
+  const openEditGuestsModal = useCallback(() => {
+    push(screens.editGuests(event.id));
+  }, [event.id, push]);
+
+  const openEditDatesModal = useCallback(() => {
+    push(screens.editDates(event.id));
+  }, [event.id, push]);
+
+  const openEditImportantMsgModal = useCallback(() => {
+    push(screens.editImportantMsg(event.id));
+  }, [event.id, push]);
+
+  const openEditNotesModal = useCallback(() => {
+    push(screens.editNotes(event.id));
+  }, [event.id, push]);
+
+  const goToCalendar = useCallback(() => {
+    navigate(screens.calendar);
+  }, [navigate]);
+
   return {
     event,
     survey,
     acceptInvitation,
     refuseInvitation,
+    openEditLocationModal,
+    openEditGuestsModal,
+    openEditDatesModal,
+    openEditImportantMsgModal,
+    openEditNotesModal,
+    goToCalendar,
   };
 };
