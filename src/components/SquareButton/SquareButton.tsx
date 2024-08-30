@@ -1,11 +1,11 @@
-import { FC, ReactNode, useMemo } from "react";
+import { FC, PropsWithChildren, useMemo } from "react";
 import { Pressable, PressableProps } from "react-native";
 import { createStyleSheet } from "@themes/createStyleSheet";
 
-type SquareButtonProps = PressableProps & {
-  size?: "small" | "medium" | "large";
-  children: ReactNode;
-};
+type SquareButtonProps = PressableProps &
+  PropsWithChildren<{
+    size?: "small" | "medium" | "large";
+  }>;
 
 export const SquareButton: FC<SquareButtonProps> = ({
   size = "medium",

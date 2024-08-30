@@ -1,10 +1,11 @@
-import { FC, createContext, useContext } from "react";
+import { FC, PropsWithChildren, createContext, useContext } from "react";
 import { ButtonContextProps } from "./Button";
 
-const ButtonProvider: FC<{
-  children: React.ReactNode;
-  props: ButtonContextProps;
-}> = ({ props, children }) => {
+const ButtonProvider: FC<
+  PropsWithChildren<{
+    props: ButtonContextProps;
+  }>
+> = ({ props, children }) => {
   return (
     <ButtonContext.Provider value={props}>{children}</ButtonContext.Provider>
   );

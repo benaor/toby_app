@@ -1,14 +1,13 @@
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
-import { FC, ReactNode } from "react";
+import { FC, PropsWithChildren } from "react";
 import { Pressable, View } from "react-native";
 
-type SummarySubSectionProps = {
-  children: ReactNode;
+type SummarySubSectionProps = PropsWithChildren<{
   title: string;
   subTitle?: string;
   onEdit?: VoidFunction;
-};
+}>;
 
 export const SummarySubSection: FC<SummarySubSectionProps> = ({
   children,

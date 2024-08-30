@@ -5,21 +5,20 @@ import {
   FontBodySize,
   FontHeaderSize,
 } from "@themes/theme";
-import { FC, ReactNode } from "react";
+import { FC, PropsWithChildren } from "react";
 import { Text, TextStyle } from "react-native";
 
 /**
  * Typography Common Props
  */
-export type TypographyBaseProps = {
-  children: ReactNode;
+export type TypographyBaseProps = PropsWithChildren<{
   size?: FontHeaderSize;
   bold?: boolean;
   color?: ColorName;
   lvlColor?: ColorLevel;
   textAlign?: TextStyle["textAlign"];
   style?: TextStyle;
-};
+}>;
 
 /**
  * Typography Variant Header
