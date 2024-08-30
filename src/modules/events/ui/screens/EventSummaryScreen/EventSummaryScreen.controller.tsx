@@ -59,7 +59,7 @@ export const useEventSummaryScreen = () => {
   const { push, navigate } = useRouter();
 
   const openEditLocationModal = useCallback(() => {
-    push(screens.editLocation(event.id));
+    push(screens.editLocations(event.id));
   }, [event.id, push]);
 
   const openEditGuestsModal = useCallback(() => {

@@ -5,7 +5,7 @@ export default function EventSummaryLayout() {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen
-        name="edit-location"
+        name="edit-locations"
         options={{
           headerShown: false,
           presentation: "modal",
