@@ -1,12 +1,12 @@
 import { ModalLayout } from "@components/ModalLayout";
-import { useEditLocationModal } from "./EditLocationModal.controller";
+import { useEditLocationModal } from "./EditLocationsModal.controller";
 import { Typography } from "@components/Typography";
 import { View } from "react-native";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { DraggableItem } from "@components/DraggableItem";
 import { Button } from "@components/Button";
 
-export const EditLocationModal: React.FC = () => {
+export const EditLocationsModal: React.FC = () => {
   const { locations, deleteLocation, addLocation } = useEditLocationModal();
 
   return (

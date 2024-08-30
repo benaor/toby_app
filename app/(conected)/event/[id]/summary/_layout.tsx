@@ -12,6 +12,13 @@ export default function EventSummaryLayout() {
         }}
       />
       <Stack.Screen
+        name="add-location"
+        options={{
+          headerShown: false,
+          presentation: "modal",
+        }}
+      />
+      <Stack.Screen
         name="edit-guests"
         options={{
           headerShown: false,

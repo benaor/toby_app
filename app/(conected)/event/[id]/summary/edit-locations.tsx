@@ -1,5 +1,5 @@
-import { EditLocationModal } from "@/src/modules/events/ui/screens/EditLocationModal/EditLocationModal.view";
+import { EditLocationsModal } from "@/src/modules/events/ui/screens/EditLocationsModal";
 
 export default function EditLocationEventModal() {
-  return <EditLocationModal />;
+  return <EditLocationsModal />;
 }
