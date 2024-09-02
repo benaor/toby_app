@@ -1,9 +1,5 @@
-import { Text, View } from "react-native";
+import { EditDateModal } from "@/src/modules/events/ui/screens/EditDateModal";
 
 export default function EditDateEventModal() {
-  return (
-    <View>
-      <Text>DATES EDITION</Text>
-    </View>
-  );
+  return <EditDateModal />;
 }
