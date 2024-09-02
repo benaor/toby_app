@@ -1,9 +1,5 @@
-import { Text, View } from "react-native";
+import { EditGuestsModal } from "@/src/modules/events/ui/screens/EditGuestsModal";
 
 export default function EditGuestsEventModal() {
-  return (
-    <View>
-      <Text>GUESTS EDITION</Text>
-    </View>
-  );
+  return <EditGuestsModal />;
 }
