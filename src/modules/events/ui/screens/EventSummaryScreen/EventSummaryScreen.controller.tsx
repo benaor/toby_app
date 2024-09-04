@@ -82,6 +82,10 @@ export const useEventSummaryScreen = () => {
     push(screens.editPools(event.id));
   }, [event.id, push]);
 
+  const openAddBudgetModal = useCallback(() => {
+    push(screens.addBudget(event.id));
+  }, [event.id, push]);
+
   const goToCalendar = useCallback(() => {
     navigate(screens.calendar);
   }, [navigate]);
@@ -97,6 +101,7 @@ export const useEventSummaryScreen = () => {
     openEditImportantMsgModal,
     openEditNotesModal,
     openEditPoolsModal,
+    openAddBudgetModal,
     goToCalendar,
   };
 };

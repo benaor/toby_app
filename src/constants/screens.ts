@@ -12,6 +12,7 @@ export const screens = {
   editLocations: (id: string) => `event/${id}/summary/edit-locations`,
   addLocation: (id: string) => `event/${id}/summary/add-location`,
   addPool: (id: string) => `event/${id}/summary/add-pool`,
+  addBudget: (id: string) => `event/${id}/summary/add-budget`,
   editGuests: (id: string) => `event/${id}/summary/edit-guests`,
   editDates: (id: string) => `event/${id}/summary/edit-dates`,
   editImportantMsg: (id: string) => `event/${id}/summary/edit-important-msg`,

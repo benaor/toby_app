@@ -60,6 +60,13 @@ export default function EventSummaryLayout() {
           presentation: "modal",
         }}
       />
+      <Stack.Screen
+        name="add-budget"
+        options={{
+          headerShown: false,
+          presentation: "modal",
+        }}
+      />
     </Stack>
   );
 }
