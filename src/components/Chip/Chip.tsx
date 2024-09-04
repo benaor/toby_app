@@ -2,23 +2,29 @@ import { FC } from "react";
 import { View } from "react-native";
 import { Typography } from "..";
 import { createStyleSheet } from "@themes/createStyleSheet";
+import { ColorName } from "@themes/theme";
 
 type ChipProps =
   | {
       type: "number";
       label: number;
+      color?: ColorName;
     }
   | {
       type: "text";
       label: string;
+      color?: ColorName;
     };
 
-export const Chip: FC<ChipProps> = ({ type, label }) => {
+export const Chip: FC<ChipProps> = ({ type, label, color }) => {
   const chipStyles = createStyleSheet((theme) => ({
     chip: {
       borderRadius: type === "text" ? 10 : 100,
       width: type === "text" ? "auto" : 25,
       paddingHorizontal: type === "text" ? 10 : 0,
+      backgroundColor: color
+        ? theme.colors[color].high
+        : theme.colors.primary.high,
     },
   }));
 

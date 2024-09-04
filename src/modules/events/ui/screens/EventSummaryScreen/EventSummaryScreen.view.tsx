@@ -41,6 +41,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
     openEditDatesModal,
     openEditImportantMsgModal,
     openEditNotesModal,
+    openEditPoolsModal,
     goToCalendar,
   } = useEventSummaryScreen();
 
@@ -242,7 +243,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
           )}
 
           {cagnotteModule && (
-            <SummarySubSection title="Cagnotte" onEdit={() => {}}>
+            <SummarySubSection title="Cagnotte" onEdit={openEditPoolsModal}>
               <View style={styles.card}>
                 <View style={styles.cardLeftPart}>
                   <Icon name="gift" size={40} />

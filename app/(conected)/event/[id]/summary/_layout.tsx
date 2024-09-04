@@ -46,6 +46,20 @@ export default function EventSummaryLayout() {
           presentation: "modal",
         }}
       />
+      <Stack.Screen
+        name="edit-pools"
+        options={{
+          headerShown: false,
+          presentation: "modal",
+        }}
+      />
+      <Stack.Screen
+        name="add-pool"
+        options={{
+          headerShown: false,
+          presentation: "modal",
+        }}
+      />
     </Stack>
   );
 }

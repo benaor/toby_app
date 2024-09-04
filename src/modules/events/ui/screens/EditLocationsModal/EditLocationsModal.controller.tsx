@@ -2,7 +2,7 @@ import { screens } from "@constants/screens";
 import { useRouter } from "expo-router";
 import { useCallback } from "react";
 
-export const useEditLocationModal = () => {
+export const useEditLocationsModal = () => {
   const locations = [
     {
       id: "1",
