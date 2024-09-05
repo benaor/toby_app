@@ -1,14 +1,17 @@
 import { IconButton } from "@components/IconButton";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
+import { useTheme } from "@themes/useTheme";
 import { IconListFromExpo } from "@utils/icons/IconListFromExpo";
 import { useRouter } from "expo-router";
 import { FC } from "react";
-import { View } from "react-native";
+import { View, ViewStyle } from "react-native";
 
 type HeaderProps = {
   title?: string;
   subtitle?: string;
+  style?: ViewStyle;
+  contrast?: boolean;
 } & (
   | {
       button: IconListFromExpo;
@@ -24,13 +27,21 @@ export const Header: FC<HeaderProps> = ({
   title,
   subtitle,
   button,
+  style,
+  contrast,
   onButtonPress,
 }) => {
   const { back } = useRouter();
+  const { colors } = useTheme();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <View style={styles.mainSection}>
-        <IconButton name="arrowleft" onPress={back} />
+        <IconButton
+          name="arrowleft"
+          onPress={back}
+          backgroundColor={contrast ? colors.background.medium : undefined}
+        />
         <View>
           {title && (
             <Typography.Header size="medium" color="primary" textAlign="center">
@@ -39,7 +50,11 @@ export const Header: FC<HeaderProps> = ({
           )}
         </View>
         {button ? (
-          <IconButton name={button} onPress={onButtonPress} />
+          <IconButton
+            name={button}
+            onPress={onButtonPress}
+            backgroundColor={contrast ? colors.background.medium : undefined}
+          />
         ) : (
           <View />
         )}

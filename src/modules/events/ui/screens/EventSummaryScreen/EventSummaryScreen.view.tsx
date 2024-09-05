@@ -23,6 +23,7 @@ import { ActivityItem } from "../../components/ActivityItem";
 import BirthdaySVG from "@images/birthday.svg";
 import { Icon } from "@components/Icon";
 import { Avatar } from "@components/Avatar";
+import { Header } from "@components/Header";
 
 type EventSummaryScreenProps = {
   eventId: string;
@@ -44,6 +45,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
     openEditPoolsModal,
     openAddBudgetModal,
     goToCalendar,
+    goToEventSettings,
   } = useEventSummaryScreen();
 
   const {
@@ -58,6 +60,12 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Header
+        button="settings"
+        onButtonPress={goToEventSettings}
+        style={styles.header}
+        contrast
+      />
       <Image
         source={{
           uri: "https://picsum.photos/200/300",
@@ -375,6 +383,11 @@ const styles = createStyleSheet((theme) => ({
     backgroundColor: theme.colors.background.low,
     gap: -20,
     paddingBottom: 300,
+  },
+  header: {
+    position: "absolute",
+    backgroundColor: "transparent",
+    zIndex: 1,
   },
   coverPicture: {
     height: "32%",

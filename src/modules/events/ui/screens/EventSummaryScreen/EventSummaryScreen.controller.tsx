@@ -90,6 +90,10 @@ export const useEventSummaryScreen = () => {
     navigate(screens.calendar);
   }, [navigate]);
 
+  const goToEventSettings = useCallback(() => {
+    navigate(screens.eventSettings(event.id));
+  }, [navigate, event.id]);
+
   return {
     event,
     survey,
@@ -103,5 +107,6 @@ export const useEventSummaryScreen = () => {
     openEditPoolsModal,
     openAddBudgetModal,
     goToCalendar,
+    goToEventSettings,
   };
 };

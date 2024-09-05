@@ -9,6 +9,7 @@ export const screens = {
   newEvent: "home/events/create",
   event: (id: string) => `event/${id}`,
   eventSummary: (id: string) => `event/${id}/summary`,
+  eventSettings: (id: string) => `event/${id}/settings`,
   editLocations: (id: string) => `event/${id}/summary/edit-locations`,
   addLocation: (id: string) => `event/${id}/summary/add-location`,
   addPool: (id: string) => `event/${id}/summary/add-pool`,
