@@ -1,3 +1,4 @@
+import { EventSettingsScreen } from "@/src/modules/events/ui/screens/EventSettingsScreen";
 import { useGlobalSearchParams } from "expo-router";
 
 export default function EventSettingsLayout() {
@@ -6,5 +7,5 @@ export default function EventSettingsLayout() {
   // TODO Redirect to 404 page
   if (!id) return null;
 
-  return null;
+  return <EventSettingsScreen />;
 }
