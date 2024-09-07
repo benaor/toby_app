@@ -4,6 +4,8 @@
     "strict": true,
     "paths": {
       "@authentication/*": ["./src/modules/authentication/*"],
+      "@events/*": ["./src/modules/events/*"],
+      "@calendar/*": ["./src/modules/calendar/*"],
       "@themes/*": ["./src/ui/themes/*"],
       "@images/*": ["./assets/images/*"],
       "@components/*": ["./src/components/*"],

@@ -1,5 +1,5 @@
-import { Text } from "react-native";
+import { CalendarScreen } from "@calendar/ui/screens/CalendarScreen";
 
 export default function TabTwoScreen() {
-  return <Text>Calendar Page</Text>;
+  return <CalendarScreen />;
 }
