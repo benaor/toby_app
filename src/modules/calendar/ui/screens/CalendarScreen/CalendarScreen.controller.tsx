@@ -4,6 +4,16 @@ import {
   CalendarEventList,
 } from "../../../core/CalendarEventList.model";
 
+type SectionsCalendarEventList = {
+  title: string;
+  data: CalendarEvent[];
+};
+
+export type ArrayOfSectionsListOfEvent = SectionListData<
+  CalendarEvent,
+  SectionsCalendarEventList
+>[];
+
 export const useCalendarScreen = () => {
   const events: CalendarEventList = [
     {
@@ -25,16 +35,6 @@ export const useCalendarScreen = () => {
       end: new Date("2021-08-12"),
     },
   ];
-
-  type SectionsCalendarEventList = {
-    title: string;
-    data: CalendarEvent[];
-  };
-
-  type ArrayOfSectionsListOfEvent = readonly SectionListData<
-    CalendarEvent,
-    SectionsCalendarEventList
-  >[];
 
   const sectionsOfEvents: ArrayOfSectionsListOfEvent = [
     {
