@@ -19,5 +19,14 @@ export const calendarEventListToSectionList = (
     return arrayOfSection.push({ title: mount, data: [event] });
   });
 
-  return arrayOfSection;
+  return sortDataSectionByDate(arrayOfSection);
 };
+
+const sortDataSectionByDate = (data: ArrayOfSectionsListOfEvent) =>
+  data.map((section) => ({
+    title: section.title,
+    data: sortCalendarEventDataByDate(section.data),
+  }));
+
+const sortCalendarEventDataByDate = (events: CalendarEventList) =>
+  events.sort((a, b) => a.start.getTime() - b.start.getTime());

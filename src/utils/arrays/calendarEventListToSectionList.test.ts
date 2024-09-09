@@ -73,7 +73,7 @@ describe("Transform a list to SectionList data", () => {
     expect(result).toStrictEqual(expected);
   });
 
-  it("should return a list with two sections named JANVIER and JUIN which each contain TWO data object", () => {
+  it("should return a list with two sections named JANVIER and JUIN which each contain TWO data object, and each data array is SORTED BY DATE", () => {
     const firstOnJanuary = CalendarEventFactory.create();
     const secondOnJanuary = CalendarEventFactory.create();
     const firstOnJune = CalendarEventFactory.create({
@@ -86,10 +86,10 @@ describe("Transform a list to SectionList data", () => {
     });
 
     const eventList: CalendarEventList = [
-      firstOnJune,
-      firstOnJanuary,
       secondOnJune,
       secondOnJanuary,
+      firstOnJanuary,
+      firstOnJune,
     ];
     const result = calendarEventListToSectionList(eventList);
 
