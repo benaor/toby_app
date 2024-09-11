@@ -23,6 +23,7 @@ export const ChatScreen: FC<ChatScreenProps> = ({ eventId }) => {
   return (
     <View style={styles.container}>
       <Header
+        canGoBack
         title={event.title}
         subtitle={subtitle}
         button="infocirlce"

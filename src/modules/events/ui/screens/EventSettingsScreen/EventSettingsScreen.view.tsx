@@ -14,7 +14,7 @@ export const EventSettingsScreen: FC = () => {
 
   return (
     <>
-      <Header title="Paramètres" />
+      <Header title="Paramètres" canGoBack />
       <ScrollView contentContainerStyle={styles.container}>
         <View>
           <Typography.Header color="primary">

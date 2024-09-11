@@ -1,5 +1,11 @@
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 
 export default function EventIdLayout() {
-  return <Slot />;
+  return (
+    <Stack>
+      <Stack.Screen name="chat" options={{ headerShown: false }} />
+      <Stack.Screen name="settings" options={{ headerShown: false }} />
+      <Stack.Screen name="summary" options={{ headerShown: false }} />
+    </Stack>
+  );
 }

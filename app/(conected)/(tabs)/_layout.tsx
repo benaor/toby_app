@@ -1,3 +1,4 @@
+import { Header } from "@components/Header";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@themes/useTheme";
 import { Tabs } from "expo-router";
@@ -44,6 +45,13 @@ export default function TabLayout() {
         name="calendar"
         options={{
           title: "Calendrier",
+          headerShown: true,
+          header: ({ options }) => (
+            <Header
+              title={options.title}
+              subtitle="Retrouvez tous vos évènements classé par ordre chronologique."
+            />
+          ),
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               size={24}
@@ -57,6 +65,13 @@ export default function TabLayout() {
         name="profil"
         options={{
           title: "Profil",
+          headerShown: true,
+          header: ({ options }) => (
+            <Header
+              title={options.title}
+              subtitle="Retrouvez toutes les informations de votre compte."
+            />
+          ),
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               size={24}

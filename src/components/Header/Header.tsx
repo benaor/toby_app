@@ -12,6 +12,7 @@ type HeaderProps = {
   subtitle?: string;
   style?: ViewStyle;
   contrast?: boolean;
+  canGoBack?: boolean;
 } & (
   | {
       button: IconListFromExpo;
@@ -29,6 +30,7 @@ export const Header: FC<HeaderProps> = ({
   button,
   style,
   contrast,
+  canGoBack,
   onButtonPress,
 }) => {
   const { back } = useRouter();
@@ -37,11 +39,13 @@ export const Header: FC<HeaderProps> = ({
   return (
     <View style={[styles.container, style]}>
       <View style={styles.mainSection}>
-        <IconButton
-          name="arrowleft"
-          onPress={back}
-          backgroundColor={contrast ? colors.background.medium : undefined}
-        />
+        {canGoBack && (
+          <IconButton
+            name="arrowleft"
+            onPress={back}
+            backgroundColor={contrast ? colors.background.medium : undefined}
+          />
+        )}
         <View>
           {title && (
             <Typography.Header size="medium" color="primary" textAlign="center">
@@ -60,7 +64,11 @@ export const Header: FC<HeaderProps> = ({
         )}
       </View>
       {subtitle && (
-        <Typography.Body size="small" color="typography" textAlign="center">
+        <Typography.Body
+          size="small"
+          color="typography"
+          textAlign={canGoBack ? "center" : "left"}
+        >
           {subtitle}
         </Typography.Body>
       )}

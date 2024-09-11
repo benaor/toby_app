@@ -65,6 +65,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
         onButtonPress={goToEventSettings}
         style={styles.header}
         contrast
+        canGoBack
       />
       <Image
         source={{
