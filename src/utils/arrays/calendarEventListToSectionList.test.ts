@@ -3,6 +3,7 @@ import { calendarEventListToSectionList } from "./calendarEventListToSectionList
 import { CalendarEventFactory } from "@calendar/core/CalendarEvent.factory";
 import { ArrayOfSectionsListOfEvent } from "@calendar/ui/screens/CalendarScreen/CalendarScreen.controller";
 
+// TODO: refactor using jest.each
 describe("Transform a list to SectionList data", () => {
   it("should return empty array", () => {
     const eventList: CalendarEventList = [];

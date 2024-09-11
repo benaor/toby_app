@@ -3,6 +3,10 @@ import {
   CalendarEvent,
   CalendarEventList,
 } from "../../../core/CalendarEventList.model";
+import { calendarEventListToSectionList } from "@utils/arrays/calendarEventListToSectionList";
+import { useCallback } from "react";
+import { useRouter } from "expo-router";
+import { screens } from "@constants/screens";
 
 type SectionsCalendarEventList = {
   title: string;
@@ -15,6 +19,8 @@ export type ArrayOfSectionsListOfEvent = SectionListData<
 >[];
 
 export const useCalendarScreen = () => {
+  const { push } = useRouter();
+
   const events: CalendarEventList = [
     {
       id: "1",
@@ -36,19 +42,19 @@ export const useCalendarScreen = () => {
     },
   ];
 
-  const sectionsOfEvents: ArrayOfSectionsListOfEvent = [
-    {
-      title: "Section 1",
-      data: [events[0], events[1]],
+  const sectionsOfEvents: ArrayOfSectionsListOfEvent =
+    calendarEventListToSectionList(events);
+
+  const goToEvent = useCallback(
+    (id: string) => {
+      push(screens.event(id));
     },
-    {
-      title: "Section 2",
-      data: [events[2]],
-    },
-  ];
+    [push],
+  );
 
   return {
     events,
     sectionsOfEvents,
+    goToEvent,
   };
 };
