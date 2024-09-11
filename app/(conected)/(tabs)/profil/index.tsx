@@ -1,5 +1,5 @@
-import { Text } from "react-native";
+import { ProfilScreen } from "@profil/ui/screens/ProfilScreen";
 
-export default function ProfilScreen() {
-  return <Text>Welcome Profil</Text>;
+export default function ProfilUserScreen() {
+  return <ProfilScreen />;
 }

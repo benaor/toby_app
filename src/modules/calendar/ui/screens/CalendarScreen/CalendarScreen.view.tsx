@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useCalendarScreen } from "./CalendarScreen.controller";
 import { createStyleSheet } from "@themes/createStyleSheet";
-import { ScrollView, SectionList, View } from "react-native";
+import { SectionList, View } from "react-native";
 import { Typography } from "@components/Typography";
 import { CalendarItem } from "@calendar/ui/components/CalendarItem";
 

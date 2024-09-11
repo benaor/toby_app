@@ -6,6 +6,7 @@
       "@authentication/*": ["./src/modules/authentication/*"],
       "@events/*": ["./src/modules/events/*"],
       "@calendar/*": ["./src/modules/calendar/*"],
+      "@profil/*": ["./src/modules/profil/*"],
       "@themes/*": ["./src/ui/themes/*"],
       "@images/*": ["./assets/images/*"],
       "@components/*": ["./src/components/*"],
