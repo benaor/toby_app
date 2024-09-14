@@ -8,11 +8,13 @@ import { TextInput } from "@components/TextInput";
 import { Button } from "@components/Button";
 import { useTheme } from "@themes/useTheme";
 import { SocialButton } from "@components/SocialButton";
+import { useAuthentication } from "@authentication/ui/hooks/useAuthentication";
 
 export const SignInCredentialsScreen: FC = () => {
   const { goToSignUpScreen, goToForgetPasswordScreen } =
     useSignInCredentialsScreen();
   const { colors } = useTheme();
+  const { signInWithEmail } = useAuthentication();
 
   return (
     <View style={styles.container}>
@@ -27,7 +29,7 @@ export const SignInCredentialsScreen: FC = () => {
             label="Mot de passe perdu?"
           />
         </Button>
-        <Button fullWidth>
+        <Button fullWidth onPress={signInWithEmail}>
           <Button.Label colors={["typography", "low"]} label="Se connecter" />
           <Button.Icon name="arrowright" color={colors.typography.low} />
         </Button>
