@@ -1,6 +1,6 @@
 import { StorageKey } from "./storage.keys";
 
-export interface Storage {
+export interface IStorage {
   get(key: StorageKey): unknown | null;
   set(key: StorageKey, value: unknown): void;
 }

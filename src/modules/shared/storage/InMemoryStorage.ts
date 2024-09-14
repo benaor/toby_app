@@ -1,7 +1,7 @@
+import { IStorage } from "./storage.interface";
 import { StorageKey } from "./storage.keys";
-import { Storage } from "./Storage.port";
 
-export class InMemoryStorage implements Storage {
+export class InMemoryStorage implements IStorage {
   private storage = new Map<StorageKey, string>();
 
   set(key: StorageKey, value: unknown) {

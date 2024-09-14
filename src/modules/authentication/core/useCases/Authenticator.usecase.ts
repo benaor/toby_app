@@ -1,15 +1,15 @@
-import { Storage } from "@/src/modules/shared/storage/Storage.port";
-import { AuthProvider } from "../AuthProvider.port";
-import { AuthUser } from "../AuthUser.type";
-import { Credentials } from "../Credentials.type";
-import { Alerter } from "@/src/modules/shared/alerter/Alerter.port";
+import { AuthProvider } from "../ports/AuthProvider.port";
+import { AuthUser } from "../models/AuthUser.type";
+import { Credentials } from "../models/Credentials.type";
+import { IStorage } from "@shared/storage/storage.interface";
+import { Alerter } from "@shared/alerter/alerter.interface";
 
 export class AuthenticatorUseCases {
   private user?: AuthUser;
 
   constructor(
     private authProvider: AuthProvider,
-    private storage: Storage,
+    private storage: IStorage,
     private alert: Alerter,
   ) {}
 

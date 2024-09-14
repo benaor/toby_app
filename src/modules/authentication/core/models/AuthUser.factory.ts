@@ -1,4 +1,4 @@
-import { AuthUser } from "./core/AuthUser.type";
+import { AuthUser } from "./AuthUser.type";
 
 export class AuthUserFactory {
   static create(authUser?: Partial<AuthUser>): AuthUser {

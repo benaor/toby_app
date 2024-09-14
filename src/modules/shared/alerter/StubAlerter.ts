@@ -1,4 +1,4 @@
-import { Alerter } from "./Alerter.port";
+import { Alerter } from "./alerter.interface";
 
 export class StubAlerter implements Alerter {
   public errorFn = jest.fn();

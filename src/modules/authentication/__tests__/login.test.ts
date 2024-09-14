@@ -2,13 +2,14 @@ import { AuthenticatorUseCases } from "@authentication/core/useCases/Authenticat
 import {
   FailedAuthProvider,
   StubAuthProvider,
-} from "@authentication/core/TestingAuthProvider.adapter";
-import { AuthUserFactory } from "@authentication/AuthUser.factory";
-import { Credentials } from "@authentication/core/Credentials.type";
+} from "@authentication/core/adapters/TestingAuthProvider.adapter";
+
+import { Credentials } from "@authentication/core/models/Credentials.type";
 import { InMemoryStorage } from "../../shared/storage/InMemoryStorage";
-import { AuthProvider } from "@authentication/core/AuthProvider.port";
-import { AuthUser } from "@authentication/core/AuthUser.type";
+import { AuthProvider } from "@authentication/core/ports/AuthProvider.port";
+import { AuthUser } from "@authentication/core/models/AuthUser.type";
 import { StubAlerter } from "../../shared/alerter/StubAlerter";
+import { AuthUserFactory } from "@authentication/core/models/AuthUser.factory";
 
 const credentials: Credentials = { email: "john", password: "doe" };
 
@@ -91,7 +92,7 @@ type SutParams = {
 const createSut = (params?: SutParams) => {
   const storage = new InMemoryStorage();
   const user = params?.user || AuthUserFactory.create();
-  const authProvider = params?.authProvider || new StubAuthProvider();
+  const authProvider = params?.authProvider || new StubAuthProvider(user);
   const alerter = new StubAlerter();
 
   const authenticator = new AuthenticatorUseCases(
