@@ -24,6 +24,16 @@ export class AuthenticatorUseCases {
     }
   }
 
+  async logout() {
+    try {
+      await this.authProvider.logout();
+      this.storage.remove("authUser");
+      this.alert.success("You are now disconnected");
+    } catch {
+      this.alert.error("an error occurred while disconnecting");
+    }
+  }
+
   isConnected() {
     return !!this.user;
   }

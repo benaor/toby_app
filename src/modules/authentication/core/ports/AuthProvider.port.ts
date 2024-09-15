@@ -3,4 +3,5 @@ import type { Credentials } from "../models/Credentials.type";
 
 export interface AuthProvider {
   login: (credentials: Credentials) => Promise<AuthUser>;
+  logout: () => Promise<void>;
 }

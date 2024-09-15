@@ -4,81 +4,68 @@ import {
   StubAuthProvider,
 } from "@authentication/core/adapters/TestingAuthProvider.adapter";
 
-import { Credentials } from "@authentication/core/models/Credentials.type";
 import { InMemoryStorage } from "../../shared/storage/InMemoryStorage";
 import { AuthProvider } from "@authentication/core/ports/AuthProvider.port";
 import { AuthUser } from "@authentication/core/models/AuthUser.type";
 import { StubAlerter } from "../../shared/alerter/StubAlerter";
 import { AuthUserFactory } from "@authentication/core/models/AuthUser.factory";
 
-const credentials: Credentials = { email: "john", password: "doe" };
-
 describe("Login", () => {
   describe("Happy Paths", () => {
-    it("Credentials are valid", async () => {
+    it("Storage should be empty", async () => {
       // ARRANGE
-      const { authenticator } = createSut();
+      const { authenticator, storage } = createSut();
 
       // ACT
-      await authenticator.login(credentials);
-
-      // ASSERT
-      const isConnected = authenticator.isConnected();
-      expect(isConnected).toBeTruthy();
-    });
-
-    it("Storage contains authUser", async () => {
-      // ARRANGE
-      const { authenticator, storage, user } = createSut();
-
-      // ACT
-      await authenticator.login(credentials);
+      await authenticator.logout();
 
       // ASSERT
       const storedUser = storage.get("authUser");
-      expect(storedUser).toStrictEqual(user);
+      expect(storedUser).toBeNull();
     });
 
-    it("Should alert when login is done correctly", async () => {
+    it("Should alert when logout is done correctly", async () => {
       // ARRANGE
       const { authenticator, alerter } = createSut();
       const successAlert = alerter.success;
 
       // ACT
-      await authenticator.login(credentials);
+      await authenticator.logout();
 
       // ASSERT
       expect(successAlert).toHaveBeenCalledTimes(1);
-      expect(successAlert).toHaveBeenCalledWith("You are now connected");
+      expect(successAlert).toHaveBeenCalledWith("You are now disconnected");
+    });
+
+    it("Should call logout from authProvider", async () => {
+      // ARRANGE
+      const authProvider = new StubAuthProvider(AuthUserFactory.create());
+      const { authenticator } = createSut({ authProvider });
+      const successLogout = authProvider.logoutFn;
+
+      // ACT
+      await authenticator.logout();
+
+      // ASSERT
+      expect(successLogout).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("Unhappy Paths", () => {
-    it("Credentials are invalid", async () => {
-      // ARRANGE
-      const authProvider = new FailedAuthProvider();
-      const { authenticator } = createSut({ authProvider });
-
-      // ACT
-      await authenticator.login(credentials);
-
-      // ASSERT
-      const isConnected = authenticator.isConnected();
-      expect(isConnected).toBeFalsy();
-    });
-
-    it("Should alert when credentials are incorrect", async () => {
+    it("Should alert when logout doesn't done correctly", async () => {
       // ARRANGE
       const authProvider = new FailedAuthProvider();
       const { authenticator, alerter } = createSut({ authProvider });
       const errorAlert = alerter.error;
 
       // ACT
-      await authenticator.login(credentials);
+      await authenticator.logout();
 
       // ASSERT
       expect(errorAlert).toHaveBeenCalledTimes(1);
-      expect(errorAlert).toHaveBeenCalledWith("Invalid credentials");
+      expect(errorAlert).toHaveBeenCalledWith(
+        "an error occurred while disconnecting",
+      );
     });
   });
 });
@@ -91,7 +78,9 @@ type SutParams = {
 
 const createSut = (params?: SutParams) => {
   const storage = new InMemoryStorage();
-  const user = params?.user || AuthUserFactory.create();
+  storage.set("authUser", AuthUserFactory.create());
+
+  const user = params?.user;
   const authProvider = params?.authProvider || new StubAuthProvider(user);
   const alerter = new StubAlerter();
 
@@ -101,5 +90,5 @@ const createSut = (params?: SutParams) => {
     alerter,
   );
 
-  return { authenticator, storage, alerter, user };
+  return { authenticator, storage, alerter, authProvider, user };
 };

@@ -14,4 +14,8 @@ export class InMemoryStorage implements IStorage {
 
     return res ? JSON.parse(res) : null;
   }
+
+  remove(key: StorageKey) {
+    this.storage.delete(key);
+  }
 }
