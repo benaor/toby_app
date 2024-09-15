@@ -1,15 +1,7 @@
-import { AuthenticatorUseCases } from "@authentication/core/useCases/Authenticator.usecase";
-import {
-  FailedAuthProvider,
-  StubAuthProvider,
-} from "@authentication/core/adapters/TestingAuthProvider.adapter";
+import { FailedAuthProvider } from "@authentication/core/adapters/TestingAuthProvider.adapter";
 
 import { Credentials } from "@authentication/core/models/Credentials.type";
-import { InMemoryStorage } from "../../shared/storage/InMemoryStorage";
-import { AuthProvider } from "@authentication/core/ports/AuthProvider.port";
-import { AuthUser } from "@authentication/core/models/AuthUser.type";
-import { StubAlerter } from "../../shared/alerter/StubAlerter";
-import { AuthUserFactory } from "@authentication/core/models/AuthUser.factory";
+import { createAuthenticatorSut } from "../authenticator.sut";
 
 const credentials: Credentials = { email: "john", password: "doe" };
 
@@ -17,7 +9,7 @@ describe("Login", () => {
   describe("Happy Paths", () => {
     it("Credentials are valid", async () => {
       // ARRANGE
-      const { authenticator } = createSut();
+      const { authenticator } = createAuthenticatorSut();
 
       // ACT
       await authenticator.login(credentials);
@@ -29,7 +21,7 @@ describe("Login", () => {
 
     it("Storage contains authUser", async () => {
       // ARRANGE
-      const { authenticator, storage, user } = createSut();
+      const { authenticator, storage, user } = createAuthenticatorSut();
 
       // ACT
       await authenticator.login(credentials);
@@ -41,7 +33,7 @@ describe("Login", () => {
 
     it("Should alert when login is done correctly", async () => {
       // ARRANGE
-      const { authenticator, alerter } = createSut();
+      const { authenticator, alerter } = createAuthenticatorSut();
       const successAlert = alerter.success;
 
       // ACT
@@ -57,7 +49,7 @@ describe("Login", () => {
     it("Credentials are invalid", async () => {
       // ARRANGE
       const authProvider = new FailedAuthProvider();
-      const { authenticator } = createSut({ authProvider });
+      const { authenticator } = createAuthenticatorSut({ authProvider });
 
       // ACT
       await authenticator.login(credentials);
@@ -70,7 +62,9 @@ describe("Login", () => {
     it("Should alert when credentials are incorrect", async () => {
       // ARRANGE
       const authProvider = new FailedAuthProvider();
-      const { authenticator, alerter } = createSut({ authProvider });
+      const { authenticator, alerter } = createAuthenticatorSut({
+        authProvider,
+      });
       const errorAlert = alerter.error;
 
       // ACT
@@ -82,24 +76,3 @@ describe("Login", () => {
     });
   });
 });
-
-type SutParams = {
-  authProvider?: AuthProvider;
-  user?: AuthUser;
-  storage?: Storage;
-};
-
-const createSut = (params?: SutParams) => {
-  const storage = new InMemoryStorage();
-  const user = params?.user || AuthUserFactory.create();
-  const authProvider = params?.authProvider || new StubAuthProvider(user);
-  const alerter = new StubAlerter();
-
-  const authenticator = new AuthenticatorUseCases(
-    authProvider,
-    storage,
-    alerter,
-  );
-
-  return { authenticator, storage, alerter, user };
-};
