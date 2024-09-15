@@ -5,7 +5,7 @@ import { IStorage } from "@shared/storage/storage.interface";
 import { Alerter } from "@shared/alerter/alerter.interface";
 
 export class AuthenticatorUseCases {
-  private user?: AuthUser;
+  private _user?: AuthUser;
 
   constructor(
     private authProvider: AuthProvider,
@@ -15,11 +15,11 @@ export class AuthenticatorUseCases {
 
   async login(credentials: Credentials) {
     try {
-      this.user = await this.authProvider.login(credentials);
-      this.storage.set("authUser", this.user);
+      this._user = await this.authProvider.login(credentials);
+      this.storage.set("authUser", this._user);
       this.alert.success("You are now connected");
     } catch {
-      delete this.user;
+      delete this._user;
       this.alert.error("Invalid credentials");
     }
   }
@@ -34,7 +34,17 @@ export class AuthenticatorUseCases {
     }
   }
 
+  async initialize() {
+    const storedUser = this.storage.get<AuthUser>("authUser");
+    if (!storedUser) return;
+    this._user = storedUser;
+  }
+
+  get user() {
+    return this._user;
+  }
+
   isConnected() {
-    return !!this.user;
+    return !!this._user;
   }
 }

@@ -15,17 +15,16 @@ type SutParams = {
 
 export const createAuthenticatorSut = (params?: SutParams) => {
   const storage = new InMemoryStorage();
-  if (params?.isLogged) storage.set("authUser", AuthUserFactory.create());
-
   const user = params?.user || AuthUserFactory.create();
   const authProvider = params?.authProvider || new StubAuthProvider(user);
   const alerter = new StubAlerter();
-
   const authenticator = new AuthenticatorUseCases(
     authProvider,
     storage,
     alerter,
   );
+
+  if (params?.isLogged) storage.set("authUser", user);
 
   return { authenticator, storage, alerter, authProvider, user };
 };
