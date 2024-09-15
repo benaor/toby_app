@@ -4,18 +4,18 @@ import { StorageKey } from "./storage.keys";
 export class InMemoryStorage implements IStorage {
   private storage = new Map<StorageKey, string>();
 
-  set(key: StorageKey, value: unknown) {
+  async set<T>(key: StorageKey, value: T) {
     const valueToStored = JSON.stringify(value);
     this.storage.set(key, valueToStored);
   }
 
-  get(key: StorageKey) {
+  async get<T>(key: StorageKey) {
     const res = this.storage.get(key);
 
-    return res ? JSON.parse(res) : null;
+    return Promise.resolve(res ? (JSON.parse(res) as T) : null);
   }
 
-  remove(key: StorageKey) {
-    this.storage.delete(key);
+  async remove(key: StorageKey) {
+    await Promise.resolve(this.storage.delete(key));
   }
 }

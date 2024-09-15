@@ -9,7 +9,7 @@ describe("Login", () => {
   describe("Happy Paths", () => {
     it("Credentials are valid", async () => {
       // ARRANGE
-      const { authenticator } = createAuthenticatorSut();
+      const { authenticator } = await createAuthenticatorSut();
 
       // ACT
       await authenticator.login(credentials);
@@ -21,19 +21,19 @@ describe("Login", () => {
 
     it("Storage contains authUser", async () => {
       // ARRANGE
-      const { authenticator, storage, user } = createAuthenticatorSut();
+      const { authenticator, storage, user } = await createAuthenticatorSut();
 
       // ACT
       await authenticator.login(credentials);
 
       // ASSERT
-      const storedUser = storage.get("authUser");
+      const storedUser = await storage.get("authUser");
       expect(storedUser).toStrictEqual(user);
     });
 
     it("Should alert when login is done correctly", async () => {
       // ARRANGE
-      const { authenticator, alerter } = createAuthenticatorSut();
+      const { authenticator, alerter } = await createAuthenticatorSut();
       const successAlert = alerter.success;
 
       // ACT
@@ -49,7 +49,7 @@ describe("Login", () => {
     it("Credentials are invalid", async () => {
       // ARRANGE
       const authProvider = new FailedAuthProvider();
-      const { authenticator } = createAuthenticatorSut({ authProvider });
+      const { authenticator } = await createAuthenticatorSut({ authProvider });
 
       // ACT
       await authenticator.login(credentials);
@@ -62,7 +62,7 @@ describe("Login", () => {
     it("Should alert when credentials are incorrect", async () => {
       // ARRANGE
       const authProvider = new FailedAuthProvider();
-      const { authenticator, alerter } = createAuthenticatorSut({
+      const { authenticator, alerter } = await createAuthenticatorSut({
         authProvider,
       });
       const errorAlert = alerter.error;

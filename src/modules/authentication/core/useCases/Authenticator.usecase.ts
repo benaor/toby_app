@@ -16,7 +16,7 @@ export class AuthenticatorUseCases {
   async login(credentials: Credentials) {
     try {
       this._user = await this.authProvider.login(credentials);
-      this.storage.set("authUser", this._user);
+      await this.storage.set("authUser", this._user);
       this.alert.success("You are now connected");
     } catch {
       delete this._user;
@@ -27,7 +27,7 @@ export class AuthenticatorUseCases {
   async logout() {
     try {
       await this.authProvider.logout();
-      this.storage.remove("authUser");
+      await this.storage.remove("authUser");
       this.alert.success("You are now disconnected");
     } catch {
       this.alert.error("an error occurred while disconnecting");
@@ -35,7 +35,7 @@ export class AuthenticatorUseCases {
   }
 
   async initialize() {
-    const storedUser = this.storage.get<AuthUser>("authUser");
+    const storedUser = await this.storage.get<AuthUser>("authUser");
     if (!storedUser) return;
     this._user = storedUser;
   }

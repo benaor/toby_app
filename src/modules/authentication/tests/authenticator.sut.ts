@@ -13,7 +13,7 @@ type SutParams = {
   isLogged?: boolean;
 };
 
-export const createAuthenticatorSut = (params?: SutParams) => {
+export const createAuthenticatorSut = async (params?: SutParams) => {
   const storage = new InMemoryStorage();
   const user = params?.user || AuthUserFactory.create();
   const authProvider = params?.authProvider || new StubAuthProvider(user);
@@ -24,7 +24,7 @@ export const createAuthenticatorSut = (params?: SutParams) => {
     alerter,
   );
 
-  if (params?.isLogged) storage.set("authUser", user);
+  if (params?.isLogged) await storage.set("authUser", user);
 
   return { authenticator, storage, alerter, authProvider, user };
 };

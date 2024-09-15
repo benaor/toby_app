@@ -10,19 +10,19 @@ describe("Login", () => {
   describe("Happy Paths", () => {
     it("Storage should be empty", async () => {
       // ARRANGE
-      const { authenticator, storage } = createAuthenticatorSut();
+      const { authenticator, storage } = await createAuthenticatorSut();
 
       // ACT
       await authenticator.logout();
 
       // ASSERT
-      const storedUser = storage.get("authUser");
+      const storedUser = await storage.get("authUser");
       expect(storedUser).toBeNull();
     });
 
     it("Should alert when logout is done correctly", async () => {
       // ARRANGE
-      const { authenticator, alerter } = createAuthenticatorSut();
+      const { authenticator, alerter } = await createAuthenticatorSut();
       const successAlert = alerter.success;
 
       // ACT
@@ -36,7 +36,7 @@ describe("Login", () => {
     it("Should call logout from authProvider", async () => {
       // ARRANGE
       const authProvider = new StubAuthProvider(AuthUserFactory.create());
-      const { authenticator } = createAuthenticatorSut({ authProvider });
+      const { authenticator } = await createAuthenticatorSut({ authProvider });
       const successLogout = authProvider.logoutFn;
 
       // ACT
@@ -51,7 +51,7 @@ describe("Login", () => {
     it("Should alert when logout doesn't done correctly", async () => {
       // ARRANGE
       const authProvider = new FailedAuthProvider();
-      const { authenticator, alerter } = createAuthenticatorSut({
+      const { authenticator, alerter } = await createAuthenticatorSut({
         authProvider,
       });
       const errorAlert = alerter.error;

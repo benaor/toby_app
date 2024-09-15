@@ -4,7 +4,7 @@ import { createAuthenticatorSut } from "../authenticator.sut";
 describe("the user is not authenticated", () => {
   test("no user should be loaded", async () => {
     // ARRANGE
-    const { authenticator } = createAuthenticatorSut();
+    const { authenticator } = await createAuthenticatorSut();
 
     // ACT
     await authenticator.initialize();
@@ -18,7 +18,7 @@ describe("the user is authenticated", () => {
   test("no user should be loaded", async () => {
     const user = AuthUserFactory.create({ id: "123" });
 
-    const { authenticator } = createAuthenticatorSut({
+    const { authenticator } = await createAuthenticatorSut({
       isLogged: true,
       user,
     });
