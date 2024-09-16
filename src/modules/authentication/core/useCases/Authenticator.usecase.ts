@@ -1,11 +1,11 @@
 import { AuthProvider } from "../ports/AuthProvider.port";
-import { AuthUser } from "../models/AuthUser.type";
+import { SessionUser } from "../models/AuthUser.type";
 import { Credentials } from "../models/Credentials.type";
 import { IStorage } from "@shared/storage/storage.interface";
 import { Alerter } from "@shared/alerter/alerter.interface";
 
-export class AuthenticatorUseCases {
-  private _user?: AuthUser;
+export class Authenticator {
+  private _user?: SessionUser;
 
   constructor(
     private authProvider: AuthProvider,
@@ -35,9 +35,17 @@ export class AuthenticatorUseCases {
   }
 
   async initialize() {
-    const storedUser = await this.storage.get<AuthUser>("authUser");
+    const storedUser = await this.storage.get<SessionUser>("authUser");
     if (!storedUser) return;
     this._user = storedUser;
+  }
+
+  startAutoRefresh() {
+    this.authProvider.startAutoRefresh();
+  }
+
+  stopAutoRefresh() {
+    this.authProvider.stopAutoRefresh();
   }
 
   get user() {

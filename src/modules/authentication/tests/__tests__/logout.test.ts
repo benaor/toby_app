@@ -1,9 +1,5 @@
-import {
-  FailedAuthProvider,
-  StubAuthProvider,
-} from "@authentication/core/adapters/TestingAuthProvider.adapter";
+import { FailedAuthProvider } from "@authentication/core/adapters/TestingAuthProvider.adapter";
 
-import { AuthUserFactory } from "@authentication/core/models/AuthUser.factory";
 import { createAuthenticatorSut } from "../authenticator.sut";
 
 describe("Login", () => {
@@ -35,15 +31,13 @@ describe("Login", () => {
 
     it("Should call logout from authProvider", async () => {
       // ARRANGE
-      const authProvider = new StubAuthProvider(AuthUserFactory.create());
-      const { authenticator } = await createAuthenticatorSut({ authProvider });
-      const successLogout = authProvider.logoutFn;
+      const { authenticator, authProvider } = await createAuthenticatorSut();
 
       // ACT
       await authenticator.logout();
 
       // ASSERT
-      expect(successLogout).toHaveBeenCalledTimes(1);
+      expect(authProvider.logout).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -54,14 +48,13 @@ describe("Login", () => {
       const { authenticator, alerter } = await createAuthenticatorSut({
         authProvider,
       });
-      const errorAlert = alerter.error;
 
       // ACT
       await authenticator.logout();
 
       // ASSERT
-      expect(errorAlert).toHaveBeenCalledTimes(1);
-      expect(errorAlert).toHaveBeenCalledWith(
+      expect(alerter.error).toHaveBeenCalledTimes(1);
+      expect(alerter.error).toHaveBeenCalledWith(
         "an error occurred while disconnecting",
       );
     });

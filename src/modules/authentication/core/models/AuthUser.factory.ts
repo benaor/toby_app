@@ -1,7 +1,7 @@
-import { AuthUser } from "./AuthUser.type";
+import { SessionUser } from "./AuthUser.type";
 
 export class AuthUserFactory {
-  static create(authUser?: Partial<AuthUser>): AuthUser {
+  static create(authUser?: Partial<SessionUser>): SessionUser {
     return {
       id: "1",
       email: "john@doe.com",
