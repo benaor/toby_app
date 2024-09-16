@@ -1,4 +1,4 @@
-import { AuthUserFactory } from "@authentication/core/models/AuthUser.factory";
+import { SessionFactory } from "@authentication/core/models/AuthUser.factory";
 import { createAuthenticatorSut } from "../authenticator.sut";
 
 describe("the user is not authenticated", () => {
@@ -15,16 +15,16 @@ describe("the user is not authenticated", () => {
 });
 
 describe("the user is authenticated", () => {
-  test("no user should be loaded", async () => {
-    const user = AuthUserFactory.create({ id: "123" });
+  test("User should be loaded", async () => {
+    const session = SessionFactory.SESSION({ user: { id: "123" } });
 
     const { authenticator } = await createAuthenticatorSut({
       isLogged: true,
-      user,
+      session,
     });
 
     await authenticator.initialize();
 
-    expect(authenticator.user).toEqual(user);
+    expect(authenticator.user).toEqual(session.user);
   });
 });

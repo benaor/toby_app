@@ -3,7 +3,7 @@ export type SessionUser = {
   email: string;
 };
 
-type SessionToken = {
+export type SessionToken = {
   value: string;
   expiresAt: string;
 };

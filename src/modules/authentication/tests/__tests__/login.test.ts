@@ -2,6 +2,7 @@ import { FailedAuthProvider } from "@authentication/core/adapters/TestingAuthPro
 
 import { Credentials } from "@authentication/core/models/Credentials.type";
 import { createAuthenticatorSut } from "../authenticator.sut";
+import { Session } from "@authentication/core/models/AuthUser.type";
 
 const credentials: Credentials = { email: "john", password: "doe" };
 
@@ -19,16 +20,31 @@ describe("Login", () => {
       expect(isConnected).toBeTruthy();
     });
 
-    it("Storage contains authUser", async () => {
+    it("Storage contains session's tokens", async () => {
       // ARRANGE
-      const { authenticator, storage, user } = await createAuthenticatorSut();
+      const { authenticator, storage, session } =
+        await createAuthenticatorSut();
 
       // ACT
       await authenticator.login(credentials);
 
       // ASSERT
-      const storedUser = await storage.get("authUser");
-      expect(storedUser).toStrictEqual(user);
+      const storedSession = await storage.get<Session>("session");
+      expect(storedSession?.accessToken).toStrictEqual(session.accessToken);
+      expect(storedSession?.refreshToken).toStrictEqual(session.refreshToken);
+    });
+
+    it("Storage contains session user's infos", async () => {
+      // ARRANGE
+      const { authenticator, storage, session } =
+        await createAuthenticatorSut();
+
+      // ACT
+      await authenticator.login(credentials);
+
+      // ASSERT
+      const storedSession = await storage.get<Session>("session");
+      expect(storedSession?.user).toStrictEqual(session.user);
     });
 
     it("Should alert when login is done correctly", async () => {

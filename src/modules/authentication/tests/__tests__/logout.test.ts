@@ -12,7 +12,7 @@ describe("Login", () => {
       await authenticator.logout();
 
       // ASSERT
-      const storedUser = await storage.get("authUser");
+      const storedUser = await storage.get("session");
       expect(storedUser).toBeNull();
     });
 
