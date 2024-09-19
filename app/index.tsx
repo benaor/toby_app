@@ -1,14 +1,23 @@
 import { screens } from "@/src/constants/screens";
 import { useAuthentication } from "@authentication/ui/hooks/useAuthentication";
 import { Redirect } from "expo-router";
+import { AppState } from "react-native";
 
 export default function RootScreen() {
-  const { isConnected, isDisconnected } = useAuthentication();
+  const { isConnected, startAutoRefresh, stopAutoRefresh } =
+    useAuthentication();
+
+  AppState.addEventListener("change", (state) =>
+    state === "active" ? startAutoRefresh() : stopAutoRefresh(),
+  );
 
   return (
     <>
-      {isConnected && <Redirect href={screens.home} />}
-      {isDisconnected && <Redirect href={screens.onboarding} />}
+      {isConnected ? (
+        <Redirect href={screens.home} />
+      ) : (
+        <Redirect href={screens.onboarding} />
+      )}
     </>
   );
 }

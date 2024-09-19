@@ -9,6 +9,8 @@ import { createStyleSheet } from "@themes/createStyleSheet";
 import { ThemeProvider } from "@themes/useTheme";
 import { theme } from "@themes/theme";
 import { FeatureFlagProvider } from "@/src/ui/contexts/useFeatureFlag";
+import { DependenciesProvider } from "@/src/dependencies/useDependencies";
+import { AuthProvider } from "@authentication/ui/hooks/useAuthentication";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -27,11 +29,15 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider theme={theme}>
-      <FeatureFlagProvider>
-        <SafeAreaView style={styles.container}>
-          <Slot />
-        </SafeAreaView>
-      </FeatureFlagProvider>
+      <DependenciesProvider>
+        <AuthProvider>
+          <FeatureFlagProvider>
+            <SafeAreaView style={styles.container}>
+              <Slot />
+            </SafeAreaView>
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </DependenciesProvider>
     </ThemeProvider>
   );
 }

@@ -1,24 +1,25 @@
 import { FailedAuthProvider } from "@authentication/core/adapters/TestingAuthProvider.adapter";
 
 import { createAuthenticatorSut } from "../authenticator.sut";
+import { Session } from "@authentication/core/models/AuthUser.type";
 
 describe("Login", () => {
   describe("Happy Paths", () => {
     it("Storage should be empty", async () => {
       // ARRANGE
-      const { authenticator, storage } = await createAuthenticatorSut();
+      const { authenticator, typedStorage } = createAuthenticatorSut();
 
       // ACT
       await authenticator.logout();
 
       // ASSERT
-      const storedUser = await storage.get("session");
+      const storedUser = typedStorage.get<Session>("session");
       expect(storedUser).toBeNull();
     });
 
     it("Should alert when logout is done correctly", async () => {
       // ARRANGE
-      const { authenticator, alerter } = await createAuthenticatorSut();
+      const { authenticator, alerter } = createAuthenticatorSut();
       const successAlert = alerter.success;
 
       // ACT
@@ -31,7 +32,7 @@ describe("Login", () => {
 
     it("Should call logout from authProvider", async () => {
       // ARRANGE
-      const { authenticator, authProvider } = await createAuthenticatorSut();
+      const { authenticator, authProvider } = createAuthenticatorSut();
 
       // ACT
       await authenticator.logout();

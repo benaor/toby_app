@@ -6,4 +6,5 @@ export interface AuthProvider {
   logout: () => Promise<void>;
   startAutoRefresh: VoidFunction;
   stopAutoRefresh: VoidFunction;
+  onAuthStateChange: (cb: (session: Session | null) => void) => void;
 }

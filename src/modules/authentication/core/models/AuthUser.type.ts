@@ -5,7 +5,7 @@ export type SessionUser = {
 
 export type SessionToken = {
   value: string;
-  expiresAt: string;
+  expiresAt?: number;
 };
 
 export type Session = {

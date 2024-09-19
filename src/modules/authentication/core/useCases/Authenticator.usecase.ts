@@ -1,25 +1,25 @@
 import { AuthProvider } from "../ports/AuthProvider.port";
 import { Session } from "../models/AuthUser.type";
 import { Credentials } from "../models/Credentials.type";
-import { IStorage } from "@shared/storage/storage.interface";
+import { TypedStorage } from "@shared/storage/storage.interface";
 import { Alerter } from "@shared/alerter/alerter.interface";
 
 export class Authenticator {
-  private _session?: Session;
+  private _session: Session | null = null;
 
   constructor(
     private authProvider: AuthProvider,
-    private storage: IStorage,
+    private storage: TypedStorage,
     private alert: Alerter,
   ) {}
 
   async login(credentials: Credentials) {
     try {
       this._session = await this.authProvider.login(credentials);
-      await this.storage.set("session", this._session);
+      this.storage.set("session", this._session);
       this.alert.success("You are now connected");
     } catch {
-      delete this._session;
+      this._session = null;
       this.alert.error("Invalid credentials");
     }
   }
@@ -27,7 +27,7 @@ export class Authenticator {
   async logout() {
     try {
       await this.authProvider.logout();
-      await this.storage.remove("session");
+      this.storage.remove("session");
       this.alert.success("You are now disconnected");
     } catch {
       this.alert.error("an error occurred while disconnecting");
@@ -35,7 +35,7 @@ export class Authenticator {
   }
 
   async initialize() {
-    const storedUser = await this.storage.get<Session>("session");
+    const storedUser = this.storage.get<Session>("session");
     if (!storedUser) return;
     this._session = storedUser;
   }
@@ -52,7 +52,7 @@ export class Authenticator {
     return !!this._session;
   }
 
-  get user() {
-    return this._session?.user;
+  get session() {
+    return this._session;
   }
 }

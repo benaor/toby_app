@@ -2,9 +2,9 @@ import { useAuthentication } from "@authentication/ui/hooks/useAuthentication";
 import { Redirect, Stack } from "expo-router";
 
 export default function ConnectedLayout() {
-  const { isDisconnected } = useAuthentication();
+  const { isConnected } = useAuthentication();
 
-  if (isDisconnected) return <Redirect href="onboarding" />;
+  if (!isConnected) return <Redirect href="onboarding" />;
 
   return (
     <Stack>

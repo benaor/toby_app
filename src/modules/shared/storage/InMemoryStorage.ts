@@ -1,21 +1,41 @@
-import { IStorage } from "./storage.interface";
+import { IStorage, TypedStorage } from "./storage.interface";
 import { StorageKey } from "./storage.keys";
 
 export class InMemoryStorage implements IStorage {
-  private storage = new Map<StorageKey, string>();
+  private storage = new Map<string, string>();
+  lenght: number = this.storage.size;
 
-  async set<T>(key: StorageKey, value: T) {
-    const valueToStored = JSON.stringify(value);
-    this.storage.set(key, valueToStored);
+  setItem(key: string, value: string) {
+    this.storage.set(key, value);
   }
 
-  async get<T>(key: StorageKey) {
-    const res = this.storage.get(key);
-
-    return Promise.resolve(res ? (JSON.parse(res) as T) : null);
+  getItem(key: string) {
+    return this.storage.get(key) ?? null;
   }
 
-  async remove(key: StorageKey) {
-    await Promise.resolve(this.storage.delete(key));
+  removeItem(key: string) {
+    this.storage.delete(key);
+  }
+}
+
+export class InMemoryTypedStorage implements TypedStorage {
+  constructor(private storage: IStorage) {}
+
+  get<T>(key: StorageKey): T | null {
+    const value = this.storage.getItem(key);
+    if (!value) return null;
+    return JSON.parse(value) as T;
+  }
+
+  set<T>(key: StorageKey, value: T) {
+    this.storage.setItem(key, JSON.stringify(value));
+  }
+
+  remove(key: StorageKey) {
+    this.storage.removeItem(key);
+  }
+
+  getStorage() {
+    return this.storage;
   }
 }

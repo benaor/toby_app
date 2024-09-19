@@ -10,7 +10,7 @@ describe("Login", () => {
   describe("Happy Paths", () => {
     it("Credentials are valid", async () => {
       // ARRANGE
-      const { authenticator } = await createAuthenticatorSut();
+      const { authenticator } = createAuthenticatorSut();
 
       // ACT
       await authenticator.login(credentials);
@@ -22,34 +22,32 @@ describe("Login", () => {
 
     it("Storage contains session's tokens", async () => {
       // ARRANGE
-      const { authenticator, storage, session } =
-        await createAuthenticatorSut();
+      const { authenticator, typedStorage, session } = createAuthenticatorSut();
 
       // ACT
       await authenticator.login(credentials);
 
       // ASSERT
-      const storedSession = await storage.get<Session>("session");
+      const storedSession = typedStorage.get<Session>("session");
       expect(storedSession?.accessToken).toStrictEqual(session.accessToken);
       expect(storedSession?.refreshToken).toStrictEqual(session.refreshToken);
     });
 
     it("Storage contains session user's infos", async () => {
       // ARRANGE
-      const { authenticator, storage, session } =
-        await createAuthenticatorSut();
+      const { authenticator, typedStorage, session } = createAuthenticatorSut();
 
       // ACT
       await authenticator.login(credentials);
 
       // ASSERT
-      const storedSession = await storage.get<Session>("session");
+      const storedSession = typedStorage.get<Session>("session");
       expect(storedSession?.user).toStrictEqual(session.user);
     });
 
     it("Should alert when login is done correctly", async () => {
       // ARRANGE
-      const { authenticator, alerter } = await createAuthenticatorSut();
+      const { authenticator, alerter } = createAuthenticatorSut();
       const successAlert = alerter.success;
 
       // ACT
@@ -65,7 +63,7 @@ describe("Login", () => {
     it("Credentials are invalid", async () => {
       // ARRANGE
       const authProvider = new FailedAuthProvider();
-      const { authenticator } = await createAuthenticatorSut({ authProvider });
+      const { authenticator } = createAuthenticatorSut({ authProvider });
 
       // ACT
       await authenticator.login(credentials);
@@ -78,7 +76,7 @@ describe("Login", () => {
     it("Should alert when credentials are incorrect", async () => {
       // ARRANGE
       const authProvider = new FailedAuthProvider();
-      const { authenticator, alerter } = await createAuthenticatorSut({
+      const { authenticator, alerter } = createAuthenticatorSut({
         authProvider,
       });
       const errorAlert = alerter.error;
