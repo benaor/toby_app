@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useMemo } from "react";
 import { Dependencies } from "./Dependencies.type";
 import { Authenticator } from "@authentication/core/useCases/Authenticator.usecase";
 import { AuthProvider } from "@authentication/core/ports/AuthProvider.port";
-import { IStorage } from "@shared/storage/storage.interface";
+import { IStorage, TypedStorage } from "@shared/storage/storage.interface";
 import { Alerter } from "@shared/alerter/alerter.interface";
 
 const DependenciesContext = createContext<Dependencies | null>(null);
@@ -18,15 +18,24 @@ export const DependenciesProvider = ({
     const authProvider: AuthProvider = {
       login: jest.fn(),
       logout: jest.fn(),
-      initialize: jest.fn(),
+      getSession: jest.fn(),
       startAutoRefresh: jest.fn(),
       stopAutoRefresh: jest.fn(),
+      onAuthStateChange: jest.fn(),
     };
 
     const storage: IStorage = {
+      getItem: jest.fn(),
+      setItem: jest.fn(),
+      removeItem: jest.fn(),
+      lenght: jest.fn(),
+    };
+
+    const typedStorage: TypedStorage = {
       get: jest.fn(),
       set: jest.fn(),
       remove: jest.fn(),
+      getStorage: jest.fn(),
     };
 
     const alerter: Alerter = {
@@ -34,7 +43,11 @@ export const DependenciesProvider = ({
       error: jest.fn(),
     };
 
-    const authenticator = new Authenticator(authProvider, storage, alerter);
+    const authenticator = new Authenticator(
+      authProvider,
+      typedStorage,
+      alerter,
+    );
 
     return {
       // Ports

@@ -21,29 +21,32 @@ type AuthContext = {
 
 const authContext = createContext<AuthContext | null>(null);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const { authenticator } = useDependencies();
 
   const [session, setSession] = useState<Session | null>(null);
   const [isReady, setIsReady] = useState<boolean>(false);
 
   useEffect(() => {
-    (async () => {
-      await authenticator.initialize();
+    authenticator.getSession().then((session) => {
+      setSession(session);
       setIsReady(true);
-    })();
-  }, [authenticator]);
+    });
 
-  useEffect(() => {
-    setSession(authenticator.session);
-  }, [authenticator.session]);
+    authenticator.onAuthStateChange((session) => {
+      setSession(session);
+    });
+  }, [authenticator]);
 
   const logout = async () => await authenticator.logout();
   const stopAutoRefresh = () => authenticator.stopAutoRefresh();
   const startAutoRefresh = () => authenticator.startAutoRefresh();
   const signInWithEmail = async (credentials: Credentials) => {
+    setIsReady(false);
     await authenticator.login(credentials);
-    setSession(authenticator.session || null);
+    const session = await authenticator.getSession();
+    setSession(session);
+    setIsReady(true);
   };
 
   const isConnected = authenticator.isConnected();

@@ -37,6 +37,11 @@ export class SupabaseAuthProvider implements AuthProvider {
     await this.supabase.auth.signOut();
   }
 
+  async getSession(): Promise<Session | null> {
+    const res = await this.supabase.auth.getSession();
+    return this.supabaseSessionResponseToAppSession(res);
+  }
+
   startAutoRefresh() {
     this.supabase.auth.startAutoRefresh();
   }
@@ -49,11 +54,6 @@ export class SupabaseAuthProvider implements AuthProvider {
     this.supabase.auth.onAuthStateChange((_event, _session) => {
       cb(this.supabaseSessionToAppSession(_session));
     });
-  }
-
-  async getSession(): Promise<Session | null> {
-    const res = await this.supabase.auth.getSession();
-    return this.supabaseSessionResponseToAppSession(res);
   }
 
   // Mappers

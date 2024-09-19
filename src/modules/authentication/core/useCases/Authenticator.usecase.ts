@@ -34,10 +34,8 @@ export class Authenticator {
     }
   }
 
-  async initialize() {
-    const storedUser = this.storage.get<Session>("session");
-    if (!storedUser) return;
-    this._session = storedUser;
+  onAuthStateChange(cb: (session: Session | null) => void) {
+    this.authProvider.onAuthStateChange(cb);
   }
 
   startAutoRefresh() {
@@ -52,7 +50,14 @@ export class Authenticator {
     return !!this._session;
   }
 
-  get session() {
-    return this._session;
+  async getSession() {
+    try {
+      const session = await this.authProvider.getSession();
+      this._session = session;
+      return session;
+    } catch {
+      this._session = null;
+      return null;
+    }
   }
 }
