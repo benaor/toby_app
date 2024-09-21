@@ -10,8 +10,8 @@ import { Credentials } from "../models/Credentials.type";
 import { Session } from "../models/AuthUser.type";
 import { IStorage } from "@shared/storage/storage.interface";
 
-const supabaseUrl = process.env.SUPABASE_URL!;
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
 export class SupabaseAuthProvider implements AuthProvider {
   private supabase: SupabaseClient;

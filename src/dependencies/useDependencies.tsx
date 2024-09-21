@@ -4,7 +4,10 @@ import { Authenticator } from "@authentication/core/useCases/Authenticator.useca
 import { AuthProvider } from "@authentication/core/ports/AuthProvider.port";
 import { IStorage, TypedStorage } from "@shared/storage/storage.interface";
 import { Alerter } from "@shared/alerter/alerter.interface";
-import { InMemoryTypedStorage } from "@shared/storage/InMemoryStorage";
+import {
+  InMemoryStorage,
+  InMemoryTypedStorage,
+} from "@shared/storage/InMemoryStorage";
 import { SupabaseAuthProvider } from "@authentication/core/adapters/SupabaseAuthProvider";
 
 const DependenciesContext = createContext<Dependencies | null>(null);
@@ -17,7 +20,7 @@ export const DependenciesProvider = ({
   dependencies?: Partial<Dependencies>;
 }) => {
   const initialDeps = useMemo<Dependencies>(() => {
-    const storage: IStorage = localStorage;
+    const storage: IStorage = new InMemoryStorage();
     const typedStorage: TypedStorage = new InMemoryTypedStorage(storage);
     const authProvider: AuthProvider = new SupabaseAuthProvider(storage);
 

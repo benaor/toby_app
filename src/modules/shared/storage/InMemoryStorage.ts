@@ -3,7 +3,7 @@ import { StorageKey } from "./storage.keys";
 
 export class InMemoryStorage implements IStorage {
   private storage = new Map<string, string>();
-  lenght: number = this.storage.size;
+  length: number = this.storage.size;
 
   setItem(key: string, value: string) {
     this.storage.set(key, value);

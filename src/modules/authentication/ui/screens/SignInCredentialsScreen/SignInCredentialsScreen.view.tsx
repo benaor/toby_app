@@ -8,28 +8,43 @@ import { TextInput } from "@components/TextInput";
 import { Button } from "@components/Button";
 import { useTheme } from "@themes/useTheme";
 import { SocialButton } from "@components/SocialButton";
-import { useAuthentication } from "@authentication/ui/hooks/useAuthentication";
 
 export const SignInCredentialsScreen: FC = () => {
-  const { goToSignUpScreen, goToForgetPasswordScreen } =
-    useSignInCredentialsScreen();
+  const {
+    goToSignUpScreen,
+    goToForgetPasswordScreen,
+    signIn,
+    handleEmailChange,
+    handlePasswordChange,
+    credentials,
+  } = useSignInCredentialsScreen();
   const { colors } = useTheme();
-  const { signInWithEmail } = useAuthentication();
 
   return (
     <View style={styles.container}>
       <GuyOpenShuttersSVG style={styles.svg} />
       <View style={styles.textContainer}>
         <Typography.Header size="large">Connexion</Typography.Header>
-        <TextInput placeholder="Adresse mail" />
-        <TextInput placeholder="Mot de passe" secureTextEntry />
+        <TextInput
+          placeholder="Adresse mail"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          value={credentials.email}
+          onChangeText={handleEmailChange}
+        />
+        <TextInput
+          placeholder="Mot de passe"
+          secureTextEntry
+          value={credentials.password}
+          onChangeText={handlePasswordChange}
+        />
         <Button fullWidth variant="text" onPress={goToForgetPasswordScreen}>
           <Button.Label
             colors={["primary", "medium"]}
             label="Mot de passe perdu?"
           />
         </Button>
-        <Button fullWidth onPress={signInWithEmail}>
+        <Button fullWidth onPress={signIn}>
           <Button.Label colors={["typography", "low"]} label="Se connecter" />
           <Button.Icon name="arrowright" color={colors.typography.low} />
         </Button>
