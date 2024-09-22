@@ -1,8 +1,9 @@
 import { AuthProvider } from "../ports/AuthProvider.port";
 import { Session } from "../models/AuthUser.type";
 import { Credentials } from "../models/Credentials.type";
-import { TypedStorage } from "@shared/storage/storage.interface";
+
 import { Alerter } from "@shared/alerter/alerter.interface";
+import { TypedStorage } from "@shared/storage/typedStorage.interface";
 
 export class Authenticator {
   private _session: Session | null = null;

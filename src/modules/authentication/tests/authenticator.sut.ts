@@ -4,24 +4,21 @@ import { Session } from "@authentication/core/models/AuthUser.type";
 import { AuthProvider } from "@authentication/core/ports/AuthProvider.port";
 import { Authenticator } from "@authentication/core/useCases/Authenticator.usecase";
 import { StubAlerter } from "@shared/alerter/StubAlerter";
-import {
-  InMemoryStorage,
-  InMemoryTypedStorage,
-} from "@shared/storage/InMemoryStorage";
-import { AsyncStorage, TypedStorage } from "@shared/storage/storage.interface";
+import { InMemoryStorage } from "@shared/storage/InMemoryStorage";
+import { AsyncStorage } from "@shared/storage/storage.interface";
+
+import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 
 type SutParams = {
   authProvider?: AuthProvider;
   session?: Session;
   storage?: AsyncStorage;
-  typedStorage?: TypedStorage;
   isLogged?: boolean;
 };
 
 export const createAuthenticatorSut = async (params?: SutParams) => {
   const storage = params?.storage || new InMemoryStorage();
-  const typedStorage =
-    params?.typedStorage || new InMemoryTypedStorage(storage);
+  const typedStorage = new TypedStorageImpl(storage);
   const session = params?.session || SessionFactory.SESSION();
   const authProvider = params?.authProvider || new StubAuthProvider(session);
   const alerter = new StubAlerter();

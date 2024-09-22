@@ -12,7 +12,7 @@ export class SessionFactory {
   static SESSION_TOKEN(token?: Partial<SessionToken>): SessionToken {
     return {
       value: "token",
-      expiresAt: "2030-01-01",
+      expiresAt: 2526332400, // 2050-01-01,
       ...token,
     };
   }

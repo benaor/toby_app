@@ -1,12 +1,11 @@
-import { InMemoryTypedStorage } from "@shared/storage/InMemoryStorage";
 import { Dependencies } from "./Dependencies.type";
 import { InMemoryAuthProvider } from "@authentication/core/adapters/InMemoryAuthProvider";
 import { AlertAlerter } from "@shared/alerter/AlertAlerter";
 import { Authenticator } from "@authentication/core/useCases/Authenticator.usecase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 
-const storage = AsyncStorage;
-const typedStorage = new InMemoryTypedStorage(storage);
+const typedStorage = new TypedStorageImpl(AsyncStorage);
 const authProvider = new InMemoryAuthProvider();
 const alerter = new AlertAlerter();
 
@@ -14,7 +13,6 @@ const alerter = new AlertAlerter();
 const authenticator = new Authenticator(authProvider, typedStorage, alerter);
 
 export const prodDependencies: Dependencies = {
-  storage,
   typedStorage,
   authProvider,
   alerter,

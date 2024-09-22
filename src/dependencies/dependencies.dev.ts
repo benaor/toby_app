@@ -1,14 +1,12 @@
-import {
-  InMemoryStorage,
-  InMemoryTypedStorage,
-} from "@shared/storage/InMemoryStorage";
 import { Dependencies } from "./Dependencies.type";
 import { InMemoryAuthProvider } from "@authentication/core/adapters/InMemoryAuthProvider";
 import { AlertAlerter } from "@shared/alerter/AlertAlerter";
 import { Authenticator } from "@authentication/core/useCases/Authenticator.usecase";
+import { InMemoryStorage } from "@shared/storage/InMemoryStorage";
+import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 
 const storage = new InMemoryStorage();
-const typedStorage = new InMemoryTypedStorage(storage);
+const typedStorage = new TypedStorageImpl(storage);
 const authProvider = new InMemoryAuthProvider();
 const alerter = new AlertAlerter();
 
@@ -16,7 +14,6 @@ const alerter = new AlertAlerter();
 const authenticator = new Authenticator(authProvider, typedStorage, alerter);
 
 export const devDependencies: Dependencies = {
-  storage,
   typedStorage,
   authProvider,
   alerter,

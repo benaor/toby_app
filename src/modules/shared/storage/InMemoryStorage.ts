@@ -1,5 +1,4 @@
-import { AsyncStorage, TypedStorage } from "./storage.interface";
-import { StorageKey } from "./storage.keys";
+import { AsyncStorage } from "./storage.interface";
 
 export class InMemoryStorage implements AsyncStorage {
   private storage = new Map<string, string>();
@@ -7,35 +6,19 @@ export class InMemoryStorage implements AsyncStorage {
 
   async setItem(key: string, value: string) {
     this.storage.set(key, value);
+
+    return Promise.resolve();
   }
 
   async getItem(key: string) {
-    return this.storage.get(key) ?? null;
+    const item = this.storage.get(key) ?? null;
+
+    return Promise.resolve(item);
   }
 
   async removeItem(key: string) {
     this.storage.delete(key);
-  }
-}
 
-export class InMemoryTypedStorage implements TypedStorage {
-  constructor(private storage: AsyncStorage) {}
-
-  async get<T>(key: StorageKey): Promise<T | null> {
-    const value = await this.storage.getItem(key);
-    if (!value) return null;
-    return JSON.parse(value) as T;
-  }
-
-  async set<T>(key: StorageKey, value: T) {
-    this.storage.setItem(key, JSON.stringify(value));
-  }
-
-  async remove(key: StorageKey) {
-    this.storage.removeItem(key);
-  }
-
-  async getStorage() {
-    return this.storage;
+    return Promise.resolve();
   }
 }
