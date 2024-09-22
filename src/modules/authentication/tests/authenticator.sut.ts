@@ -8,17 +8,17 @@ import {
   InMemoryStorage,
   InMemoryTypedStorage,
 } from "@shared/storage/InMemoryStorage";
-import { IStorage, TypedStorage } from "@shared/storage/storage.interface";
+import { AsyncStorage, TypedStorage } from "@shared/storage/storage.interface";
 
 type SutParams = {
   authProvider?: AuthProvider;
   session?: Session;
-  storage?: IStorage;
+  storage?: AsyncStorage;
   typedStorage?: TypedStorage;
   isLogged?: boolean;
 };
 
-export const createAuthenticatorSut = (params?: SutParams) => {
+export const createAuthenticatorSut = async (params?: SutParams) => {
   const storage = params?.storage || new InMemoryStorage();
   const typedStorage =
     params?.typedStorage || new InMemoryTypedStorage(storage);
@@ -27,11 +27,10 @@ export const createAuthenticatorSut = (params?: SutParams) => {
   const alerter = new StubAlerter();
   const authenticator = new Authenticator(authProvider, typedStorage, alerter);
 
-  if (params?.isLogged) typedStorage.set<Session>("session", session);
+  if (params?.isLogged) await typedStorage.set<Session>("session", session);
 
   return {
     authenticator,
-    storage,
     alerter,
     authProvider,
     session,

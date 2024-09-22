@@ -1,14 +1,7 @@
 import { createContext, ReactNode, useContext, useMemo } from "react";
 import { Dependencies } from "./Dependencies.type";
-import { Authenticator } from "@authentication/core/useCases/Authenticator.usecase";
-import { AuthProvider } from "@authentication/core/ports/AuthProvider.port";
-import { IStorage, TypedStorage } from "@shared/storage/storage.interface";
-import { Alerter } from "@shared/alerter/alerter.interface";
-import {
-  InMemoryStorage,
-  InMemoryTypedStorage,
-} from "@shared/storage/InMemoryStorage";
-import { SupabaseAuthProvider } from "@authentication/core/adapters/SupabaseAuthProvider";
+import { devDependencies } from "./dependencies.dev";
+import { prodDependencies } from "./dependencies.prod";
 
 const DependenciesContext = createContext<Dependencies | null>(null);
 
@@ -20,30 +13,8 @@ export const DependenciesProvider = ({
   dependencies?: Partial<Dependencies>;
 }) => {
   const initialDeps = useMemo<Dependencies>(() => {
-    const storage: IStorage = new InMemoryStorage();
-    const typedStorage: TypedStorage = new InMemoryTypedStorage(storage);
-    const authProvider: AuthProvider = new SupabaseAuthProvider(storage);
-
-    const alerter: Alerter = {
-      success: alert,
-      error: alert,
-    };
-
-    const authenticator = new Authenticator(
-      authProvider,
-      typedStorage,
-      alerter,
-    );
-
-    return {
-      // Ports
-      authProvider,
-      storage,
-      alerter,
-
-      // services
-      authenticator,
-    };
+    if (process.env.NODE_ENV === "production") return prodDependencies;
+    return devDependencies;
   }, []);
 
   return (

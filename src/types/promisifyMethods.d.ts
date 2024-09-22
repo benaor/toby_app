@@ -3,7 +3,7 @@ type AnyFunction = (...args: any[]) => any;
 
 declare type PromisifyMethods<T> = {
   [K in keyof T]: T[K] extends AnyFunction
-    ? (...args: Parameters<T[K]>) => MaybePromisify<ReturnType<T[K]>>
+    ? (...args: Parameters<T[K]>) => Promise<ReturnType<T[K]>>
     : T[K];
 };
 

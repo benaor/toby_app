@@ -8,7 +8,7 @@ import {
 import { AuthProvider } from "../ports/AuthProvider.port";
 import { Credentials } from "../models/Credentials.type";
 import { Session } from "../models/AuthUser.type";
-import { IStorage } from "@shared/storage/storage.interface";
+import { AsyncStorage } from "@shared/storage/storage.interface";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
@@ -16,7 +16,7 @@ const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 export class SupabaseAuthProvider implements AuthProvider {
   private supabase: SupabaseClient;
 
-  constructor(private storage: IStorage) {
+  constructor(private storage: AsyncStorage) {
     this.supabase = createClient(supabaseUrl, supabaseAnonKey, {
       auth: {
         storage: this.storage,
