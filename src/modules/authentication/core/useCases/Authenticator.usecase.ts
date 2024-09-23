@@ -4,9 +4,10 @@ import { Credentials } from "../models/Credentials.type";
 
 import { Alerter } from "@shared/alerter/alerter.interface";
 import { TypedStorage } from "@shared/storage/typedStorage.interface";
+import { Observable } from "@shared/utils/Observable";
 
 export class Authenticator {
-  private _session: Session | null = null;
+  private _session = new Observable<Session | null>(null);
 
   constructor(
     private authProvider: AuthProvider,
@@ -16,11 +17,12 @@ export class Authenticator {
 
   async login(credentials: Credentials) {
     try {
-      this._session = await this.authProvider.login(credentials);
-      this.storage.set("session", this._session);
+      const session = await this.authProvider.login(credentials);
+      this._session.set(session);
+      await this.storage.set("session", this._session.get());
       this.alert.success("You are now connected");
     } catch {
-      this._session = null;
+      this._session.set(null);
       this.alert.error("Invalid credentials");
     }
   }
@@ -28,7 +30,7 @@ export class Authenticator {
   async logout() {
     try {
       await this.authProvider.logout();
-      this.storage.remove("session");
+      await this.storage.remove("session");
       this.alert.success("You are now disconnected");
     } catch {
       this.alert.error("an error occurred while disconnecting");
@@ -47,18 +49,18 @@ export class Authenticator {
     this.authProvider.stopAutoRefresh();
   }
 
-  isConnected() {
-    return !!this._session;
-  }
-
-  async getSession() {
+  async initialize() {
     try {
       const session = await this.authProvider.getSession();
-      this._session = session;
+      this._session.set(session);
       return session;
     } catch {
-      this._session = null;
+      this._session.set(null);
       return null;
     }
+  }
+
+  get session() {
+    return this._session.get();
   }
 }

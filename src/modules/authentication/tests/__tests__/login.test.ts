@@ -16,7 +16,7 @@ describe("Login", () => {
       await authenticator.login(credentials);
 
       // ASSERT
-      const isConnected = authenticator.isConnected();
+      const isConnected = authenticator.session;
       expect(isConnected).toBeTruthy();
     });
 
@@ -71,8 +71,8 @@ describe("Login", () => {
       await authenticator.login(credentials);
 
       // ASSERT
-      const isConnected = authenticator.isConnected();
-      expect(isConnected).toBeFalsy();
+      const isConnected = authenticator.session;
+      expect(isConnected).toBeNull();
     });
 
     it("Should alert when credentials are incorrect", async () => {

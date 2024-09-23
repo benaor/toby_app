@@ -11,9 +11,7 @@ import {
 
 type AuthContext = {
   session: Session | null;
-  isReady: boolean;
-  isConnected: boolean;
-  signInWithEmail: (credentials: Credentials) => Promise<void>;
+  signInWithEmail: (credentials: Credentials) => Promise<Session | null>;
   stopAutoRefresh: VoidFunction;
   startAutoRefresh: VoidFunction;
   logout: () => Promise<void>;
@@ -25,12 +23,10 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const { authenticator } = useDependencies();
 
   const [session, setSession] = useState<Session | null>(null);
-  const [isReady, setIsReady] = useState<boolean>(false);
 
   useEffect(() => {
-    authenticator.getSession().then((session) => {
+    authenticator.initialize().then((session) => {
       setSession(session);
-      setIsReady(true);
     });
 
     authenticator.onAuthStateChange((session) => {
@@ -42,19 +38,15 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const stopAutoRefresh = () => authenticator.stopAutoRefresh();
   const startAutoRefresh = () => authenticator.startAutoRefresh();
   const signInWithEmail = async (credentials: Credentials) => {
-    setIsReady(false);
     await authenticator.login(credentials);
-    const session = await authenticator.getSession();
-    setSession(session);
-    setIsReady(true);
+    const session = authenticator.session;
+
+    if (!session) return null;
+    return session;
   };
 
-  const isConnected = authenticator.isConnected();
-
   const value: AuthContext = {
-    isReady,
     session,
-    isConnected,
     signInWithEmail,
     startAutoRefresh,
     stopAutoRefresh,

@@ -4,8 +4,7 @@ import { Redirect } from "expo-router";
 import { AppState } from "react-native";
 
 export default function RootScreen() {
-  const { isConnected, startAutoRefresh, stopAutoRefresh } =
-    useAuthentication();
+  const { session, startAutoRefresh, stopAutoRefresh } = useAuthentication();
 
   AppState.addEventListener("change", (state) =>
     state === "active" ? startAutoRefresh() : stopAutoRefresh(),
@@ -13,7 +12,7 @@ export default function RootScreen() {
 
   return (
     <>
-      {isConnected ? (
+      {session ? (
         <Redirect href={screens.home} />
       ) : (
         <Redirect href={screens.onboarding} />

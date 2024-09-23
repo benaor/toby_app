@@ -12,14 +12,10 @@ export const useSignInCredentialsScreen = () => {
   });
   const { signInWithEmail } = useAuthentication();
 
-  const signIn = useCallback(() => {
-    signInWithEmail(credentials)
-      .then(() => {
-        alert("Logged in");
-      })
-      .catch(() => {
-        alert("Failed to log in");
-      });
+  const signIn = useCallback(async () => {
+    const session = await signInWithEmail(credentials);
+    if (!session) alert("Error signing in");
+    else alert("Signed in");
   }, [credentials, signInWithEmail]);
 
   const handleEmailChange = useCallback(

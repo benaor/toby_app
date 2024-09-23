@@ -9,7 +9,7 @@ describe("the user is not authenticated", () => {
     const { authenticator } = await createAuthenticatorSut({ authProvider });
 
     // ACT
-    const res = await authenticator.getSession();
+    const res = await authenticator.initialize();
 
     // ASSERT
     expect(res).toBeNull();
@@ -25,7 +25,7 @@ describe("the user is authenticated", () => {
       session,
     });
 
-    const res = await authenticator.getSession();
+    const res = await authenticator.initialize();
 
     expect(res).toEqual(session);
   });
