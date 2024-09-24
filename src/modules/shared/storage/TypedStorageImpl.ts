@@ -19,7 +19,7 @@ export class TypedStorageImpl implements TypedStorage {
     await this.storage.removeItem(key);
   }
 
-  async getStorage() {
+  getStorage() {
     return this.storage;
   }
 }

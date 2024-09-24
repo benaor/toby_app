@@ -5,5 +5,5 @@ export interface TypedStorage {
   get<T>(key: StorageKey): Promise<T | null>;
   set<T>(key: StorageKey, value: T): Promise<void>;
   remove(key: StorageKey): Promise<void>;
-  getStorage(): Promise<AsyncStorage>;
+  getStorage(): AsyncStorage;
 }
