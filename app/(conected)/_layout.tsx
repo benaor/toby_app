@@ -10,6 +10,7 @@ export default function ConnectedLayout() {
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="event" options={{ headerShown: false }} />
+      <Stack.Screen name="sign-in" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
     </Stack>
   );

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useSignInCredentialsScreen } from "./SignInCredentialsScreen.controller";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Typography } from "@components/Typography";
 import GuyOpenShuttersSVG from "@images/guy-open-shutters.svg";
 import { createStyleSheet } from "@themes/createStyleSheet";
@@ -11,17 +11,18 @@ import { SocialButton } from "@components/SocialButton";
 
 export const SignInCredentialsScreen: FC = () => {
   const {
+    error,
+    credentials,
     goToSignUpScreen,
     goToForgetPasswordScreen,
     signIn,
     handleEmailChange,
     handlePasswordChange,
-    credentials,
   } = useSignInCredentialsScreen();
   const { colors } = useTheme();
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <GuyOpenShuttersSVG style={styles.svg} />
       <View style={styles.textContainer}>
         <Typography.Header size="large">Connexion</Typography.Header>
@@ -44,6 +45,11 @@ export const SignInCredentialsScreen: FC = () => {
             label="Mot de passe perdu?"
           />
         </Button>
+        {error && (
+          <Typography.Body lvlColor="high" color="primary" textAlign="center">
+            {error}
+          </Typography.Body>
+        )}
         <Button fullWidth onPress={signIn}>
           <Button.Label colors={["typography", "low"]} label="Se connecter" />
           <Button.Icon name="arrowright" color={colors.typography.low} />
@@ -55,15 +61,15 @@ export const SignInCredentialsScreen: FC = () => {
           <Button.Label label="Inscrivez-vous !" bold />
         </Button>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = createStyleSheet((theme) => ({
   container: {
     backgroundColor: theme.colors.background.low,
-    height: "100%",
     width: "100%",
+    paddingVertical: 32,
   },
   svg: {
     marginHorizontal: "auto",

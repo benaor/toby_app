@@ -5,7 +5,8 @@ import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 
 export const useSignInCredentialsScreen = () => {
-  const { replace } = useRouter();
+  const { replace, navigate } = useRouter();
+  const [error, setError] = useState<string | null>(null);
   const [credentials, setCredentials] = useState<Credentials>({
     email: "",
     password: "",
@@ -14,9 +15,9 @@ export const useSignInCredentialsScreen = () => {
 
   const signIn = useCallback(async () => {
     const session = await signInWithEmail(credentials);
-    if (!session) alert("Error signing in");
-    else alert("Signed in");
-  }, [credentials, signInWithEmail]);
+    if (session) navigate(screens.signInWelcome);
+    else setError("Identifiant incorrect");
+  }, [credentials, navigate, signInWithEmail]);
 
   const handleEmailChange = useCallback(
     (email: string) => setCredentials({ ...credentials, email }),
@@ -37,9 +38,10 @@ export const useSignInCredentialsScreen = () => {
   }, [replace]);
 
   return {
+    error,
+    credentials,
     goToSignUpScreen,
     goToForgetPasswordScreen,
-    credentials,
     handleEmailChange,
     handlePasswordChange,
     signIn,

@@ -1,5 +1,6 @@
 export const screens = {
   signIn: "sign-in",
+  signInWelcome: "sign-in/welcome",
   signUp: "sign-up",
   forgotPassword: "forgot-password",
   onboarding: "onboarding",
