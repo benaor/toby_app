@@ -37,8 +37,8 @@ export class Authenticator {
     }
   }
 
-  onAuthStateChange(cb: (session: Session | null) => void) {
-    this.authProvider.onAuthStateChange(cb);
+  onSessionChange(cb: (session: Session | null) => void) {
+    this.authProvider.onSessionChange(cb);
   }
 
   startAutoRefresh() {

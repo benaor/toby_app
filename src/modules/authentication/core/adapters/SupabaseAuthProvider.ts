@@ -50,7 +50,7 @@ export class SupabaseAuthProvider implements AuthProvider {
     this.supabase.auth.stopAutoRefresh();
   }
 
-  onAuthStateChange(cb: (session: Session | null) => void) {
+  onSessionChange(cb: (session: Session | null) => void) {
     this.supabase.auth.onAuthStateChange((_event, _session) => {
       cb(this.supabaseSessionToAppSession(_session));
     });

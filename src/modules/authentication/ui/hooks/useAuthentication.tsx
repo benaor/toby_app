@@ -29,7 +29,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       setSession(session);
     });
 
-    authenticator.onAuthStateChange((session) => {
+    authenticator.onSessionChange((session) => {
       setSession(session);
     });
   }, [authenticator]);

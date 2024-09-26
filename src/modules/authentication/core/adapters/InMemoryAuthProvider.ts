@@ -1,6 +1,8 @@
+import { Observable } from "@shared/utils/Observable";
 import { Session } from "../models/AuthUser.type";
 import { Credentials } from "../models/Credentials.type";
 import { AuthProvider } from "../ports/AuthProvider.port";
+import { SessionFactory } from "../models/AuthUser.factory";
 
 const devCredentials: Credentials = {
   email: "test@admin.dev",
@@ -8,12 +10,12 @@ const devCredentials: Credentials = {
 };
 
 export class InMemoryAuthProvider implements AuthProvider {
-  session: Session | null = null;
+  session = new Observable<Session | null>(null);
 
   login: (credentials: Credentials) => Promise<Session> = (credentials) => {
     return new Promise((resolve, reject) => {
       if (isSameCredentials(credentials, devCredentials)) {
-        this.session = {
+        const session: Session = SessionFactory.SESSION({
           user: {
             id: "1",
             email: "test@admin.dev",
@@ -26,19 +28,20 @@ export class InMemoryAuthProvider implements AuthProvider {
             value: "token",
             expiresAt: 2526332400, // 2050-01-01
           },
-        };
-        resolve(this.session);
+        });
+        this.session.set(session);
+        resolve(session);
       }
-      reject("Invalid credentials - AuthProvider l.32");
+      reject("Invalid credentials - AuthProvider");
     });
   };
 
   logout: () => Promise<void> = async () => {
-    this.session = null;
+    this.session.set(null);
   };
 
   getSession: () => Promise<Session | null> = async () => {
-    return Promise.resolve(this.session);
+    return Promise.resolve(this.session.get());
   };
 
   startAutoRefresh: VoidFunction = () => {
@@ -49,8 +52,8 @@ export class InMemoryAuthProvider implements AuthProvider {
     console.info("Auto refresh stopped");
   };
 
-  onAuthStateChange: (cb: (session: Session | null) => void) => void = (cb) => {
-    cb(this.session);
+  onSessionChange: (cb: (session: Session | null) => void) => void = (cb) => {
+    this.session.addEventListener(cb);
   };
 }
 

@@ -7,5 +7,5 @@ export interface AuthProvider {
   getSession: () => Promise<Session | null>;
   startAutoRefresh: VoidFunction;
   stopAutoRefresh: VoidFunction;
-  onAuthStateChange: (cb: (session: Session | null) => void) => void;
+  onSessionChange: (cb: (session: Session | null) => void) => void;
 }
