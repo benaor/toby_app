@@ -1,13 +1,12 @@
 import { Observable } from "@shared/utils/Observable";
-import { SessionFactory } from "../models/AuthUser.factory";
 import { Session } from "../models/AuthUser.type";
 import { AuthProvider } from "../ports/AuthProvider.port";
 
 export class StubAuthProvider implements AuthProvider {
   public session: Observable<Session>;
 
-  constructor(session?: Session) {
-    this.session = new Observable(session || SessionFactory.SESSION());
+  constructor(session: Session) {
+    this.session = new Observable(session);
   }
 
   login = () => Promise.resolve(this.session.get());
