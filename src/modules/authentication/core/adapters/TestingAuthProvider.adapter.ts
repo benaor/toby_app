@@ -13,7 +13,7 @@ export class StubAuthProvider implements AuthProvider {
     this.session = new Observable(session);
   }
 
-  login = () => Promise.resolve(this.session.get());
+  login = () => Promise.resolve(this.session.get()!);
   logout = jest.fn().mockResolvedValue(Promise.resolve());
   register = (userForm: UserForm) =>
     Promise.resolve({

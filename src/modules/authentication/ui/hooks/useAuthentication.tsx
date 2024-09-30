@@ -39,11 +39,12 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     });
   }, [authenticator]);
 
-  const logout = authenticator.logout;
-  const register = authenticator.register;
+  const logout = async () => await authenticator.logout();
+  const register = async (form: UserForm) => await authenticator.register(form);
   const stopAutoRefresh = authenticator.stopAutoRefresh;
   const startAutoRefresh = authenticator.startAutoRefresh;
-  const signInWithEmail = authenticator.login;
+  const signInWithEmail = async (credentials: Credentials) =>
+    await authenticator.login(credentials);
 
   const value: AuthContext = {
     session,

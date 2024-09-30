@@ -50,9 +50,10 @@ export class SupabaseAuthProvider implements AuthProvider {
         email: userForm.email,
         password: userForm.password,
         options: {
+          // firstname and lastname are custom fields defined in Supabase
           data: {
-            firstName: userForm.firstName,
-            lastName: userForm.lastName,
+            firstname: userForm.firstName,
+            lastname: userForm.lastName,
           },
         },
       });

@@ -44,12 +44,15 @@ export class Authenticator {
 
     if ("error" in res) return { error: res.error };
 
+    // TODO: should be call after confirmation code // but for now we will set the session here
+    this._session.set(res.session);
+    await this.storage.set("session", this._session.get());
+
     return { user: res.user };
-    // this._session.set(res.session);
-    //  await this.storage.set("session", this._session.get());
   }
 
   onSessionChange(cb: (session: Session | null) => void) {
+    this._session.addEventListener(cb);
     this.authProvider.onSessionChange(cb);
   }
 

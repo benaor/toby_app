@@ -6,7 +6,7 @@ import {
 import type { Credentials } from "../models/Credentials.type";
 
 export interface AuthProvider {
-  login: (credentials: Credentials) => Promise<Session | null>;
+  login: (credentials: Credentials) => Promise<Session>;
   logout: () => Promise<void>;
   register: (userForm: UserForm) => Promise<AuthRegisterResponse>;
   getSession: () => Promise<Session | null>;

@@ -18,7 +18,7 @@ type WidthProps =
     };
 
 export type ButtonContextProps = PropsWithChildren<
-  Pick<PressableProps, "onPress" | "onPressIn" | "onPressOut"> & {
+  Pick<PressableProps, "onPress" | "onPressIn" | "onPressOut" | "disabled"> & {
     variant?: "contained" | "text";
     color?: ColorName;
     lvlColor?: ColorLevel;
@@ -37,6 +37,7 @@ export function Button({
   style,
   color,
   lvlColor,
+  disabled,
   variant = "contained",
   fullWidth = false,
   width,
@@ -77,7 +78,9 @@ export function Button({
         onPress={onPress}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
+        disabled={disabled}
       >
+        {disabled && <Icon name="lock" />}
         {children}
       </Pressable>
     </ButtonProvider>

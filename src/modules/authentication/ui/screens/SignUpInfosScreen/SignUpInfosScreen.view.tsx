@@ -8,16 +8,48 @@ import { useSignUpInfosScreen } from "./SignUpInfosScreen.controller";
 import { FC } from "react";
 
 export const SignUpInfosScreen: FC = () => {
-  const { goToLoginScreen, registerNewUser } = useSignUpInfosScreen();
+  const {
+    goToLoginScreen,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    isRegisterLoading,
+    registerNewUser,
+    error,
+  } = useSignUpInfosScreen();
 
   return (
     <View style={styles.container}>
       <Typography.Header size="large">Inscription</Typography.Header>
-      <TextInput placeholder="Prénom" />
-      <TextInput placeholder="Nom" />
-      <TextInput placeholder="Adresse e-mail" keyboardType="email-address" />
-      <TextInput placeholder="Mot de passe" secureTextEntry />
-      <Button fullWidth onPress={registerNewUser}>
+      <TextInput
+        placeholder="Prénom"
+        value={firstName}
+        onChangeText={setFirstName}
+      />
+      <TextInput
+        placeholder="Nom"
+        value={lastName}
+        onChangeText={setLastName}
+      />
+      <TextInput
+        placeholder="Adresse e-mail"
+        keyboardType="email-address"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <TextInput
+        placeholder="Mot de passe"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+      {error && <Typography.Body>{error}</Typography.Body>}
+      <Button fullWidth onPress={registerNewUser} disabled={isRegisterLoading}>
         <Button.Label label="S'inscrire" />
       </Button>
       <SocialButton network="google" />
