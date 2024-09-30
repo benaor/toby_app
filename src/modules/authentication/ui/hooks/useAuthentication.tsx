@@ -2,7 +2,7 @@ import { useDependencies } from "@/src/dependencies/useDependencies";
 import {
   AuthUseCaseResponse,
   Session,
-  UserForm,
+  IUserForm,
 } from "@authentication/core/models/AuthUser.type";
 import { Credentials } from "@authentication/core/models/Credentials.type";
 import {
@@ -19,7 +19,7 @@ type AuthContext = {
   stopAutoRefresh: VoidFunction;
   startAutoRefresh: VoidFunction;
   logout: () => Promise<void>;
-  register: (userForm: UserForm) => Promise<AuthUseCaseResponse>;
+  register: (userForm: IUserForm) => Promise<AuthUseCaseResponse>;
 };
 
 const authContext = createContext<AuthContext | null>(null);
@@ -40,7 +40,8 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   }, [authenticator]);
 
   const logout = async () => await authenticator.logout();
-  const register = async (form: UserForm) => await authenticator.register(form);
+  const register = async (form: IUserForm) =>
+    await authenticator.register(form);
   const stopAutoRefresh = authenticator.stopAutoRefresh;
   const startAutoRefresh = authenticator.startAutoRefresh;
   const signInWithEmail = async (credentials: Credentials) =>

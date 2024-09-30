@@ -1,4 +1,4 @@
-import { Session, SessionToken, SessionUser, UserForm } from "./AuthUser.type";
+import { Session, SessionToken, SessionUser, IUserForm } from "./AuthUser.type";
 
 export class SessionFactory {
   static SESSION_USER(authUser?: Partial<SessionUser>): SessionUser {
@@ -27,7 +27,7 @@ export class SessionFactory {
     };
   }
 
-  static USER_FORM(user?: Partial<UserForm>): UserForm {
+  static USER_FORM(user?: Partial<IUserForm>): IUserForm {
     return {
       ...fakeUser,
       ...user,
@@ -36,7 +36,7 @@ export class SessionFactory {
 }
 
 // This type is never used in production. Only to make test simpler.
-type FullUser = SessionUser & UserForm;
+type FullUser = SessionUser & IUserForm;
 
 const fakeUser: FullUser = {
   id: "123",

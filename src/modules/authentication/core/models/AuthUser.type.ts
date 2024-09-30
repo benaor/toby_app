@@ -3,7 +3,7 @@ export type SessionUser = {
   email: string;
 };
 
-export type UserForm = {
+export type IUserForm = {
   firstName: string;
   lastName: string;
   email: string;

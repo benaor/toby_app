@@ -1,10 +1,11 @@
 import { AuthProvider } from "../ports/AuthProvider.port";
-import { Session, UserForm } from "../models/AuthUser.type";
+import { Session, IUserForm } from "../models/AuthUser.type";
 import { Credentials } from "../models/Credentials.type";
 
 import { Alerter } from "@shared/alerter/alerter.interface";
 import { TypedStorage } from "@shared/storage/typedStorage.interface";
 import { Observable } from "@shared/utils/Observable";
+import { UserForm } from "../form/UserForm";
 
 export class Authenticator {
   private _session = new Observable<Session | null>(null);
@@ -39,16 +40,21 @@ export class Authenticator {
     }
   }
 
-  async register(userForm: UserForm) {
-    const res = await this.authProvider.register(userForm);
+  async register(userForm: IUserForm) {
+    try {
+      const form = new UserForm(userForm);
+      const res = await this.authProvider.register(form.get());
 
-    if ("error" in res) return { error: res.error };
+      if ("error" in res) throw new Error(res.error);
 
-    // TODO: should be call after confirmation code // but for now we will set the session here
-    this._session.set(res.session);
-    await this.storage.set("session", this._session.get());
+      // TODO: should be call after confirmation code // but for now we will set the session here
+      this._session.set(res.session);
+      await this.storage.set("session", this._session.get());
 
-    return { user: res.user };
+      return { user: res.user };
+    } catch (error) {
+      return { error: (error as Error).message };
+    }
   }
 
   onSessionChange(cb: (session: Session | null) => void) {

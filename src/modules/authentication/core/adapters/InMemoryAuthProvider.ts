@@ -1,5 +1,5 @@
 import { Observable } from "@shared/utils/Observable";
-import { Session, UserForm } from "../models/AuthUser.type";
+import { Session, IUserForm } from "../models/AuthUser.type";
 import { Credentials } from "../models/Credentials.type";
 import { AuthProvider } from "../ports/AuthProvider.port";
 import { SessionFactory } from "../models/Session.factory";
@@ -27,7 +27,7 @@ export class InMemoryAuthProvider implements AuthProvider {
     });
   };
 
-  register = async (userForm: UserForm) => {
+  register = async (userForm: IUserForm) => {
     const session = SessionFactory.SESSION({ user: { ...userForm } });
     const index = this.users.push(session);
 

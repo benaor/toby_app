@@ -1,4 +1,4 @@
-import { UserForm } from "@authentication/core/models/AuthUser.type";
+import { IUserForm } from "@authentication/core/models/AuthUser.type";
 import { useAuthentication } from "@authentication/ui/hooks/useAuthentication";
 import { screens } from "@constants/screens";
 import { useRouter } from "expo-router";
@@ -19,7 +19,7 @@ export const useSignUpInfosScreen = () => {
     setError(null);
     setIsRegisterLoading(true);
 
-    const userForm: UserForm = {
+    const userForm: IUserForm = {
       firstName,
       lastName,
       email,

@@ -13,7 +13,7 @@ import type {
   AuthRegisterResponse,
   Session,
   SessionUser,
-  UserForm,
+  IUserForm,
 } from "../models/AuthUser.type";
 import { isNull } from "@utils/others/isNull";
 
@@ -44,7 +44,7 @@ export class SupabaseAuthProvider implements AuthProvider {
     await this.supabase.auth.signOut();
   }
 
-  async register(userForm: UserForm): Promise<AuthRegisterResponse> {
+  async register(userForm: IUserForm): Promise<AuthRegisterResponse> {
     try {
       const { error, data } = await this.supabase.auth.signUp({
         email: userForm.email,

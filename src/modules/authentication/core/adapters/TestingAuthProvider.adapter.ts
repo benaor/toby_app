@@ -2,7 +2,7 @@ import { Observable } from "@shared/utils/Observable";
 import {
   AuthRegisterResponse,
   Session,
-  UserForm,
+  IUserForm,
 } from "../models/AuthUser.type";
 import { AuthProvider } from "../ports/AuthProvider.port";
 
@@ -15,7 +15,7 @@ export class StubAuthProvider implements AuthProvider {
 
   login = () => Promise.resolve(this.session.get()!);
   logout = jest.fn().mockResolvedValue(Promise.resolve());
-  register = (userForm: UserForm) =>
+  register = (userForm: IUserForm) =>
     Promise.resolve({
       user: { ...this.session.get()!.user, ...userForm },
       session: this.session.get()!,
