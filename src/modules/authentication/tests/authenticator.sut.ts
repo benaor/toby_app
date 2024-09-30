@@ -1,5 +1,5 @@
 import { StubAuthProvider } from "@authentication/core/adapters/TestingAuthProvider.adapter";
-import { SessionFactory } from "@authentication/core/models/AuthUser.factory";
+import { SessionFactory } from "@authentication/core/models/Session.factory";
 import { Session } from "@authentication/core/models/AuthUser.type";
 import { AuthProvider } from "@authentication/core/ports/AuthProvider.port";
 import { Authenticator } from "@authentication/core/useCases/Authenticator.usecase";

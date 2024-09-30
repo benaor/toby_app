@@ -1,4 +1,4 @@
-import { SessionFactory } from "@authentication/core/models/AuthUser.factory";
+import { SessionFactory } from "@authentication/core/models/Session.factory";
 import { createAuthenticatorSut } from "../authenticator.sut";
 import { FailedAuthProvider } from "@authentication/core/adapters/TestingAuthProvider.adapter";
 

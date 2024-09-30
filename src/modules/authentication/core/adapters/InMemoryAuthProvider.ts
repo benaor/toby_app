@@ -2,7 +2,7 @@ import { Observable } from "@shared/utils/Observable";
 import { Session } from "../models/AuthUser.type";
 import { Credentials } from "../models/Credentials.type";
 import { AuthProvider } from "../ports/AuthProvider.port";
-import { SessionFactory } from "../models/AuthUser.factory";
+import { SessionFactory } from "../models/Session.factory";
 
 const devCredentials: Credentials = {
   email: "test@admin.dev",

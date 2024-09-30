@@ -1,5 +1,5 @@
 import { AuthProvider } from "../ports/AuthProvider.port";
-import { Session } from "../models/AuthUser.type";
+import { Session, UserForm } from "../models/AuthUser.type";
 import { Credentials } from "../models/Credentials.type";
 
 import { Alerter } from "@shared/alerter/alerter.interface";
@@ -35,6 +35,16 @@ export class Authenticator {
     } catch {
       this.alert.error("an error occurred while disconnecting");
     }
+  }
+
+  async register(userForm: UserForm) {
+    const res = await this.authProvider.register(userForm);
+
+    if ("error" in res) return { error: res.error };
+
+    return { user: res.user };
+    // this._session.set(res.session);
+    //  await this.storage.set("session", this._session.get());
   }
 
   onSessionChange(cb: (session: Session | null) => void) {

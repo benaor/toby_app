@@ -1,9 +1,14 @@
-import { Session } from "../models/AuthUser.type";
+import {
+  AuthRegisterResponse,
+  Session,
+  UserForm,
+} from "../models/AuthUser.type";
 import type { Credentials } from "../models/Credentials.type";
 
 export interface AuthProvider {
-  login: (credentials: Credentials) => Promise<Session>;
+  login: (credentials: Credentials) => Promise<Session | null>;
   logout: () => Promise<void>;
+  register: (userForm: UserForm) => Promise<AuthRegisterResponse>;
   getSession: () => Promise<Session | null>;
   startAutoRefresh: VoidFunction;
   stopAutoRefresh: VoidFunction;

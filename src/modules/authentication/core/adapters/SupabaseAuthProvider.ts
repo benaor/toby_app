@@ -7,8 +7,15 @@ import {
 } from "@supabase/supabase-js";
 import { AuthProvider } from "../ports/AuthProvider.port";
 import { Credentials } from "../models/Credentials.type";
-import { Session } from "../models/AuthUser.type";
 import { AsyncStorage } from "@shared/storage/storage.interface";
+
+import type {
+  AuthRegisterResponse,
+  Session,
+  SessionUser,
+  UserForm,
+} from "../models/AuthUser.type";
+import { isNull } from "@utils/others/isNull";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
@@ -37,6 +44,37 @@ export class SupabaseAuthProvider implements AuthProvider {
     await this.supabase.auth.signOut();
   }
 
+  async register(userForm: UserForm): Promise<AuthRegisterResponse> {
+    try {
+      const { error, data } = await this.supabase.auth.signUp({
+        email: userForm.email,
+        password: userForm.password,
+        options: {
+          data: {
+            firstName: userForm.firstName,
+            lastName: userForm.lastName,
+          },
+        },
+      });
+
+      // Error handling on early return
+      if (error) return { error: error.message };
+      if (isNull(data.session)) return { error: "Failed to create session" };
+      if (isNull(data.user) && isNull(data.session?.user))
+        return { error: "Failed to create user" };
+
+      // Protecting against null values
+      const user = data.user || data.session.user;
+
+      return {
+        session: this.supabaseSessionToAppSession(data.session)!,
+        user: this.supabaseUserToAppUser(user),
+      };
+    } catch (error) {
+      return { error: (error as Error).message };
+    }
+  }
+
   async getSession(): Promise<Session | null> {
     const res = await this.supabase.auth.getSession();
     return this.supabaseSessionResponseToAppSession(res);
@@ -59,10 +97,7 @@ export class SupabaseAuthProvider implements AuthProvider {
   // Mappers
   private supabaseAuthResponseToAppSession(res: SupabaseAuthResponse): Session {
     return {
-      user: {
-        id: res.user?.id,
-        email: res.user?.id,
-      },
+      user: this.supabaseUserToAppUser(res.user),
       accessToken: {
         value: res.session.access_token,
         expiresAt: res.session.expires_at,
@@ -72,6 +107,13 @@ export class SupabaseAuthProvider implements AuthProvider {
         expiresAt: res.session.expires_at,
       },
     } satisfies Session;
+  }
+
+  private supabaseUserToAppUser(user: SupabaseUser): SessionUser {
+    return {
+      id: user.id,
+      email: user.email!,
+    } satisfies SessionUser;
   }
 
   private supabaseSessionToAppSession(

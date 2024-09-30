@@ -1,7 +1,7 @@
 import { Session } from "@authentication/core/models/AuthUser.type";
 import { createAuthenticatorSut } from "../authenticator.sut";
 import { StubAuthProvider } from "@authentication/core/adapters/TestingAuthProvider.adapter";
-import { SessionFactory } from "@authentication/core/models/AuthUser.factory";
+import { SessionFactory } from "@authentication/core/models/Session.factory";
 
 describe("On app change", () => {
   it("Should start auto refresh", async () => {
