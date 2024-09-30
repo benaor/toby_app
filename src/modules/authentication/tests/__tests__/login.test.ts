@@ -13,11 +13,11 @@ describe("Login", () => {
       const { authenticator } = await createAuthenticatorSut();
 
       // ACT
-      await authenticator.login(credentials);
+      const loginRes = await authenticator.login(credentials);
 
       // ASSERT
-      const isConnected = authenticator.session;
-      expect(isConnected).toBeTruthy();
+      expect(authenticator.session).toBeTruthy();
+      expect(loginRes).toBeTruthy();
     });
 
     it("Storage contains session's tokens", async () => {
@@ -68,11 +68,11 @@ describe("Login", () => {
       const { authenticator } = await createAuthenticatorSut({ authProvider });
 
       // ACT
-      await authenticator.login(credentials);
+      const loginRes = await authenticator.login(credentials);
 
       // ASSERT
-      const isConnected = authenticator.session;
-      expect(isConnected).toBeNull();
+      expect(authenticator.session).toBeNull();
+      expect(loginRes).toBeNull();
     });
 
     it("Should alert when credentials are incorrect", async () => {

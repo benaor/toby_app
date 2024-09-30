@@ -21,9 +21,11 @@ export class Authenticator {
       this._session.set(session);
       await this.storage.set("session", this._session.get());
       this.alert.success("You are now connected");
+      return session;
     } catch {
       this._session.set(null);
       this.alert.error("Invalid credentials");
+      return null;
     }
   }
 

@@ -23,6 +23,14 @@ export type Session = {
 
 export type AuthRegisterResponse = AuthRegisterSuccess | AuthRegisterError;
 
+export type AuthUseCaseResponse =
+  | {
+      user: SessionUser;
+    }
+  | {
+      error: string;
+    };
+
 type AuthRegisterSuccess = {
   user: SessionUser;
   session: Session;
