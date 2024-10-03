@@ -15,6 +15,10 @@ export class InMemoryAuthProvider implements AuthProvider {
     }),
   ];
 
+  constructor() {
+    this.session.set(this.users[0]);
+  }
+
   login = (credentials: Credentials) => {
     return new Promise<Session>((resolve, reject) => {
       const session = this.users.find(

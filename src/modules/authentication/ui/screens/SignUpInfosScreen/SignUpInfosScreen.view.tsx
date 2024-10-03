@@ -39,6 +39,7 @@ export const SignUpInfosScreen: FC = () => {
       <TextInput
         placeholder="Adresse e-mail"
         keyboardType="email-address"
+        autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
       />
