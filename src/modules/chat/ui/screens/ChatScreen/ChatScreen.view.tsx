@@ -7,7 +7,7 @@ import { ChatBar } from "@components/ChatBar";
 import { MessageCard } from "../../components/MessageCard";
 
 type ChatScreenProps = {
-  eventId: string;
+  eventId: Identifier;
 };
 
 export const ChatScreen: FC<ChatScreenProps> = ({ eventId }) => {

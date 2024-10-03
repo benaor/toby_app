@@ -34,19 +34,19 @@ export const useEventSummaryScreen = () => {
     isPending: true,
     guests: [
       {
-        id: 1,
+        id: "1",
         avatar: "https://picsum.photos/200/300",
       },
       {
-        id: 2,
+        id: "2",
         avatar: "https://picsum.photos/200/300",
       },
       {
-        id: 3,
+        id: "3",
         avatar: "https://picsum.photos/200/300",
       },
       {
-        id: 4,
+        id: "4",
         avatar: "https://picsum.photos/200/300",
       },
     ],

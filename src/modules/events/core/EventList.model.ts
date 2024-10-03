@@ -1,9 +1,9 @@
 export type EventList = {
-  id: string;
+  id: Identifier;
   image: string;
   title: string;
   date: Date;
-  guests: string[];
+  guests: Identifier[];
   notification: {
     count: number;
   };

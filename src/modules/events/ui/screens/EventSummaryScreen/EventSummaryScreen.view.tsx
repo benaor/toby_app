@@ -26,7 +26,7 @@ import { Avatar } from "@components/Avatar";
 import { Header } from "@components/Header";
 
 type EventSummaryScreenProps = {
-  eventId: string;
+  eventId: Identifier;
 };
 
 export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({

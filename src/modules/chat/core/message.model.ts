@@ -1,8 +1,8 @@
 export type Message = {
-  id: string;
+  id: Identifier;
   content: string;
   author: {
-    id: string;
+    id: Identifier;
     name: string;
     avatar: string;
   };
