@@ -1,4 +1,4 @@
-import { useDependencies } from "@/src/dependencies/useDependencies";
+import { useDependencies } from "@app/react/useDependencies";
 import {
   AuthUseCaseResponse,
   Session,

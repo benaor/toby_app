@@ -8,6 +8,8 @@
       "@calendar/*": ["./src/modules/calendar/*"],
       "@profil/*": ["./src/modules/profil/*"],
       "@shared/*": ["./src/modules/shared/*"],
+      "@store/*": ["./src/modules/store/*"],
+      "@app/*": ["./src/modules/app/*"],
       "@themes/*": ["./src/ui/themes/*"],
       "@images/*": ["./assets/images/*"],
       "@components/*": ["./src/components/*"],

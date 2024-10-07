@@ -9,8 +9,11 @@ import { createStyleSheet } from "@themes/createStyleSheet";
 import { ThemeProvider } from "@themes/useTheme";
 import { theme } from "@themes/theme";
 import { FeatureFlagProvider } from "@/src/ui/contexts/useFeatureFlag";
-import { DependenciesProvider } from "@/src/dependencies/useDependencies";
+
 import { AuthContextProvider } from "@authentication/ui/hooks/useAuthentication";
+import { Provider } from "react-redux";
+import { app } from "@app/main";
+import { DependenciesProvider } from "@app/react/useDependencies";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -28,17 +31,19 @@ export default function RootLayout() {
   if (!loaded) return null;
 
   return (
-    <ThemeProvider theme={theme}>
-      <DependenciesProvider>
-        <AuthContextProvider>
-          <FeatureFlagProvider>
-            <SafeAreaView style={styles.container}>
-              <Slot />
-            </SafeAreaView>
-          </FeatureFlagProvider>
-        </AuthContextProvider>
-      </DependenciesProvider>
-    </ThemeProvider>
+    <Provider store={app.store}>
+      <ThemeProvider theme={theme}>
+        <DependenciesProvider>
+          <AuthContextProvider>
+            <FeatureFlagProvider>
+              <SafeAreaView style={styles.container}>
+                <Slot />
+              </SafeAreaView>
+            </FeatureFlagProvider>
+          </AuthContextProvider>
+        </DependenciesProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
