@@ -7,7 +7,11 @@ const initialState = {
 const eventSlice = createSlice({
   name: "event",
   initialState,
-  reducers: {},
+  reducers: {
+    storeEventsList: (state, action) => {
+      state.eventsList = action.payload;
+    },
+  },
 });
 
 export const eventsReducer = eventSlice.reducer;
