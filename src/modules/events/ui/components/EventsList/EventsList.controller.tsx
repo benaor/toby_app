@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { EventList } from "../../../core/EventList.model";
+import { EventList } from "../../../core/models/EventList.model";
 import { screens } from "@constants/screens";
 import { useRouter } from "expo-router";
 

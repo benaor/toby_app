@@ -1,4 +1,4 @@
-import { EventList } from "../../../core/EventList.model";
+import { EventList } from "../../../core/models/EventList.model";
 
 export const useEventsListSelection = () => {
   const events: EventList = [

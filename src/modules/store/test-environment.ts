@@ -1,9 +1,12 @@
 import { Dependencies } from "@app/dependencies/Dependencies.type";
 import { app } from "@app/main";
-import { AppState, createStore } from "./store";
+import { AppState } from "react-native";
+import { createStore } from "./store";
 
 /**
  * Create testing dependencies with provided defaults
+ * @param config
+ * @returns
  */
 const createDependencies = (
   dependencies?: Partial<Dependencies>,

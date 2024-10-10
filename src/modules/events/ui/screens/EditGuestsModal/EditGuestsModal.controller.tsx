@@ -1,4 +1,4 @@
-import { Guest } from "../../../core/Guest.model";
+import { Guest } from "../../../core/models/Guest.model";
 
 export const useEditGuestsModal = () => {
   const guestsWhoAreAccepted: Guest[] = [

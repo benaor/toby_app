@@ -1,8 +1,8 @@
-import { EventList } from "@/src/modules/events/core/EventList.model";
-import { Message } from "../../../core/message.model";
 import { useCallback } from "react";
 import { screens } from "@constants/screens";
 import { useRouter } from "expo-router";
+import { EventList } from "@events/core/models/EventList.model";
+import { Message } from "../../../core/message.model";
 
 export const useChatScreen = (eventId: string) => {
   const { navigate } = useRouter();

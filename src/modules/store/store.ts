@@ -1,7 +1,10 @@
 import { Dependencies } from "@app/dependencies/Dependencies.type";
+import { eventsReducer } from "@events/core/slices/event.slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-const reducers = combineReducers({});
+const reducers = combineReducers({
+  events: eventsReducer,
+});
 
 export const createStore = (config: {
   initialState?: AppState;

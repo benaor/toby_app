@@ -14,9 +14,6 @@
     "lint": "eslint --fix",
     "type:check": "tsc"
   },
-  "jest": {
-    "preset": "jest-expo"
-  },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
     "@react-native-async-storage/async-storage": "^2.0.0",
