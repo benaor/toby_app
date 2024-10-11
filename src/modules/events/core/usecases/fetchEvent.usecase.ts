@@ -8,6 +8,7 @@ export const fetchEventsList = async (
   dependencies: Dependencies,
 ) => {
   try {
-    dispatch(eventsActions.storeEventsList([]));
+    const myEvents = await dependencies.eventRepository.getAllMyEvent();
+    dispatch(eventsActions.storeEventsList(myEvents));
   } catch {}
 };

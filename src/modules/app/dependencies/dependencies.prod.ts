@@ -5,6 +5,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 import { SupabaseAuthProvider } from "@authentication/core/adapters/SupabaseAuthProvider";
 
+// In the production dependencies, we must use the final dependencies
+
 const typedStorage = new TypedStorageImpl(AsyncStorage);
 const authProvider = new SupabaseAuthProvider(typedStorage.getStorage());
 const alerter = new AlertAlerter();

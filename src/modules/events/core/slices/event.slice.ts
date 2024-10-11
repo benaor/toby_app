@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { EventList } from "../models/EventList.model";
 
-const initialState = {
+type EventState = {
+  eventsList: EventList;
+};
+
+const initialState: EventState = {
   eventsList: [],
 };
 

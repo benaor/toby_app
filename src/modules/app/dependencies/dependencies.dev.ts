@@ -5,6 +5,7 @@ import { Authenticator } from "@authentication/core/useCases/Authenticator.useca
 import { InMemoryStorage } from "@shared/storage/InMemoryStorage";
 import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 
+// In the dev environment, we should use Fake/InMemory or sometimes final dependencies
 const storage = new InMemoryStorage();
 const typedStorage = new TypedStorageImpl(storage);
 const authProvider = new InMemoryAuthProvider();

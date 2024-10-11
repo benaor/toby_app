@@ -4,6 +4,9 @@ import { InMemoryStorage } from "@shared/storage/InMemoryStorage";
 import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 import { StubAlerter } from "@shared/alerter/StubAlerter";
 import { StubAuthProvider } from "@authentication/core/adapters/TestingAuthProvider.adapter";
+import { StubEventRepository } from "@events/core/adapters/StubEventRepository";
+
+// In the test environment, We should mainly use Stub
 
 const storage = new InMemoryStorage();
 const typedStorage = new TypedStorageImpl(storage);
@@ -13,9 +16,13 @@ const alerter = new StubAlerter();
 //Services (use cases)
 const authenticator = new Authenticator(authProvider, typedStorage, alerter);
 
+// Repository
+const eventRepository = new StubEventRepository();
+
 export const testDependencies: Dependencies = {
   typedStorage,
   authProvider,
   alerter,
   authenticator,
+  eventRepository,
 };

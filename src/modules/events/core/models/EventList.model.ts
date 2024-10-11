@@ -9,3 +9,5 @@ export type EventList = {
   };
   isAdmin: boolean;
 }[];
+
+export type eventListItem = EventList[number];
