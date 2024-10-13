@@ -1,7 +1,7 @@
 import { Button } from "@components/Button";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
-import { FC } from "react";
+import React, { FC } from "react";
 
 export const NoEventText: FC = () => (
   <>

@@ -6,7 +6,7 @@ export const useEventsListSelection = () => {
       id: "1",
       image: "https://picsum.photos/204",
       title: "Anniversaire Marco",
-      date: new Date(),
+      date: new Date().toISOString(),
       guests: ["John", "Doe"],
       notification: {
         count: 1,
@@ -17,7 +17,7 @@ export const useEventsListSelection = () => {
       id: "2",
       image: "https://picsum.photos/308",
       title: "Resto entre amis",
-      date: new Date(),
+      date: new Date().toISOString(),
       guests: ["John", "Doe"],
       notification: {
         count: 2,

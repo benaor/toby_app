@@ -16,7 +16,7 @@ export const ArchivesList: FC = () => {
         events.map((event) => (
           <EventCard
             key={event.id}
-            date={event.date}
+            date={new Date(event.date)}
             image={event.image}
             nbOfGuest={event.guests.length}
             title={event.title}

@@ -12,7 +12,7 @@ export const useChatScreen = (eventId: string) => {
     id: "1",
     image: "https://picsum.photos/204",
     title: "Anniversaire Marco",
-    date: new Date(),
+    date: new Date().toISOString(),
     guests: ["John", "Doe"],
     notification: {
       count: 1,
