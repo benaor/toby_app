@@ -11,7 +11,7 @@ export class EventFactory {
         count: 0,
       },
       title: "Event 1 from factory",
-      date: new Date("2020-01-01"),
+      date: new Date("2020-01-01").toISOString(),
       ...item,
     };
   };
