@@ -48,4 +48,23 @@ describe("On Session change", () => {
     expect(firstSession).toEqual(sessionBefore);
     expect(newSession).toEqual(sessionAfter);
   });
+
+  it("Should call onSessionChange", async () => {
+    // ARRANGE
+    const sessionBefore = SessionFactory.SESSION();
+    const sessionAfter = SessionFactory.SESSION({ user: { id: "newId" } });
+
+    const authProvider = new StubAuthProvider(sessionBefore);
+    const { authenticator } = await createAuthenticatorSut({ authProvider });
+
+    // ACT
+    let newSession: Session | null = null;
+    authenticator.onSessionChange((_session) => (newSession = _session));
+    authProvider.changeSession(sessionAfter);
+
+    // ASSERT
+    expect(authProvider.onSessionChange).toHaveBeenCalledTimes(1);
+    expect(newSession).toEqual(sessionAfter);
+    expect(authenticator.session).toEqual(sessionAfter);
+  });
 });

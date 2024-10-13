@@ -21,11 +21,15 @@ export class StubAuthProvider implements AuthProvider {
       session: this.session.get()!,
     } satisfies AuthRegisterResponse);
   getSession = () => Promise.resolve(this.session.get());
-  onSessionChange: (cb: (session: Session | null) => void) => void = (cb) => {
+  onSessionChange = jest.fn().mockImplementation((cb) => {
     this.session.addEventListener(cb);
-  };
+  });
+
   startAutoRefresh = jest.fn();
   stopAutoRefresh = jest.fn();
+  changeSession = (session: Session | null) => {
+    this.session.set(session);
+  };
 }
 
 export class FailedAuthProvider implements AuthProvider {

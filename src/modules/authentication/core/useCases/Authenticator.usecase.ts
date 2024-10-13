@@ -58,8 +58,10 @@ export class Authenticator {
   }
 
   onSessionChange(cb: (session: Session | null) => void) {
-    this._session.addEventListener(cb);
-    this.authProvider.onSessionChange(cb);
+    this.authProvider.onSessionChange((_session) => {
+      this._session.set(_session);
+      cb(_session);
+    });
   }
 
   startAutoRefresh() {
