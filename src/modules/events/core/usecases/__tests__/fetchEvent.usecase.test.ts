@@ -5,58 +5,60 @@ import { EventFactory } from "@events/core/models/Event.factory";
 import { FailEventRepository } from "@events/core/adapters/FailEventRepository";
 
 describe("Fetch Event Usecase", () => {
-  it("Status should be 'Idle' when nothing is dispatch", async () => {
-    // Given
-    const store = createTestStore();
+  describe("When FetchEventList is fulfilled", () => {
+    it("Status should be 'Idle' when nothing is dispatch", async () => {
+      // Given
+      const store = createTestStore();
 
-    // When
-    const eventList = store.getState().events.eventsList.status;
+      // When
+      const eventList = store.getState().events.eventsList.status;
 
-    // Then
-    expect(eventList).toBe("idle");
-  });
+      // Then
+      expect(eventList).toBe("idle");
+    });
 
-  it("Should return an empty list when nothing is dispatch", async () => {
-    // Given
-    const store = createTestStore();
+    it("Should return an empty list when nothing is dispatch", async () => {
+      // Given
+      const store = createTestStore();
 
-    // When
-    const eventList = store.getState().events.eventsList.data;
+      // When
+      const eventList = store.getState().events.eventsList.data;
 
-    // Then
-    expect(eventList).toStrictEqual([]);
-  });
+      // Then
+      expect(eventList).toStrictEqual([]);
+    });
 
-  it("Status should be 'loading' when fetchEventList is pending", async () => {
-    // Given
-    const store = createTestStore();
+    it("Status should be 'loading' when fetchEventList is pending", async () => {
+      // Given
+      const store = createTestStore();
 
-    // When
-    store.dispatch(fetchEventsList());
-    const eventList = store.getState().events.eventsList.data;
-    const status = store.getState().events.eventsList.status;
+      // When
+      store.dispatch(fetchEventsList());
+      const eventList = store.getState().events.eventsList.data;
+      const status = store.getState().events.eventsList.status;
 
-    // Then
-    expect(eventList).toStrictEqual([]);
-    expect(status).toBe("loading");
-  });
+      // Then
+      expect(eventList).toStrictEqual([]);
+      expect(status).toBe("loading");
+    });
 
-  it("Should return a list with two items", async () => {
-    // Given
-    const myBirthday = EventFactory.EventListItem({ title: "my birtday" });
-    const musicParty = EventFactory.EventListItem({ title: "music party" });
+    it("Should return a list with two items", async () => {
+      // Given
+      const myBirthday = EventFactory.EventListItem({ title: "my birtday" });
+      const musicParty = EventFactory.EventListItem({ title: "music party" });
 
-    const eventRepository = new StubEventRepository([myBirthday, musicParty]);
-    const store = createTestStore({ dependencies: { eventRepository } });
+      const eventRepository = new StubEventRepository([myBirthday, musicParty]);
+      const store = createTestStore({ dependencies: { eventRepository } });
 
-    // When
-    await store.dispatch(fetchEventsList());
-    const eventList = store.getState().events.eventsList.data;
-    const status = store.getState().events.eventsList.status;
+      // When
+      await store.dispatch(fetchEventsList());
+      const eventList = store.getState().events.eventsList.data;
+      const status = store.getState().events.eventsList.status;
 
-    // Then
-    expect(eventList).toStrictEqual([myBirthday, musicParty]);
-    expect(status).toBe("idle");
+      // Then
+      expect(eventList).toStrictEqual([myBirthday, musicParty]);
+      expect(status).toBe("idle");
+    });
   });
 
   describe("When FetchEventList is rejected", () => {
