@@ -1,10 +1,10 @@
 import { EventList } from "../models/EventList.model";
 import { EventRepository } from "../ports/EventRepository";
 
-export class StubEventRepository implements EventRepository {
-  constructor(private events: EventList = []) {}
+export class FailEventRepository implements EventRepository {
+  constructor(private readonly message?: string) {}
 
   getAllMyEvents: () => Promise<EventList> = async () => {
-    return Promise.resolve(this.events);
+    throw new Error(this.message);
   };
 }

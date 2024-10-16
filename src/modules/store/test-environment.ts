@@ -1,6 +1,5 @@
 import { Dependencies } from "@app/dependencies/Dependencies.type";
-import { AppState } from "react-native";
-import { createStore } from "./store";
+import { AppState, createStore } from "./store";
 import { testDependencies } from "@app/dependencies/dependencies.test-env";
 
 /**
@@ -46,17 +45,17 @@ export const createTestStore = (config?: {
  * @param partialState
  * @returns
  */
-// export const createTestState = (partialState?: Partial<AppState>) => {
-//   const store = createStore({
-//     dependencies: createDependencies(),
-//   });
+export const createTestState = (partialState?: Partial<AppState>) => {
+  const store = createStore({
+    dependencies: createDependencies(),
+  });
 
-//   const storeInitialState = store.getState();
+  const storeInitialState = store.getState();
 
-//   const merged = {
-//     ...storeInitialState,
-//     ...partialState,
-//   };
+  const merged = {
+    ...storeInitialState,
+    ...partialState,
+  };
 
-//   return createTestStore({ initialState: merged }).getState();
-// };
+  return createTestStore({ initialState: merged }).getState();
+};

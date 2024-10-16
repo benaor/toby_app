@@ -1,14 +1,6 @@
-import { Dependencies } from "@app/dependencies/Dependencies.type";
-import { AppDispatch, AppGetState } from "@store/store";
-import { eventsActions } from "../slices/event.slice";
+import { createAppAsyncThunk } from "@store/thunk";
 
-export const fetchEventsList = async (
-  dispatch: AppDispatch,
-  _: AppGetState,
-  dependencies: Dependencies,
-) => {
-  try {
-    const myEvents = await dependencies.eventRepository.getAllMyEvent();
-    dispatch(eventsActions.storeEventsList(myEvents));
-  } catch {}
-};
+export const fetchEventsList = createAppAsyncThunk(
+  "events/fetchEventsList",
+  async (_, { extra }) => await extra.eventRepository.getAllMyEvents(),
+);
