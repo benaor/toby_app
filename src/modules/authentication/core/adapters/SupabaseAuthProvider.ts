@@ -17,8 +17,8 @@ import type {
 } from "../models/AuthUser.type";
 import { isNull } from "@utils/others/isNull";
 
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || "url";
+const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY! || "key";
 
 export class SupabaseAuthProvider implements AuthProvider {
   private supabase: SupabaseClient;

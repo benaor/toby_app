@@ -1,8 +1,5 @@
 import { Dependencies } from "@app/dependencies/Dependencies.type";
 import { AppStore, createStore } from "@store/store";
-import { prodDependencies } from "@app/dependencies/dependencies.prod";
-import { devDependencies } from "@app/dependencies/dependencies.dev";
-import { testDependencies } from "./dependencies/dependencies.test-env";
 
 export class Main {
   public dependencies: Dependencies;
@@ -14,17 +11,28 @@ export class Main {
   }
 
   setupDependencies(): Dependencies {
+    let importPath;
+    let dependencies: Dependencies;
+
     switch (process.env.NODE_ENV) {
       case "production":
-        return prodDependencies;
+        importPath = require("@app/dependencies/dependencies.prod");
+        dependencies = importPath.prodDependencies;
+        break;
 
       case "test":
-        return testDependencies;
+        importPath = require("@app/dependencies/dependencies.test-env");
+        dependencies = importPath.testDependencies;
+        break;
 
       default:
       case "development":
-        return devDependencies;
+        importPath = require("@app/dependencies/dependencies.dev");
+        dependencies = importPath.devDependencies;
+        break;
     }
+
+    return dependencies;
   }
 }
 
