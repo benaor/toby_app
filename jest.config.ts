@@ -3,6 +3,7 @@ import type { Config } from "jest";
 const config: Config = {
   verbose: true,
   preset: "jest-expo",
+  collectCoverage: true,
 };
 
 export default config;

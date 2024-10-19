@@ -1,14 +1,13 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { fetchEventsList } from "../usecases/fetchEvent.usecase";
 
-type EventState = {
+type State = {
   status: "idle" | "loading" | "error";
   error: string | null;
 };
 
-const eventsAdapters = createEntityAdapter({});
-
-const initialState = eventsAdapters.getInitialState<EventState>({
+const eventsAdapters = createEntityAdapter();
+const initialState = eventsAdapters.getInitialState<State>({
   status: "idle",
   error: "",
 });
@@ -34,5 +33,8 @@ const eventSlice = createSlice({
   },
 });
 
+export type EventState = typeof initialState;
+
+export const eventsSelectors = eventsAdapters.getSelectors();
 export const eventsReducer = eventSlice.reducer;
 export const eventsActions = eventSlice.actions;
