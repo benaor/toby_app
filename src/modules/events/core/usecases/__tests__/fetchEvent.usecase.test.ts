@@ -11,7 +11,7 @@ describe("Fetch Event Usecase", () => {
       const store = createTestStore();
 
       // When
-      const eventList = store.getState().events.eventsList.status;
+      const eventList = store.getState().events.status;
 
       // Then
       expect(eventList).toBe("idle");
@@ -22,10 +22,10 @@ describe("Fetch Event Usecase", () => {
       const store = createTestStore();
 
       // When
-      const eventList = store.getState().events.eventsList.data;
+      const eventList = store.getState().events.entities;
 
       // Then
-      expect(eventList).toStrictEqual([]);
+      expect(eventList).toStrictEqual({});
     });
 
     it("Status should be 'loading' when fetchEventList is pending", async () => {
@@ -34,29 +34,38 @@ describe("Fetch Event Usecase", () => {
 
       // When
       store.dispatch(fetchEventsList());
-      const eventList = store.getState().events.eventsList.data;
-      const status = store.getState().events.eventsList.status;
+      const eventList = store.getState().events.entities;
+      const status = store.getState().events.status;
 
       // Then
-      expect(eventList).toStrictEqual([]);
+      expect(eventList).toStrictEqual({});
       expect(status).toBe("loading");
     });
 
     it("Should return a list with two items", async () => {
       // Given
-      const myBirthday = EventFactory.EventListItem({ title: "my birtday" });
-      const musicParty = EventFactory.EventListItem({ title: "music party" });
+      const myBirthday = EventFactory.EventListItem({
+        id: "birtday",
+        title: "my birtday",
+      });
+      const musicParty = EventFactory.EventListItem({
+        id: "music",
+        title: "music party",
+      });
 
       const eventRepository = new StubEventRepository([myBirthday, musicParty]);
       const store = createTestStore({ dependencies: { eventRepository } });
 
       // When
       await store.dispatch(fetchEventsList());
-      const eventList = store.getState().events.eventsList.data;
-      const status = store.getState().events.eventsList.status;
+      const eventList = store.getState().events.entities;
+      const status = store.getState().events.status;
 
       // Then
-      expect(eventList).toStrictEqual([myBirthday, musicParty]);
+      expect(eventList).toStrictEqual({
+        [myBirthday.id]: { ...myBirthday },
+        [musicParty.id]: { ...musicParty },
+      });
       expect(status).toBe("idle");
     });
   });
@@ -68,7 +77,7 @@ describe("Fetch Event Usecase", () => {
 
       // When
       await store.dispatch(fetchEventsList());
-      const status = store.getState().events.eventsList.status;
+      const status = store.getState().events.status;
 
       // Then
       expect(status).toBe("error");
@@ -83,21 +92,23 @@ describe("Fetch Event Usecase", () => {
         dependencies: { eventRepository },
         initialState: {
           events: {
-            eventsList: {
-              data: [myBirthday, musicParty],
-              status: "idle",
-              error: null,
+            ids: [myBirthday.id, musicParty.id],
+            entities: {
+              [myBirthday.id]: { ...myBirthday },
+              [musicParty.id]: { ...musicParty },
             },
+            status: "idle",
+            error: null,
           },
         },
       });
 
       // When
       await store.dispatch(fetchEventsList());
-      const eventsList = store.getState().events.eventsList.data;
+      const eventsList = store.getState().events.entities;
 
       // Then
-      expect(eventsList).toStrictEqual([]);
+      expect(eventsList).toStrictEqual({});
     });
 
     it('Error message should be : an unexpected error happened"', async () => {
@@ -107,7 +118,7 @@ describe("Fetch Event Usecase", () => {
 
       // When
       await store.dispatch(fetchEventsList());
-      const error = store.getState().events.eventsList.error;
+      const error = store.getState().events.error;
 
       // Then
       expect(error).toBe(errorMsg);

@@ -1,40 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { EventList } from "../models/EventList.model";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { fetchEventsList } from "../usecases/fetchEvent.usecase";
 
 type EventState = {
-  eventsList: {
-    data: EventList;
-    status: "idle" | "loading" | "error";
-    error: string | null;
-  };
+  status: "idle" | "loading" | "error";
+  error: string | null;
 };
 
-const initialState: EventState = {
-  eventsList: {
-    data: [],
-    status: "idle",
-    error: "",
-  },
-};
+const eventsAdapters = createEntityAdapter({});
+
+const initialState = eventsAdapters.getInitialState<EventState>({
+  status: "idle",
+  error: "",
+});
 
 const eventSlice = createSlice({
   name: "event",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchEventsList.pending, (state) => {
-      state.eventsList.status = "loading";
-    });
-    builder.addCase(fetchEventsList.fulfilled, (state, action) => {
-      state.eventsList.status = "idle";
-      state.eventsList.data = action.payload;
-    });
-    builder.addCase(fetchEventsList.rejected, (state, action) => {
-      state.eventsList.status = "error";
-      state.eventsList.data = [];
-      state.eventsList.error = action.error.message || null;
-    });
+    builder
+      .addCase(fetchEventsList.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchEventsList.fulfilled, (state, action) => {
+        state.status = "idle";
+        eventsAdapters.setAll(state, action.payload);
+      })
+      .addCase(fetchEventsList.rejected, (state, action) => {
+        state.status = "error";
+        eventsAdapters.removeAll(state);
+        state.error = action.error.message || null;
+      });
   },
 });
 
