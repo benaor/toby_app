@@ -1,34 +1,12 @@
 import { useCallback } from "react";
-import { EventList } from "../../../core/models/EventList.model";
 import { screens } from "@constants/screens";
 import { useRouter } from "expo-router";
+import { useSelector } from "react-redux";
+import { eventsSelector } from "@events/core/selectors/events.selector";
 
 export const useEventsList = () => {
   const { navigate } = useRouter();
-  const events: EventList = [
-    {
-      id: "1",
-      image: "https://picsum.photos/204",
-      title: "Anniversaire Marco",
-      date: new Date().toISOString(),
-      guests: ["John", "Doe"],
-      notification: {
-        count: 1,
-      },
-      isAdmin: true,
-    },
-    {
-      id: "2",
-      image: "https://picsum.photos/308",
-      title: "Resto entre amis",
-      date: new Date().toISOString(),
-      guests: ["John", "Doe"],
-      notification: {
-        count: 2,
-      },
-      isAdmin: false,
-    },
-  ];
+  const events = useSelector(eventsSelector);
 
   const goToEvent = useCallback(
     (eventId: string) => navigate(screens.event(eventId)),

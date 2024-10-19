@@ -1,8 +1,12 @@
 import { screens } from "@constants/screens";
+import { fetchEventsList } from "@events/core/usecases/fetchEvent.usecase";
+import { useAppDispatch } from "@store/useAppDispatch";
+
 import { useRouter } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useEventsListScreen = () => {
+  const dispatch = useAppDispatch();
   const [editMode, setEditMode] = useState(false);
   const { push } = useRouter();
 
@@ -17,6 +21,10 @@ export const useEventsListScreen = () => {
   const opencreateEventModal = useCallback(() => {
     push(screens.newEvent);
   }, [push]);
+
+  useEffect(() => {
+    dispatch(fetchEventsList());
+  }, [dispatch]);
 
   return {
     editMode,
