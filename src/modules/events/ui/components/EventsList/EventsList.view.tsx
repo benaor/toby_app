@@ -4,9 +4,13 @@ import { ScrollView } from "react-native";
 import { useEventsList } from "./EventsList.controller";
 import { EventCard } from "../EventCard";
 import { NoEventText } from "../NoEventText";
+import { Typography } from "@components/Typography";
 
 export const EventsList: FC = () => {
-  const { events, goToEvent } = useEventsList();
+  const { events, isLoading, error, goToEvent } = useEventsList();
+
+  if (isLoading) return <Typography.Body>Loading...</Typography.Body>; // TODO: Add a loading spinner
+  if (error) return <Typography.Body>Error: {error}</Typography.Body>; // TODO: Add a retry button
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

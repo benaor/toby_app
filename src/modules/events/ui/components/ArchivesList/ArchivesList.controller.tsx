@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 import {
-  archivesErrorSelector,
-  archivesEntitiesSelector,
-  archivesStatusSelector,
+  allArchivesSelector,
+  archivesStateSelector,
 } from "@events/core/selectors/archives.selector";
 import { useEffect } from "react";
 import { useAppDispatch } from "@store/useAppDispatch";
@@ -10,15 +9,15 @@ import { fetchArchivedEventsList } from "@events/core/usecases/fetchArchivedEven
 
 export const useArchivesList = () => {
   const dispatch = useAppDispatch();
-  const archivedEvents = useSelector(archivesEntitiesSelector);
-  const status = useSelector(archivesStatusSelector);
-  const error = useSelector(archivesErrorSelector);
+  const archivedEvents = useSelector(allArchivesSelector);
+  const { status, error } = useSelector(archivesStateSelector);
 
   useEffect(() => {
     if (archivedEvents.length > 0) return;
+    const promise = dispatch(fetchArchivedEventsList());
 
-    dispatch(fetchArchivedEventsList());
-  }, [archivedEvents.length, dispatch]);
+    return () => promise.abort();
+  }, [dispatch]);
 
   return {
     archivedEvents,

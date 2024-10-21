@@ -7,18 +7,19 @@ export const calendarEventListToSectionList = (
   const arrayOfSection: ArrayOfSectionsListOfEvent = [];
 
   eventList.forEach((event) => {
-    const mount = new Date(event.start).toLocaleDateString("fr-FR", {
+    const title = new Date(event.start).toLocaleDateString("fr-FR", {
       month: "long",
+      year: "numeric",
     });
 
     const sectionOfMonth = arrayOfSection.findIndex(
-      (section) => section.title === mount,
+      (section) => section.title === title,
     );
 
     if (sectionOfMonth !== -1)
       return arrayOfSection[sectionOfMonth].data.push(event);
 
-    return arrayOfSection.push({ title: mount, data: [event] });
+    return arrayOfSection.push({ title: title, data: [event] });
   });
 
   return sortDataSectionByDate(arrayOfSection);

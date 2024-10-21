@@ -10,11 +10,6 @@ export class InMemoryEventRepository implements EventRepository {
       start: "2021-12-24",
     }),
     EventFactory.EVENT({
-      id: "2",
-      title: "Soirée de l'été",
-      start: "2021-07-01",
-    }),
-    EventFactory.EVENT({
       id: "3",
       title: "Team building",
       start: "2021-09-01",
@@ -31,6 +26,11 @@ export class InMemoryEventRepository implements EventRepository {
       title: "Vacances Suisse",
       start: "2021-08-03",
       end: "2021-08-12",
+    }),
+    EventFactory.EVENT({
+      id: "2",
+      title: "Soirée de l'été",
+      start: "2021-07-01",
     }),
   ];
 
@@ -54,6 +54,7 @@ export class InMemoryEventRepository implements EventRepository {
   ];
 
   getAllMyEvents = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return Promise.resolve(this.events);
   };
 

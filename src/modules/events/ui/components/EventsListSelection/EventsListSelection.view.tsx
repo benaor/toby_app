@@ -5,9 +5,13 @@ import { useEventsListSelection } from "./EventsListSelection.controller";
 import { CheckBox } from "@components/Checkbox";
 import { EventCard } from "../EventCard";
 import { NoEventText } from "../NoEventText";
+import { Typography } from "@components/Typography";
 
 export const EventsListSelection: FC = () => {
-  const { events } = useEventsListSelection();
+  const { events, error, isLoading } = useEventsListSelection();
+
+  if (isLoading) return <Typography.Body>Loading...</Typography.Body>; // TODO: Add a loading spinner
+  if (error) return <Typography.Body>Error: {error}</Typography.Body>; // TODO: Add a retry button
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

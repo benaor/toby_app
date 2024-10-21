@@ -1,15 +1,14 @@
 import { createTestState } from "@store/test-environment";
 import {
-  archivesErrorSelector,
-  archivesEntitiesSelector,
-  archivesStatusSelector,
+  allArchivesSelector,
+  archivesStateSelector,
 } from "../archives.selector";
 
 import { EventFactory } from "../../models/Event.factory";
 import { ArchivesState } from "@events/core/slices/archives.slices";
 
 describe("Archives Selector", () => {
-  describe("archivesSelector", () => {
+  describe("archivesEntitiesSelector", () => {
     it("should return the empty archive list", () => {
       // Given
       const archives: ArchivesState = {
@@ -22,7 +21,7 @@ describe("Archives Selector", () => {
       const state = createTestState({ archives });
 
       // When
-      const result = archivesEntitiesSelector(state);
+      const result = allArchivesSelector(state);
 
       // Then
       expect(result).toStrictEqual([]);
@@ -52,50 +51,48 @@ describe("Archives Selector", () => {
       const state = createTestState({ archives });
 
       // When
-      const result = archivesEntitiesSelector(state);
+      const result = allArchivesSelector(state);
 
       // Then
       expect(result).toStrictEqual([myBirthday, musicParty]);
     });
   });
 
-  describe("archivesStatusSelector", () => {
-    it("should return the status of the archives", () => {
+  describe("archivesStateSelector", () => {
+    it("should return the empty archive list", () => {
       // Given
       const archives: ArchivesState = {
         ids: [],
         entities: {},
-        status: "loading",
+        status: "idle",
         error: null,
       };
 
       const state = createTestState({ archives });
 
       // When
-      const result = archivesStatusSelector(state);
+      const result = archivesStateSelector(state);
 
       // Then
-      expect(result).toBe("loading");
+      expect(result).toStrictEqual(archives);
     });
-  });
 
-  describe("archivesErrorSelector", () => {
-    it("should return the error of the archives", () => {
+    it("should return the empty archive list", () => {
       // Given
       const archives: ArchivesState = {
         ids: [],
         entities: {},
         status: "error",
-        error: "An error occurred",
+        error: "An Error occurred",
       };
 
       const state = createTestState({ archives });
 
       // When
-      const result = archivesErrorSelector(state);
+      const result = archivesStateSelector(state);
 
       // Then
-      expect(result).toBe("An error occurred");
+      expect(result).toStrictEqual(archives);
     });
   });
 });

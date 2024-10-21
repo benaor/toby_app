@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { useRouter } from "expo-router";
 import { screens } from "@constants/screens";
 import { useSelector } from "react-redux";
-import { eventsSelector } from "@events/core/selectors/events.selector";
+import { allEventsSelector } from "@events/core/selectors/events.selector";
 
 type SectionsCalendarEventList = {
   title: string;
@@ -19,7 +19,7 @@ export type ArrayOfSectionsListOfEvent = SectionListData<
 
 export const useCalendarScreen = () => {
   const { push } = useRouter();
-  const events = useSelector(eventsSelector);
+  const events = useSelector(allEventsSelector);
 
   const sectionsOfEvents: ArrayOfSectionsListOfEvent =
     calendarEventListToSectionList(events);

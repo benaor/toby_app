@@ -20,7 +20,7 @@ describe("Transform a list to SectionList data", () => {
     const eventList: CalendarEventList = [event];
     const result = calendarEventListToSectionList(eventList);
     const expected: ArrayOfSectionsListOfEvent = [
-      { title: "janvier", data: [event] },
+      { title: "janvier 2024", data: [event] },
     ];
 
     expect(result).toStrictEqual(expected);
@@ -34,7 +34,7 @@ describe("Transform a list to SectionList data", () => {
     const eventList: CalendarEventList = [event];
     const result = calendarEventListToSectionList(eventList);
     const expected: ArrayOfSectionsListOfEvent = [
-      { title: "février", data: [event] },
+      { title: "février 2024", data: [event] },
     ];
 
     expect(result).toStrictEqual(expected);
@@ -53,8 +53,8 @@ describe("Transform a list to SectionList data", () => {
     const result = calendarEventListToSectionList(eventList);
 
     const expected: ArrayOfSectionsListOfEvent = [
-      { title: "janvier", data: [january] },
-      { title: "février", data: [february] },
+      { title: "janvier 2024", data: [january] },
+      { title: "février 2024", data: [february] },
     ];
 
     expect(result).toStrictEqual(expected);
@@ -68,7 +68,7 @@ describe("Transform a list to SectionList data", () => {
     const result = calendarEventListToSectionList(eventList);
 
     const expected: ArrayOfSectionsListOfEvent = [
-      { title: "janvier", data: [first, second] },
+      { title: "janvier 2024", data: [first, second] },
     ];
 
     expect(result).toStrictEqual(expected);
@@ -95,8 +95,8 @@ describe("Transform a list to SectionList data", () => {
     const result = calendarEventListToSectionList(eventList);
 
     const expected: ArrayOfSectionsListOfEvent = [
-      { title: "juin", data: [firstOnJune, secondOnJune] },
-      { title: "janvier", data: [firstOnJanuary, secondOnJanuary] },
+      { title: "juin 2024", data: [firstOnJune, secondOnJune] },
+      { title: "janvier 2024", data: [firstOnJanuary, secondOnJanuary] },
     ];
 
     expect(result).toStrictEqual(expected);
