@@ -1,17 +1,18 @@
-import { eventListItem } from "./EventList.model";
+import { Event } from "./Event.model";
 
 export class EventFactory {
-  static EventListItem = (item: Partial<eventListItem>): eventListItem => {
+  static EVENT = (item: Partial<Event>): Event => {
     return {
       id: "1",
       guests: [],
-      image: "www.stub.com/image/1",
+      image: "https://picsum.photos/seed/picsum/200/300",
       isAdmin: false,
       notification: {
         count: 0,
       },
       title: "Event 1 from factory",
-      date: new Date("2020-01-01").toISOString(),
+      start: new Date("2020-01-01").toISOString(),
+      end: null,
       ...item,
     };
   };

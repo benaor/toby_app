@@ -1,30 +1,8 @@
-import { EventList } from "../../../core/models/EventList.model";
+import { useSelector } from "react-redux";
+import { eventsSelector } from "@events/core/selectors/events.selector";
 
 export const useEventsListSelection = () => {
-  const events: EventList = [
-    {
-      id: "1",
-      image: "https://picsum.photos/204",
-      title: "Anniversaire Marco",
-      date: new Date().toISOString(),
-      guests: ["John", "Doe"],
-      notification: {
-        count: 1,
-      },
-      isAdmin: true,
-    },
-    {
-      id: "2",
-      image: "https://picsum.photos/308",
-      title: "Resto entre amis",
-      date: new Date().toISOString(),
-      guests: ["John", "Doe"],
-      notification: {
-        count: 2,
-      },
-      isAdmin: false,
-    },
-  ];
+  const events = useSelector(eventsSelector);
 
   return {
     events,

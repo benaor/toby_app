@@ -1,4 +1,4 @@
-import { EventList } from "@events/core/models/EventList.model";
+import { EventList } from "@events/core/models/Event.model";
 
 export interface EventRepository {
   getAllMyEvents: () => Promise<EventList>;

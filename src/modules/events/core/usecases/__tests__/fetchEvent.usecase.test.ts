@@ -44,11 +44,11 @@ describe("Fetch Event Usecase", () => {
 
     it("Should return a list with two items", async () => {
       // Given
-      const myBirthday = EventFactory.EventListItem({
+      const myBirthday = EventFactory.EVENT({
         id: "birtday",
         title: "my birtday",
       });
-      const musicParty = EventFactory.EventListItem({
+      const musicParty = EventFactory.EVENT({
         id: "music",
         title: "music party",
       });
@@ -84,8 +84,8 @@ describe("Fetch Event Usecase", () => {
     });
 
     it('list should be "empty"', async () => {
-      const myBirthday = EventFactory.EventListItem({ title: "my birtday" });
-      const musicParty = EventFactory.EventListItem({ title: "music party" });
+      const myBirthday = EventFactory.EVENT({ title: "my birtday" });
+      const musicParty = EventFactory.EVENT({ title: "music party" });
 
       const eventRepository = new FailEventRepository();
       const store = createTestStore({

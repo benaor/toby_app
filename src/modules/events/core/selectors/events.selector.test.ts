@@ -24,11 +24,11 @@ describe("Events Selector", () => {
 
   it("should return the empty event list", () => {
     // Given
-    const myBirthday = EventFactory.EventListItem({
+    const myBirthday = EventFactory.EVENT({
       id: "birth-id",
       title: "my birtday",
     });
-    const musicParty = EventFactory.EventListItem({
+    const musicParty = EventFactory.EVENT({
       id: "music-id",
       title: "music party",
     });

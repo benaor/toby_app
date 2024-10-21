@@ -7,7 +7,9 @@ export const calendarEventListToSectionList = (
   const arrayOfSection: ArrayOfSectionsListOfEvent = [];
 
   eventList.forEach((event) => {
-    const mount = event.start.toLocaleDateString("fr-FR", { month: "long" });
+    const mount = new Date(event.start).toLocaleDateString("fr-FR", {
+      month: "long",
+    });
 
     const sectionOfMonth = arrayOfSection.findIndex(
       (section) => section.title === mount,
@@ -29,4 +31,6 @@ const sortDataSectionByDate = (data: ArrayOfSectionsListOfEvent) =>
   }));
 
 const sortCalendarEventDataByDate = (events: CalendarEventList) =>
-  events.sort((a, b) => a.start.getTime() - b.start.getTime());
+  events.sort(
+    (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
+  );

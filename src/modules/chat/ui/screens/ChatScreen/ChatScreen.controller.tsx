@@ -1,24 +1,26 @@
 import { useCallback } from "react";
 import { screens } from "@constants/screens";
 import { useRouter } from "expo-router";
-import { EventList } from "@events/core/models/EventList.model";
+import { Event } from "@events/core/models/Event.model";
 import { Message } from "../../../core/message.model";
+import { EventFactory } from "@events/core/models/Event.factory";
 
 export const useChatScreen = (eventId: string) => {
   const { navigate } = useRouter();
   const userId = "2";
 
-  const event: EventList[number] = {
+  const event: Event = EventFactory.EVENT({
     id: "1",
     image: "https://picsum.photos/204",
     title: "Anniversaire Marco",
-    date: new Date().toISOString(),
+    start: new Date().toISOString(),
+    end: null,
     guests: ["John", "Doe"],
     notification: {
       count: 1,
     },
     isAdmin: true,
-  };
+  });
 
   const messages: Message[] = [
     {

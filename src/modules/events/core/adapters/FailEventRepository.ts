@@ -1,4 +1,4 @@
-import { EventList } from "../models/EventList.model";
+import { EventList } from "../models/Event.model";
 import { EventRepository } from "../ports/EventRepository";
 
 export class FailEventRepository implements EventRepository {
