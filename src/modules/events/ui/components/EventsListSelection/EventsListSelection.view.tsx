@@ -1,6 +1,6 @@
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useEventsListSelection } from "./EventsListSelection.controller";
 import { CheckBox } from "@components/Checkbox";
 import { EventCard } from "../EventCard";
@@ -10,7 +10,7 @@ export const EventsListSelection: FC = () => {
   const { events } = useEventsListSelection();
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       {events.length === 0 ? (
         <NoEventText />
       ) : (
@@ -31,12 +31,13 @@ export const EventsListSelection: FC = () => {
           </View>
         ))
       )}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = createStyleSheet(() => ({
   container: {
+    paddingTop: 100,
     margin: "auto",
     display: "flex",
     flexDirection: "column",

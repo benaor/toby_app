@@ -14,7 +14,7 @@ describe("Transform a list to SectionList data", () => {
 
   it("should return a list with one section named JANVIER and NEW YEAR as data", () => {
     const event = CalendarEventFactory.create({
-      start: new Date("2024-01-01"),
+      start: "2024-01-01",
     });
 
     const eventList: CalendarEventList = [event];
@@ -28,7 +28,7 @@ describe("Transform a list to SectionList data", () => {
 
   it("should return a list with one section named FEVRIER and NEW YEAR as data", () => {
     const event = CalendarEventFactory.create({
-      start: new Date("2024-02-02"),
+      start: "2024-02-02",
     });
 
     const eventList: CalendarEventList = [event];
@@ -42,11 +42,11 @@ describe("Transform a list to SectionList data", () => {
 
   it("should return a list with two section named JANVIER & FEVRIER and NEW YEAR as data for the both", () => {
     const january = CalendarEventFactory.create({
-      start: new Date("2024-01-01"),
+      start: "2024-01-01",
     });
 
     const february = CalendarEventFactory.create({
-      start: new Date("2024-02-02"),
+      start: "2024-02-02",
     });
 
     const eventList: CalendarEventList = [january, february];
@@ -79,10 +79,10 @@ describe("Transform a list to SectionList data", () => {
     const secondOnJanuary = CalendarEventFactory.create();
     const firstOnJune = CalendarEventFactory.create({
       title: "Fête de la musique",
-      start: new Date("2024-06-21"),
+      start: "2024-06-21",
     });
     const secondOnJune = CalendarEventFactory.create({
-      start: new Date("2024-06-24"),
+      start: "2024-06-24",
       title: "Feux de la Saint-Jean",
     });
 

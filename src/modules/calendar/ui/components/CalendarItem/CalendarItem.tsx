@@ -5,7 +5,7 @@ import { FC } from "react";
 import { Pressable, View } from "react-native";
 
 type CalendarItemProps = {
-  date: Date;
+  date: ISO8601;
   title: string;
   onPress: VoidFunction;
 };
@@ -19,7 +19,10 @@ export const CalendarItem: FC<CalendarItemProps> = ({
     <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.schedule}>
         <Typography.Header size="small" bold lvlColor="low">
-          {date.toLocaleString("fr-FR", { month: "2-digit", day: "2-digit" })}
+          {new Date(date).toLocaleString("fr-FR", {
+            month: "2-digit",
+            day: "2-digit",
+          })}
         </Typography.Header>
       </View>
 
