@@ -24,12 +24,13 @@ const eventSlice = createSlice({
       })
       .addCase(fetchEventsList.fulfilled, (state, action) => {
         state.status = "idle";
+        state.error = null;
         eventsAdapters.setAll(state, action.payload);
       })
       .addCase(fetchEventsList.rejected, (state, action) => {
         state.status = "error";
         eventsAdapters.removeAll(state);
-        state.error = action.error.message || null;
+        state.error = action.error.message || "Une erreur est survenue";
       });
   },
 });

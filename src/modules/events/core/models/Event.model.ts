@@ -10,5 +10,7 @@ export type Event = {
   };
   isAdmin: boolean;
 };
-
 export type EventList = Event[];
+
+export type ArchivedEvent = Event;
+export type ArchivedEventList = ArchivedEvent[];

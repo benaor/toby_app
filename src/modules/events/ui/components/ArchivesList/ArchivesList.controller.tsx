@@ -1,34 +1,28 @@
-import { EventFactory } from "@events/core/models/Event.factory";
-import { EventList } from "../../../core/models/Event.model";
+import { useSelector } from "react-redux";
+import {
+  archivesErrorSelector,
+  archivesEntitiesSelector,
+  archivesStatusSelector,
+} from "@events/core/selectors/archives.selector";
+import { useEffect } from "react";
+import { useAppDispatch } from "@store/useAppDispatch";
+import { fetchArchivedEventsList } from "@events/core/usecases/fetchArchivedEvents.usecase";
 
 export const useArchivesList = () => {
-  const events: EventList = [
-    EventFactory.EVENT({
-      id: "1",
-      image: "https://picsum.photos/204",
-      title: "Anniversaire Marco",
-      start: new Date().toISOString(),
-      guests: ["John", "Doe"],
-      notification: {
-        count: 1,
-      },
-      isAdmin: true,
-    }),
-    EventFactory.EVENT({
-      id: "2",
-      image: "https://picsum.photos/308",
-      title: "Resto entre amis",
-      start: new Date().toISOString(),
-      end: null,
-      guests: ["John", "Doe"],
-      notification: {
-        count: 2,
-      },
-      isAdmin: false,
-    }),
-  ];
+  const dispatch = useAppDispatch();
+  const archivedEvents = useSelector(archivesEntitiesSelector);
+  const status = useSelector(archivesStatusSelector);
+  const error = useSelector(archivesErrorSelector);
+
+  useEffect(() => {
+    if (archivedEvents.length > 0) return;
+
+    dispatch(fetchArchivedEventsList());
+  }, [archivedEvents.length, dispatch]);
 
   return {
-    events,
+    archivedEvents,
+    isLoading: status === "loading",
+    error,
   };
 };

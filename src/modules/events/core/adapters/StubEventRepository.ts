@@ -7,4 +7,8 @@ export class StubEventRepository implements EventRepository {
   getAllMyEvents: () => Promise<EventList> = async () => {
     return Promise.resolve(this.events);
   };
+
+  getAllArchivedEvents: () => Promise<EventList> = async () => {
+    return Promise.resolve(this.events);
+  };
 }

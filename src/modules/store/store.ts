@@ -1,9 +1,11 @@
 import { Dependencies } from "@app/dependencies/Dependencies.type";
+import { archivesReducer } from "@events/core/slices/archives.slices";
 import { eventsReducer } from "@events/core/slices/event.slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 const reducers = combineReducers({
   events: eventsReducer,
+  archives: archivesReducer,
 });
 
 export const createStore = (config: {

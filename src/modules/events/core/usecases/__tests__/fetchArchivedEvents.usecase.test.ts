@@ -1,20 +1,20 @@
 import { createTestStore } from "@store/test-environment";
-import { fetchEventsList } from "../fetchEvent.usecase";
 import { StubEventRepository } from "@events/core/adapters/StubEventRepository";
 import { EventFactory } from "@events/core/models/Event.factory";
 import { FailEventRepository } from "@events/core/adapters/FailEventRepository";
+import { fetchArchivedEventsList } from "../fetchArchivedEvents.usecase";
 
-describe("Fetch Event Usecase", () => {
-  describe("When FetchEventList is fulfilled", () => {
+describe("Fetch Archived Events Usecase", () => {
+  describe("When FetchArchivedEvents is fulfilled", () => {
     it("Status should be 'Idle' when nothing is dispatch", async () => {
       // Given
       const store = createTestStore();
 
       // When
-      const eventList = store.getState().events.status;
+      const archives = store.getState().archives.status;
 
       // Then
-      expect(eventList).toBe("idle");
+      expect(archives).toBe("idle");
     });
 
     it("Should return an empty list when nothing is dispatch", async () => {
@@ -22,33 +22,33 @@ describe("Fetch Event Usecase", () => {
       const store = createTestStore();
 
       // When
-      const eventList = store.getState().events.entities;
+      const archivesList = store.getState().archives.entities;
 
       // Then
-      expect(eventList).toStrictEqual({});
+      expect(archivesList).toStrictEqual({});
     });
 
-    it("Status should be 'loading' when fetchEventList is pending", async () => {
+    it("Status should be 'loading' when fetchArchivedEventList is pending", async () => {
       // Given
       const store = createTestStore();
 
       // When
-      store.dispatch(fetchEventsList());
-      const eventList = store.getState().events.entities;
-      const status = store.getState().events.status;
+      store.dispatch(fetchArchivedEventsList());
+      const archivesList = store.getState().archives.entities;
+      const status = store.getState().archives.status;
 
       // Then
-      expect(eventList).toStrictEqual({});
+      expect(archivesList).toStrictEqual({});
       expect(status).toBe("loading");
     });
 
     it("Should return a list with two items", async () => {
       // Given
-      const myBirthday = EventFactory.EVENT({
+      const myBirthday = EventFactory.ARCHIVED_EVENT({
         id: "birtday",
         title: "my birtday",
       });
-      const musicParty = EventFactory.EVENT({
+      const musicParty = EventFactory.ARCHIVED_EVENT({
         id: "music",
         title: "music party",
       });
@@ -57,12 +57,12 @@ describe("Fetch Event Usecase", () => {
       const store = createTestStore({ dependencies: { eventRepository } });
 
       // When
-      await store.dispatch(fetchEventsList());
-      const eventList = store.getState().events.entities;
-      const status = store.getState().events.status;
+      await store.dispatch(fetchArchivedEventsList());
+      const archivesList = store.getState().archives.entities;
+      const status = store.getState().archives.status;
 
       // Then
-      expect(eventList).toStrictEqual({
+      expect(archivesList).toStrictEqual({
         [myBirthday.id]: { ...myBirthday },
         [musicParty.id]: { ...musicParty },
       });
@@ -74,7 +74,7 @@ describe("Fetch Event Usecase", () => {
       const store = createTestStore({
         dependencies: { eventRepository },
         initialState: {
-          events: {
+          archives: {
             entities: {},
             ids: [],
             status: "error",
@@ -84,9 +84,9 @@ describe("Fetch Event Usecase", () => {
       });
 
       // When
-      await store.dispatch(fetchEventsList());
-      const error = store.getState().events.error;
-      const status = store.getState().events.status;
+      await store.dispatch(fetchArchivedEventsList());
+      const error = store.getState().archives.error;
+      const status = store.getState().archives.status;
 
       // Then
       expect(error).toBe(null);
@@ -94,28 +94,28 @@ describe("Fetch Event Usecase", () => {
     });
   });
 
-  describe("When FetchEventList is rejected", () => {
+  describe("When FetchArchivedEventList is rejected", () => {
     it('Status should be "Error"', async () => {
       const eventRepository = new FailEventRepository();
       const store = createTestStore({ dependencies: { eventRepository } });
 
       // When
-      await store.dispatch(fetchEventsList());
-      const status = store.getState().events.status;
+      await store.dispatch(fetchArchivedEventsList());
+      const status = store.getState().archives.status;
 
       // Then
       expect(status).toBe("error");
     });
 
     it('list should be "empty"', async () => {
-      const myBirthday = EventFactory.EVENT({ title: "my birtday" });
-      const musicParty = EventFactory.EVENT({ title: "music party" });
+      const myBirthday = EventFactory.ARCHIVED_EVENT({ title: "my birtday" });
+      const musicParty = EventFactory.ARCHIVED_EVENT({ title: "music party" });
 
       const eventRepository = new FailEventRepository();
       const store = createTestStore({
         dependencies: { eventRepository },
         initialState: {
-          events: {
+          archives: {
             ids: [myBirthday.id, musicParty.id],
             entities: {
               [myBirthday.id]: { ...myBirthday },
@@ -128,8 +128,8 @@ describe("Fetch Event Usecase", () => {
       });
 
       // When
-      await store.dispatch(fetchEventsList());
-      const eventsList = store.getState().events.entities;
+      await store.dispatch(fetchArchivedEventsList());
+      const eventsList = store.getState().archives.entities;
 
       // Then
       expect(eventsList).toStrictEqual({});
@@ -141,20 +141,20 @@ describe("Fetch Event Usecase", () => {
       const store = createTestStore({ dependencies: { eventRepository } });
 
       // When
-      await store.dispatch(fetchEventsList());
-      const error = store.getState().events.error;
+      await store.dispatch(fetchArchivedEventsList());
+      const error = store.getState().archives.error;
 
       // Then
       expect(error).toBe(errorMsg);
     });
 
-    it('Error message should be : an unexpected error happened"', async () => {
+    it('Error message should be : Une erreur est survenue"', async () => {
       const eventRepository = new FailEventRepository();
       const store = createTestStore({ dependencies: { eventRepository } });
 
       // When
-      await store.dispatch(fetchEventsList());
-      const error = store.getState().events.error;
+      await store.dispatch(fetchArchivedEventsList());
+      const error = store.getState().archives.error;
 
       // Then
       expect(error).toBe("Une erreur est survenue");

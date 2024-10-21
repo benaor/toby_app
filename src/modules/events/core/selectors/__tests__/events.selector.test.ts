@@ -1,7 +1,7 @@
 import { createTestState } from "@store/test-environment";
-import { eventsSelector } from "./events.selector";
-import { EventState } from "../slices/event.slice";
-import { EventFactory } from "../models/Event.factory";
+import { eventsSelector } from "../events.selector";
+import { EventState } from "../../slices/event.slice";
+import { EventFactory } from "../../models/Event.factory";
 
 describe("Events Selector", () => {
   it("should return the empty event list", () => {
