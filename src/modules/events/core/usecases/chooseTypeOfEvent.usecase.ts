@@ -3,6 +3,6 @@ import { AppDispatch, AppGetState } from "@store/store";
 import { creationActions } from "../slices/creation.slice";
 
 export const chooseTypeOfEvent =
-  (type: EventType) => (dispatch: AppDispatch, getState: AppGetState) => {
+  (type: EventType) => (dispatch: AppDispatch, _: AppGetState) => {
     dispatch(creationActions.chooseType(type));
   };

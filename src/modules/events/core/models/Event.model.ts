@@ -1,7 +1,8 @@
 export type Event = {
   id: Identifier;
-  image: string;
   title: string;
+  description: string;
+  image: string;
   start: ISO8601;
   end: ISO8601 | null;
   guests: Identifier[];

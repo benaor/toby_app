@@ -8,6 +8,14 @@ const eventTypes = [
 
 export type EventType = (typeof eventTypes)[number];
 
-export type EventForm = {
-  type: Nullable<EventType>;
+export type EventFormType = {
+  type: EventType;
 };
+
+export type EventFormGeneralsInfos = {
+  title: string;
+  description: string;
+  image: string;
+};
+
+export type EventForm = EventFormType & EventFormGeneralsInfos;

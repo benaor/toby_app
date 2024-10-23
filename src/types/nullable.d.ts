@@ -1,1 +1,3 @@
-declare type Nullable<T> = T | null;
+declare type Nullable<T> = {
+  [P in keyof T]: T[P] | null;
+};
