@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CreationStep } from "../models/Creation.model";
 import {
   EventForm,
+  EventFormAdditionalsInfos,
   EventFormGeneralsInfos,
   EventType,
 } from "../models/EventForm.model";
@@ -18,11 +19,12 @@ const initialState: State = {
     title: null,
     description: null,
     image: null,
+    location: null,
   },
 };
 
 const creationSlice = createSlice({
-  name: "creation",
+  name: "event/creation",
   initialState,
   reducers: {
     chooseType: (state, action: PayloadAction<EventType>) => {
@@ -35,6 +37,12 @@ const creationSlice = createSlice({
     ) => {
       state.form = { ...state.form, ...action.payload };
       state.step = CreationStep.EventAdditionalInfos;
+    },
+    setAdditionalsInfos: (
+      state,
+      action: PayloadAction<EventFormAdditionalsInfos>,
+    ) => {
+      state.form.location = action.payload.location;
     },
   },
 });

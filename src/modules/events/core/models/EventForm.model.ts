@@ -18,4 +18,13 @@ export type EventFormGeneralsInfos = {
   image: string;
 };
 
-export type EventForm = EventFormType & EventFormGeneralsInfos;
+export type EventFormAdditionalsInfos = {
+  location: {
+    name: string;
+    address: string;
+  };
+};
+
+export type EventForm = EventFormType &
+  EventFormGeneralsInfos &
+  EventFormAdditionalsInfos;
