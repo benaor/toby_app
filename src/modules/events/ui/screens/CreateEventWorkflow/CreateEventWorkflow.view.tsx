@@ -4,7 +4,7 @@ import { ChooseEventModal } from "@/src/modules/events/ui/screens/ChooseEventMod
 import { EventAdditionalInfosModal } from "@/src/modules/events/ui/screens/EventAdditionalInfosModal";
 import { EventInformationsModal } from "@/src/modules/events/ui/screens/EventInformationsModal";
 import { useCreateEventWorkflow } from "./CreateEventWorkflow.controller";
-import { CreationStep } from "@events/core/models/Creation.model";
+import { CreationStep } from "@events/core/models/EventForm.model";
 
 export const CreateEventWorkflow = () => {
   const { step } = useCreateEventWorkflow();

@@ -1,3 +1,11 @@
+export enum CreationStep {
+  ChooseEvent = "ChooseEvent",
+  EventInformations = "EventInformations",
+  EventAdditionalInfos = "EventAdditionalInfos",
+  AddGuestsToEvent = "AddGuestsToEvent",
+  AddEventModules = "AddEventModules",
+}
+
 const eventTypes = [
   "birthday",
   "wedding",
@@ -22,6 +30,10 @@ export type EventFormAdditionalsInfos = {
   location: {
     name: string;
     address: string;
+  };
+  date: {
+    start: ISO8601;
+    end: ISO8601 | null;
   };
 };
 

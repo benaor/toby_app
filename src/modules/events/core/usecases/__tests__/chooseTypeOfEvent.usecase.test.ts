@@ -1,7 +1,6 @@
-import { CreationStep } from "@events/core/models/Creation.model";
 import { createTestStore } from "@store/test-environment";
 import { chooseTypeOfEvent } from "../chooseTypeOfEvent.usecase";
-import { EventType } from "@events/core/models/EventForm.model";
+import { CreationStep, EventType } from "@events/core/models/EventForm.model";
 
 describe("chooseTypeOfEvent", () => {
   it("Step should be ChooseEvent when start the workflow", () => {

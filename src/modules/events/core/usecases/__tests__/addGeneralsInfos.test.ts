@@ -1,15 +1,14 @@
 import {
+  CreationStep,
   EventFormGeneralsInfos,
-  EventType,
 } from "@events/core/models/EventForm.model";
 import { createTestStore } from "@store/test-environment";
 import { addGeneralsInformations } from "../addGeneralsInfos";
-import { CreationStep } from "@events/core/models/Creation.model";
 
 describe("addInformationsOfEvent", () => {
   it("Should see null for every general information in form", () => {
     // Arrange
-    const store = createTestStore({ initialState });
+    const store = createTestStore();
 
     // Act
     const form = store.getState().creation.form;
@@ -22,9 +21,7 @@ describe("addInformationsOfEvent", () => {
 
   it("Should see the generals infos of the event", () => {
     // Arrange
-    const store = createTestStore({
-      initialState,
-    });
+    const store = createTestStore();
 
     // Act
     store.dispatch(addGeneralsInformations(generalsInfos));
@@ -39,9 +36,7 @@ describe("addInformationsOfEvent", () => {
 
   it("After adding generals infos, step should be EventAdditionalInfos", () => {
     // Arrange
-    const store = createTestStore({
-      initialState,
-    });
+    const store = createTestStore();
 
     // Act
     store.dispatch(addGeneralsInformations(generalsInfos));
@@ -52,19 +47,6 @@ describe("addInformationsOfEvent", () => {
     expect(step).toBe(CreationStep.EventAdditionalInfos);
   });
 });
-
-const type: EventType = "birthday";
-const initialState = {
-  creation: {
-    step: CreationStep.EventInformations,
-    form: {
-      type,
-      title: null,
-      description: null,
-      image: null,
-    },
-  },
-};
 
 const generalsInfos: EventFormGeneralsInfos = {
   title: "Birthday",
