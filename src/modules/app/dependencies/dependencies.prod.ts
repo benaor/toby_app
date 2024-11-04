@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 import { SupabaseAuthProvider } from "@authentication/core/adapters/SupabaseAuthProvider";
 import { StubEventRepository } from "@events/core/adapters/StubEventRepository";
+import { StubGuestsRepository } from "@events/core/adapters/StubGuestsRepository";
 
 // In the production dependencies, we must use the final dependencies
 
@@ -17,6 +18,7 @@ const authenticator = new Authenticator(authProvider, typedStorage, alerter);
 
 // Repositories
 const eventRepository = new StubEventRepository(); // TODO Change, its here to satisfies Type checking
+const guestsRepository = new StubGuestsRepository();
 
 export const prodDependencies: Dependencies = {
   typedStorage,
@@ -24,4 +26,5 @@ export const prodDependencies: Dependencies = {
   alerter,
   authenticator,
   eventRepository,
+  guestsRepository,
 };

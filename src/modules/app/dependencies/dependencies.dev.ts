@@ -5,6 +5,7 @@ import { Authenticator } from "@authentication/core/useCases/Authenticator.useca
 import { InMemoryStorage } from "@shared/storage/InMemoryStorage";
 import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 import { InMemoryEventRepository } from "@events/core/adapters/InMemoryEventRepository";
+import { StubGuestsRepository } from "@events/core/adapters/StubGuestsRepository";
 
 // In the dev environment, we should use Fake/InMemory or sometimes final dependencies
 const storage = new InMemoryStorage();
@@ -17,6 +18,7 @@ const authenticator = new Authenticator(authProvider, typedStorage, alerter);
 
 // Repositories
 const eventRepository = new InMemoryEventRepository();
+const guestsRepository = new StubGuestsRepository();
 
 export const devDependencies: Dependencies = {
   typedStorage,
@@ -24,4 +26,5 @@ export const devDependencies: Dependencies = {
   alerter,
   authenticator,
   eventRepository,
+  guestsRepository,
 };

@@ -5,6 +5,7 @@ import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 import { StubAlerter } from "@shared/alerter/StubAlerter";
 import { StubAuthProvider } from "@authentication/core/adapters/TestingAuthProvider.adapter";
 import { StubEventRepository } from "@events/core/adapters/StubEventRepository";
+import { StubGuestsRepository } from "@events/core/adapters/StubGuestsRepository";
 
 // In the test environment, We should mainly use Stub
 
@@ -18,6 +19,7 @@ const authenticator = new Authenticator(authProvider, typedStorage, alerter);
 
 // Repository
 const eventRepository = new StubEventRepository();
+const guestsRepository = new StubGuestsRepository();
 
 export const testDependencies: Dependencies = {
   typedStorage,
@@ -25,4 +27,5 @@ export const testDependencies: Dependencies = {
   alerter,
   authenticator,
   eventRepository,
+  guestsRepository,
 };

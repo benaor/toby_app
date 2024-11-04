@@ -1,14 +1,27 @@
 import { Dependencies } from "@app/dependencies/Dependencies.type";
+import { searchGuestListener } from "@events/core/listeners/searchedGuest.listener";
 import { archivesReducer } from "@events/core/slices/archives.slices";
 import { creationReducer } from "@events/core/slices/creation.slice";
 import { eventsReducer } from "@events/core/slices/event.slice";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import {
+  combineReducers,
+  configureStore,
+  createListenerMiddleware,
+  type Dispatch,
+  type ListenerMiddlewareInstance,
+} from "@reduxjs/toolkit";
 
 const reducers = combineReducers({
   events: eventsReducer,
   archives: archivesReducer,
   creation: creationReducer,
 });
+
+export const listener: AppListenerMiddlewareInstance = createListenerMiddleware<
+  AppState,
+  Dispatch,
+  Dependencies
+>();
 
 export const createStore = (config: {
   initialState?: AppState;
@@ -19,11 +32,14 @@ export const createStore = (config: {
     reducer: reducers,
     devTools: true,
     middleware: (getDefaultMiddleware) => {
+      searchGuestListener(listener);
+
       return getDefaultMiddleware({
         thunk: {
           extraArgument: config.dependencies,
         },
-      });
+        listener,
+      }).prepend(listener.middleware);
     },
   });
 
@@ -31,3 +47,8 @@ export type AppStore = ReturnType<typeof createStore>;
 export type AppState = ReturnType<typeof reducers>;
 export type AppDispatch = AppStore["dispatch"];
 export type AppGetState = AppStore["getState"];
+export type AppListenerMiddlewareInstance = ListenerMiddlewareInstance<
+  AppState,
+  Dispatch,
+  Dependencies
+>;
