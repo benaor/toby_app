@@ -9,17 +9,18 @@ import {
 import { Guest } from "../models/Guest.model";
 import { fetchSearchedGuests } from "../usecases/searchGuests.usecase";
 
-type State = {
+export type CreationState = {
   step: CreationStep;
   form: Nullable<EventForm>;
   searchGuests: {
     field: string;
     guests: Guest[];
     status: "idle" | "pending" | "error";
+    error: string | null;
   };
 };
 
-const initialState: State = {
+const initialState: CreationState = {
   step: CreationStep.ChooseEvent,
   form: {
     type: null,
@@ -33,6 +34,7 @@ const initialState: State = {
     field: "",
     guests: [],
     status: "idle",
+    error: null,
   },
 };
 
@@ -68,9 +70,15 @@ const creationSlice = createSlice({
       .addCase(fetchSearchedGuests.fulfilled, (state, action) => {
         state.searchGuests.guests = action.payload;
         state.searchGuests.status = "idle";
+        state.searchGuests.error = null;
       })
       .addCase(fetchSearchedGuests.pending, (state) => {
         state.searchGuests.status = "pending";
+      })
+      .addCase(fetchSearchedGuests.rejected, (state, { error }) => {
+        state.searchGuests.guests = [];
+        state.searchGuests.status = "error";
+        state.searchGuests.error = error.message!;
       });
   },
 });
