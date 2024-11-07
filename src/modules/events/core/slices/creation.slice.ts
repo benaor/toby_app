@@ -20,7 +20,7 @@ export type CreationState = {
   };
 };
 
-const initialState: CreationState = {
+export const initialCreationState: CreationState = {
   step: CreationStep.ChooseEvent,
   form: {
     type: null,
@@ -29,6 +29,7 @@ const initialState: CreationState = {
     image: null,
     location: null,
     date: null,
+    guests: [],
   },
   searchGuests: {
     field: "",
@@ -40,7 +41,7 @@ const initialState: CreationState = {
 
 const creationSlice = createSlice({
   name: "event/creation",
-  initialState,
+  initialState: initialCreationState,
   reducers: {
     chooseType: (state, action: PayloadAction<EventType>) => {
       state.form.type = action.payload;
@@ -63,6 +64,9 @@ const creationSlice = createSlice({
     },
     setSearchField: (state, action: PayloadAction<string>) => {
       state.searchGuests.field = action.payload;
+    },
+    addGuestToForm: (state, action: PayloadAction<Identifier>) => {
+      state.form.guests?.push(action.payload);
     },
   },
   extraReducers: (builder) => {

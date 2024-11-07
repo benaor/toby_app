@@ -37,6 +37,11 @@ export type EventFormAdditionalsInfos = {
   };
 };
 
+export type EventFormGuests = {
+  guests: Identifier[];
+};
+
 export type EventForm = EventFormType &
   EventFormGeneralsInfos &
-  EventFormAdditionalsInfos;
+  EventFormAdditionalsInfos &
+  EventFormGuests;

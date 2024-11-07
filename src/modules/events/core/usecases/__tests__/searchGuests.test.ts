@@ -2,9 +2,13 @@ import { createTestStore } from "@store/test-environment";
 import { searchGuests } from "../searchGuests.usecase";
 import { StubGuestsRepository } from "@events/core/adapters/StubGuestsRepository";
 import { GuestFactory } from "@events/core/models/Guest.factory";
-import { CreationStep } from "@events/core/models/EventForm.model";
-import { CreationState } from "@events/core/slices/creation.slice";
+
+import {
+  creationActions,
+  initialCreationState,
+} from "@events/core/slices/creation.slice";
 import { FailedGuestsRepository } from "@events/core/adapters/FailedGuestsRepository";
+import { AppStore } from "@store/store";
 
 describe("Search guests", () => {
   describe("Happy path", () => {
@@ -108,6 +112,40 @@ describe("Search guests", () => {
   });
 });
 
+describe("Add Guest to form", () => {
+  let store: AppStore;
+
+  beforeEach(() => {
+    store = createTestStore({
+      initialState: {
+        creation: {
+          ...initialCreationState,
+          searchGuests: {
+            ...initialCreationState.searchGuests,
+            guests: arrayOfGuests,
+          },
+        },
+      },
+    });
+  });
+
+  it("Guest list Should be empty when state have jsut been initialized", () => {
+    const { form } = store.getState().creation;
+    expect(form.guests).toStrictEqual([]);
+  });
+
+  it("Guest list Should be empty when state have jsut been initialized", () => {
+    const guestOne = arrayOfGuests[0].id;
+    const guestTwo = arrayOfGuests[1].id;
+
+    store.dispatch(creationActions.addGuestToForm(guestOne));
+    store.dispatch(creationActions.addGuestToForm(guestTwo));
+
+    const { form } = store.getState().creation;
+    expect(form.guests).toStrictEqual([guestOne, guestTwo]);
+  });
+});
+
 const arrayOfGuests = [
   GuestFactory.GUEST({ id: "1" }),
   GuestFactory.GUEST({ id: "2" }),
@@ -115,21 +153,3 @@ const arrayOfGuests = [
   GuestFactory.GUEST({ id: "4" }),
   GuestFactory.GUEST({ id: "5" }),
 ];
-
-const initialCreationState: CreationState = {
-  step: CreationStep.ChooseEvent,
-  form: {
-    type: null,
-    title: null,
-    description: null,
-    image: null,
-    location: null,
-    date: null,
-  },
-  searchGuests: {
-    field: "",
-    guests: [],
-    status: "idle",
-    error: null,
-  },
-};
