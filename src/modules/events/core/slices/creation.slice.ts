@@ -66,7 +66,14 @@ const creationSlice = createSlice({
       state.searchGuests.field = action.payload;
     },
     addGuestToForm: (state, action: PayloadAction<Identifier>) => {
+      const isAlreadyInForm = state.form.guests?.includes(action.payload);
+
+      if (isAlreadyInForm) return;
+
       state.form.guests?.push(action.payload);
+    },
+    validateGuestsStep: (state) => {
+      state.step = CreationStep.AddEventModules;
     },
   },
   extraReducers: (builder) => {

@@ -9,6 +9,7 @@ import {
 } from "@events/core/slices/creation.slice";
 import { FailedGuestsRepository } from "@events/core/adapters/FailedGuestsRepository";
 import { AppStore } from "@store/store";
+import { CreationStep } from "@events/core/models/EventForm.model";
 
 describe("Search guests", () => {
   describe("Happy path", () => {
@@ -143,6 +144,45 @@ describe("Add Guest to form", () => {
 
     const { form } = store.getState().creation;
     expect(form.guests).toStrictEqual([guestOne, guestTwo]);
+  });
+
+  it("Should not add the same guest twice", () => {
+    const guestOne = arrayOfGuests[0].id;
+    const guestTwo = arrayOfGuests[1].id;
+
+    store.dispatch(creationActions.addGuestToForm(guestOne));
+    store.dispatch(creationActions.addGuestToForm(guestTwo));
+    store.dispatch(creationActions.addGuestToForm(guestOne));
+
+    const { form } = store.getState().creation;
+    expect(form.guests).toStrictEqual([guestOne, guestTwo]);
+  });
+});
+
+describe("validate guests step", () => {
+  let store: AppStore;
+
+  beforeEach(() => {
+    store = createTestStore({
+      initialState: {
+        creation: {
+          ...initialCreationState,
+          step: CreationStep.AddGuestsToEvent,
+          form: {
+            ...initialCreationState.form,
+            guests: ["123", "456"],
+          },
+        },
+      },
+    });
+  });
+
+  it("Should validate guests in form", () => {
+    store.dispatch(creationActions.validateGuestsStep());
+
+    const { step } = store.getState().creation;
+
+    expect(step).toBe(CreationStep.AddEventModules);
   });
 });
 

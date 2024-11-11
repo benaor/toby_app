@@ -1,3 +1,4 @@
+import React from "react";
 import { AddEventModulesModal } from "@/src/modules/events/ui/screens/AddEventModulesModal";
 import { AddGuestsToEventModal } from "@/src/modules/events/ui/screens/AddGuestsToEventModal";
 import { ChooseEventModal } from "@/src/modules/events/ui/screens/ChooseEventModal";
