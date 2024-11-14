@@ -5,13 +5,14 @@ import {
   EventFormGeneralsInfos,
   EventType,
   CreationStep,
+  EventFormModules,
 } from "../models/EventForm.model";
 import { Guest } from "../models/Guest.model";
 import { fetchSearchedGuests } from "../usecases/searchGuests.usecase";
 
 export type CreationState = {
   step: CreationStep;
-  form: Nullable<EventForm>;
+  form: Nullable<EventForm> & EventFormModules;
   searchGuests: {
     field: string;
     guests: Guest[];
@@ -30,6 +31,12 @@ export const initialCreationState: CreationState = {
     location: null,
     date: null,
     guests: [],
+    modules: {
+      location: false,
+      activity: false,
+      budget: false,
+      cagnotte: false,
+    },
   },
   searchGuests: {
     field: "",
@@ -74,6 +81,18 @@ const creationSlice = createSlice({
     },
     validateGuestsStep: (state) => {
       state.step = CreationStep.AddEventModules;
+    },
+    toggleLocationModule: (state) => {
+      state.form.modules.location = !state.form.modules.location;
+    },
+    toggleCagnotteModule: (state) => {
+      state.form.modules.cagnotte = !state.form.modules.cagnotte;
+    },
+    toggleBudgetModule: (state) => {
+      state.form.modules.budget = !state.form.modules.budget;
+    },
+    toggleActivityModule: (state) => {
+      state.form.modules.activity = !state.form.modules.activity;
     },
   },
   extraReducers: (builder) => {

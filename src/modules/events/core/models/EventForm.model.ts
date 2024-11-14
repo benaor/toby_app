@@ -41,6 +41,15 @@ export type EventFormGuests = {
   guests: Identifier[];
 };
 
+export type EventFormModules = {
+  modules: {
+    location: boolean;
+    activity: boolean;
+    budget: boolean;
+    cagnotte: boolean;
+  };
+};
+
 export type EventForm = EventFormType &
   EventFormGeneralsInfos &
   EventFormAdditionalsInfos &
