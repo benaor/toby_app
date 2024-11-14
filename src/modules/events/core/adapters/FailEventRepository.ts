@@ -10,4 +10,8 @@ export class FailEventRepository implements EventRepository {
   getAllArchivedEvents = async () => {
     throw new Error(this.message);
   };
+
+  createEvent = async () => {
+    throw new Error(this.message);
+  };
 }

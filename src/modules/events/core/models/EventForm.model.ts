@@ -50,7 +50,8 @@ export type EventFormModules = {
   };
 };
 
-export type EventForm = EventFormType &
-  EventFormGeneralsInfos &
-  EventFormAdditionalsInfos &
-  EventFormGuests;
+export type EventForm = Nullable<EventFormType> &
+  Nullable<EventFormGeneralsInfos> &
+  Nullable<EventFormAdditionalsInfos> &
+  Nullable<EventFormGuests> &
+  EventFormModules;

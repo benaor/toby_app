@@ -5,14 +5,16 @@ import {
   EventFormGeneralsInfos,
   EventType,
   CreationStep,
-  EventFormModules,
 } from "../models/EventForm.model";
 import { Guest } from "../models/Guest.model";
 import { fetchSearchedGuests } from "../usecases/searchGuests.usecase";
+import { createEvent } from "../usecases/createEvent.usecase";
 
 export type CreationState = {
   step: CreationStep;
-  form: Nullable<EventForm> & EventFormModules;
+  status: "idle" | "pending" | "error";
+  error: string | null;
+  form: EventForm;
   searchGuests: {
     field: string;
     guests: Guest[];
@@ -23,6 +25,8 @@ export type CreationState = {
 
 export const initialCreationState: CreationState = {
   step: CreationStep.ChooseEvent,
+  status: "idle",
+  error: null,
   form: {
     type: null,
     title: null,
@@ -94,6 +98,7 @@ const creationSlice = createSlice({
     toggleActivityModule: (state) => {
       state.form.modules.activity = !state.form.modules.activity;
     },
+    clear: () => initialCreationState,
   },
   extraReducers: (builder) => {
     builder
@@ -109,6 +114,19 @@ const creationSlice = createSlice({
         state.searchGuests.guests = [];
         state.searchGuests.status = "error";
         state.searchGuests.error = error.message!;
+      });
+
+    builder
+      .addCase(createEvent.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(createEvent.fulfilled, (state) => {
+        state.status = "idle";
+        state.error = null;
+      })
+      .addCase(createEvent.rejected, (state, action) => {
+        state.status = "error";
+        state.error = action.error.message!;
       });
   },
 });

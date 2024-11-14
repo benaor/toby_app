@@ -16,7 +16,9 @@ const initialState = eventsAdapters.getInitialState<State>({
 const eventSlice = createSlice({
   name: "event",
   initialState,
-  reducers: {},
+  reducers: {
+    addEvent: eventsAdapters.addOne,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchEventsList.pending, (state) => {

@@ -1,4 +1,6 @@
-import { EventList } from "../models/Event.model";
+import { EventFactory } from "../models/Event.factory";
+import { Event, EventList } from "../models/Event.model";
+import { EventForm } from "../models/EventForm.model";
 import { EventRepository } from "../ports/EventRepository";
 
 export class StubEventRepository implements EventRepository {
@@ -11,4 +13,15 @@ export class StubEventRepository implements EventRepository {
   getAllArchivedEvents: () => Promise<EventList> = async () => {
     return Promise.resolve(this.events);
   };
+
+  createEvent: (form: EventForm) => Promise<Event> = jest
+    .fn()
+    .mockImplementation((form) =>
+      Promise.resolve(
+        EventFactory.EVENT({
+          ...form,
+          id: "1",
+        }),
+      ),
+    );
 }

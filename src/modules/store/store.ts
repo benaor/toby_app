@@ -1,5 +1,5 @@
 import { Dependencies } from "@app/dependencies/Dependencies.type";
-import { searchGuestListener } from "@events/core/listeners/searchedGuest.listener";
+import { eventCreationListener } from "@events/core/listeners/searchedGuest.listener";
 import { archivesReducer } from "@events/core/slices/archives.slices";
 import { creationReducer } from "@events/core/slices/creation.slice";
 import { eventsReducer } from "@events/core/slices/event.slice";
@@ -32,7 +32,7 @@ export const createStore = (config: {
     reducer: reducers,
     devTools: true,
     middleware: (getDefaultMiddleware) => {
-      searchGuestListener(listener);
+      eventCreationListener(listener);
 
       return getDefaultMiddleware({
         thunk: {
