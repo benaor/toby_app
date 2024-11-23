@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { screens } from "@constants/screens";
 import { useRouter } from "expo-router";
-import { Event } from "@events/core/models/Event.model";
+import { UserEvent } from "@events/core/models/Event.model";
 import { Message } from "../../../core/message.model";
 import { EventFactory } from "@events/core/models/Event.factory";
 
@@ -9,7 +9,7 @@ export const useChatScreen = (eventId: string) => {
   const { navigate } = useRouter();
   const userId = "2";
 
-  const event: Event = EventFactory.EVENT({
+  const event: UserEvent = EventFactory.EVENT({
     id: "1",
     image: "https://picsum.photos/204",
     title: "Anniversaire Marco",

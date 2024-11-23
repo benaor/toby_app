@@ -55,3 +55,9 @@ export type EventForm = Nullable<EventFormType> &
   Nullable<EventFormAdditionalsInfos> &
   Nullable<EventFormGuests> &
   EventFormModules;
+
+export type EventCreationForm = EventFormType &
+  EventFormGeneralsInfos &
+  EventFormAdditionalsInfos &
+  EventFormGuests &
+  EventFormModules;

@@ -1,5 +1,5 @@
 import { EventFactory } from "../models/Event.factory";
-import { Event, EventList } from "../models/Event.model";
+import { UserEvent, EventList } from "../models/Event.model";
 import { EventForm } from "../models/EventForm.model";
 import { EventRepository } from "../ports/EventRepository";
 
@@ -14,7 +14,7 @@ export class StubEventRepository implements EventRepository {
     return Promise.resolve(this.events);
   };
 
-  createEvent: (form: EventForm) => Promise<Event> = jest
+  createEvent: (form: EventForm) => Promise<UserEvent> = jest
     .fn()
     .mockImplementation((form) =>
       Promise.resolve(

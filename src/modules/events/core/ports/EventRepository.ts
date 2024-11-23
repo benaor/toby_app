@@ -1,12 +1,12 @@
 import {
   ArchivedEventList,
-  Event,
   EventList,
+  Event,
 } from "@events/core/models/Event.model";
-import { EventForm } from "../models/EventForm.model";
+import { EventCreationForm } from "../models/EventForm.model";
 
 export interface EventRepository {
   getAllMyEvents: () => Promise<EventList>;
   getAllArchivedEvents: () => Promise<ArchivedEventList>;
-  createEvent: (form: EventForm) => Promise<Event>;
+  createEvent: (form: EventCreationForm) => Promise<Event>;
 }

@@ -1,5 +1,6 @@
 import { EventFactory } from "../models/Event.factory";
-import { ArchivedEventList, EventList } from "../models/Event.model";
+import { ArchivedEventList, EventList, Event } from "../models/Event.model";
+import { EventCreationForm } from "../models/EventForm.model";
 import { EventRepository } from "../ports/EventRepository";
 
 export class InMemoryEventRepository implements EventRepository {
@@ -61,5 +62,22 @@ export class InMemoryEventRepository implements EventRepository {
   getAllArchivedEvents = async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     return Promise.resolve(this.archivedEvents);
+  };
+
+  createEvent: (form: EventCreationForm) => Promise<Event> = (form) => {
+    const newEvent: Event = {
+      ...form,
+      id: Math.floor(Math.random() * 100).toString(),
+      start: form.date.start,
+      end: form.date.end,
+    };
+
+    this.events.push({
+      ...newEvent,
+      notification: { count: 0 },
+      isAdmin: true,
+    });
+
+    return Promise.resolve(newEvent);
   };
 }
