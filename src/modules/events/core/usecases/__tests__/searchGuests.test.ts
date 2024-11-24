@@ -1,4 +1,4 @@
-import { createTestStore } from "@store/test-environment";
+import { createTestStore, waitForListeners } from "@store/test-environment";
 import { searchGuests } from "../searchGuests.usecase";
 import { StubGuestsRepository } from "@events/core/adapters/StubGuestsRepository";
 import { GuestFactory } from "@events/core/models/Guest.factory";
@@ -51,7 +51,7 @@ describe("Search guests", () => {
       expect(pending.status).toBe("pending");
 
       // Act
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await waitForListeners();
 
       // assert
       const state = store.getState().creation.searchGuests;
@@ -70,7 +70,7 @@ describe("Search guests", () => {
 
       // act
       store.dispatch(searchGuests(guest));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await waitForListeners();
 
       // assert
       const { field, guests } = store.getState().creation.searchGuests;
@@ -102,7 +102,7 @@ describe("Search guests", () => {
 
       // Act
       store.dispatch(searchGuests("Benjamin"));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await waitForListeners();
 
       // Assert
       const { guests, status, error } = store.getState().creation.searchGuests;

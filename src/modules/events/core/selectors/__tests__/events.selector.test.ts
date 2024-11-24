@@ -25,11 +25,11 @@ describe("Events Selector", () => {
 
     it("should return the event list with 2 items", () => {
       // Given
-      const myBirthday = EventFactory.EVENT({
+      const myBirthday = EventFactory.USER_EVENT({
         id: "birth-id",
         title: "my birtday",
       });
-      const musicParty = EventFactory.EVENT({
+      const musicParty = EventFactory.USER_EVENT({
         id: "music-id",
         title: "music party",
       });
@@ -75,11 +75,11 @@ describe("Events Selector", () => {
 
     it("should return the event list with 2 items", () => {
       // Given
-      const myBirthday = EventFactory.EVENT({
+      const myBirthday = EventFactory.USER_EVENT({
         id: "birth-id",
         title: "my birtday",
       });
-      const musicParty = EventFactory.EVENT({
+      const musicParty = EventFactory.USER_EVENT({
         id: "music-id",
         title: "music party",
       });

@@ -2,7 +2,7 @@ import { creationActions } from "../slices/creation.slice";
 import { AppDispatch, AppListenerMiddlewareInstance } from "@store/store";
 import { fetchSearchedGuests } from "../usecases/searchGuests.usecase";
 import { createEvent } from "../usecases/createEvent.usecase";
-import { eventsActions } from "../slices/event.slice";
+import { fetchEventsList } from "../usecases/fetchEvent.usecase";
 
 export const eventCreationListener = (
   listener: AppListenerMiddlewareInstance,
@@ -21,8 +21,8 @@ export const eventCreationListener = (
 
   listener.startListening({
     actionCreator: createEvent.fulfilled,
-    effect: async (action, { dispatch }) => {
-      dispatch(eventsActions.addEvent(action.payload));
+    effect: async (_, { dispatch }) => {
+      (dispatch as AppDispatch)(fetchEventsList());
     },
   });
 };

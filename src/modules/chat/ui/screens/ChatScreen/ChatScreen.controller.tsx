@@ -9,7 +9,7 @@ export const useChatScreen = (eventId: string) => {
   const { navigate } = useRouter();
   const userId = "2";
 
-  const event: UserEvent = EventFactory.EVENT({
+  const event: UserEvent = EventFactory.USER_EVENT({
     id: "1",
     image: "https://picsum.photos/204",
     title: "Anniversaire Marco",

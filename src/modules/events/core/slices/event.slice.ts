@@ -1,13 +1,13 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { fetchEventsList } from "../usecases/fetchEvent.usecase";
-import { Event } from "../models/Event.model";
+import { UserEvent } from "../models/Event.model";
 
 type State = {
   status: "idle" | "loading" | "error";
   error: string | null;
 };
 
-const eventsAdapters = createEntityAdapter<Event>();
+const eventsAdapters = createEntityAdapter<UserEvent>();
 const initialState = eventsAdapters.getInitialState<State>({
   status: "idle",
   error: "",

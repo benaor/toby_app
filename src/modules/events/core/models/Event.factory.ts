@@ -1,7 +1,7 @@
 import { ArchivedEvent, UserEvent } from "./Event.model";
 
 export class EventFactory {
-  static EVENT = (item: Partial<UserEvent>): UserEvent => {
+  static USER_EVENT = (item: Partial<UserEvent>): UserEvent => {
     return {
       id: "1",
       guests: ["John", "Doe"],

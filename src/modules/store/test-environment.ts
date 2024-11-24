@@ -59,3 +59,10 @@ export const createTestState = (partialState?: Partial<AppState>) => {
 
   return createTestStore({ initialState: merged }).getState();
 };
+
+/**
+ * Useful for testing the listener are awaited
+ */
+export const waitForListeners = async () => {
+  return new Promise((resolve) => setTimeout(resolve, 0));
+};

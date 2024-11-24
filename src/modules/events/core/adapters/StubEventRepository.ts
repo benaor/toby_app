@@ -18,7 +18,7 @@ export class StubEventRepository implements EventRepository {
     .fn()
     .mockImplementation((form) =>
       Promise.resolve(
-        EventFactory.EVENT({
+        EventFactory.USER_EVENT({
           ...form,
           id: "1",
         }),
