@@ -6,10 +6,11 @@ import { EventRepository } from "@events/core/ports/EventRepository";
 import { FailEventRepository } from "@events/core/adapters/FailEventRepository";
 import {
   creationActions,
-  CreationState,
   initialCreationState,
 } from "@events/core/slices/creation.slice";
 import { EventFactory } from "@events/core/models/Event.factory";
+import { produce } from "immer";
+import { EventForm } from "@events/core/models/EventForm.model";
 
 describe("Create Event", () => {
   describe("Happy path", () => {
@@ -57,14 +58,10 @@ describe("Create Event", () => {
       // Arrange
       store = createTestStore({
         dependencies: { eventRepository },
-        initialState: {
-          ...initialState,
-          creation: {
-            ...initialStateCreation,
-            error: "Some error",
-            status: "error",
-          },
-        },
+        initialState: produce(initialState, (draft) => {
+          draft.creation.error = "Some error";
+          draft.creation.status = "error";
+        }),
       });
 
       const before = store.getState().creation;
@@ -111,8 +108,6 @@ describe("Create Event", () => {
     });
 
     it("Should clean the store", async () => {
-      store = createTestStore({ initialState });
-
       // Act
       store.dispatch(creationActions.clear());
 
@@ -123,81 +118,101 @@ describe("Create Event", () => {
   });
 
   describe("Failed path", () => {
-    let store: AppStore;
-    let eventRepository: EventRepository;
-    const errorMessage = "Failed to create event";
+    describe("Error from useCase", () => {
+      type NullableKeyOfEventForm = Exclude<keyof EventForm, "modules">;
 
-    beforeEach(() => {
-      eventRepository = new FailEventRepository(errorMessage);
-      store = createTestStore({
-        dependencies: { eventRepository },
-        initialState,
+      it.each<[NullableKeyOfEventForm, string]>([
+        ["type", "Event type is required"],
+        ["title", "Title is required"],
+        ["description", "Description is required"],
+        ["image", "Image is required"],
+        ["date", "Date is required"],
+        ["location", "Location is required"],
+        ["guests", "Guests is required"],
+      ])("Should throw an error if %s is not defined", async (field, error) => {
+        // Arrange
+        const eventRepository = new StubEventRepository();
+        const store = createTestStore({
+          dependencies: { eventRepository },
+          initialState: produce(initialState, (draft) => {
+            draft.creation.form[field] = null;
+          }),
+        });
+
+        // Act
+        await store.dispatch(createEvent());
+
+        // Assert
+        const { error: errorMessage } = store.getState().creation;
+        expect(errorMessage).toBe(error);
       });
     });
 
-    it("Status should be update while creating event", async () => {
-      // Arrange
-      const before = store.getState().creation;
-      expect(before.status).toBe("idle");
+    describe("Error from repository", () => {
+      let store: AppStore;
+      let eventRepository: EventRepository;
+      const errorMessage = "Failed to create event";
 
-      // Act - pending
-      const promise = store.dispatch(createEvent());
+      beforeEach(() => {
+        eventRepository = new FailEventRepository(errorMessage);
+        store = createTestStore({
+          dependencies: { eventRepository },
+          initialState,
+        });
+      });
 
-      const pending = store.getState().creation;
-      expect(pending.status).toBe("pending");
+      it("Status should be update while creating event", async () => {
+        // Arrange
+        const before = store.getState().creation;
+        expect(before.status).toBe("idle");
 
-      // Act - fulfilled
-      await promise;
+        // Act - pending
+        const promise = store.dispatch(createEvent());
 
-      // Assert
-      const after = store.getState().creation;
-      expect(after.status).toBe("error");
-    });
+        const pending = store.getState().creation;
+        expect(pending.status).toBe("pending");
 
-    it("Error should be defined", async () => {
-      // Arrange
-      const before = store.getState().creation;
-      expect(before.error).toBeNull();
+        // Act - fulfilled
+        await promise;
 
-      // Act
-      await store.dispatch(createEvent());
+        // Assert
+        const after = store.getState().creation;
+        expect(after.status).toBe("error");
+      });
 
-      // Assert
-      const after = store.getState().creation;
-      expect(after.error).toBe(errorMessage);
+      it("Error should be defined", async () => {
+        // Arrange
+        const before = store.getState().creation;
+        expect(before.error).toBeNull();
+
+        // Act
+        await store.dispatch(createEvent());
+
+        // Assert
+        const after = store.getState().creation;
+        expect(after.error).toBe(errorMessage);
+      });
     });
   });
 });
 
-const initialStateCreation: CreationState = {
-  ...initialCreationState,
-  form: {
-    type: "birthday",
-    title: "My birthday",
-    description: "My birthday",
-    image: "image",
-    guests: [],
-    modules: {
-      location: false,
-      activity: false,
-      budget: false,
-      cagnotte: false,
-    },
-    date: {
-      start: new Date(Date.now()).toISOString(),
-      end: null,
-    },
-    location: {
-      address: "My address",
-      name: "My location",
-    },
-  },
-  error: null,
-  status: "idle",
-};
+const creation = produce(initialCreationState, (draft) => {
+  draft.form.type = "birthday";
+  draft.form.title = "My birthday";
+  draft.form.description = "My birthday";
+  draft.form.image = "image";
+  draft.form.date = {
+    start: new Date("2024-05-25").toISOString(),
+    end: null,
+  };
+  draft.form.location = {
+    address: "My address",
+    name: "My location",
+  };
+});
 
 const initialState = {
   creation: {
-    ...initialStateCreation,
+    ...creation,
   },
 };

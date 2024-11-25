@@ -63,6 +63,6 @@ export const createTestState = (partialState?: Partial<AppState>) => {
 /**
  * Useful for testing the listener are awaited
  */
-export const waitForListeners = async () => {
+export const waitForListeners = async (): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, 0));
 };
