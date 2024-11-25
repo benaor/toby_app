@@ -13,6 +13,9 @@ describe("On app change", () => {
 
     // ASSERT
     expect(authProvider.startAutoRefresh).toHaveBeenCalledTimes(1);
+
+    // Useful to avoid memory leaks
+    authProvider.stopAutoRefresh();
   });
 
   it("Should stop auto refresh", async () => {
