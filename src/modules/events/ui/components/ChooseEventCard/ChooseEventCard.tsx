@@ -1,27 +1,39 @@
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
-import { View } from "react-native";
+import { OnPressFunction, Pressable, View } from "react-native";
 
 type ChooseEventCardProps = {
   title: string;
   description: string;
   ImageSVG: FC;
+  selected?: boolean;
+  onPress?: OnPressFunction;
 };
 
 export const ChooseEventCard: FC<ChooseEventCardProps> = ({
   title,
   description,
   ImageSVG,
+  selected,
+  onPress,
 }) => {
+  const dynamics = createStyleSheet((theme) => ({
+    container: {
+      borderColor: selected
+        ? theme.colors.primary.medium
+        : theme.colors.border.low,
+    },
+  }));
+
   return (
-    <View style={styles.container}>
+    <Pressable style={[styles.container, dynamics.container]} onPress={onPress}>
       <View style={styles.titleContainer}>
         <ImageSVG />
         <Typography.Body color="primary">{title}</Typography.Body>
       </View>
       <Typography.Body>{description}</Typography.Body>
-    </View>
+    </Pressable>
   );
 };
 
@@ -31,7 +43,6 @@ const styles = createStyleSheet((theme) => ({
     height: 110,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: theme.colors.border.low,
     overflow: "hidden",
     padding: 12,
   },

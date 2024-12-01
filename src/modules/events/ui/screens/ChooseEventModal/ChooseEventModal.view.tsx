@@ -13,7 +13,7 @@ import { createStyleSheet } from "@themes/createStyleSheet";
 import { useChooseEventModal } from "./ChooseEventModal.controller";
 
 export const ChooseEventModal: FC = () => {
-  const presenter = useChooseEventModal();
+  const { chooseType, eventType } = useChooseEventModal();
 
   return (
     <ModalLayout title="Créer un événement">
@@ -22,31 +22,43 @@ export const ChooseEventModal: FC = () => {
           title="Anniversaires"
           description="Surprise ou pas, toujours une bonne occasion !"
           ImageSVG={BirthdaySVG}
+          onPress={() => chooseType("birthday")}
+          selected={eventType === "birthday"}
         />
         <ChooseEventCard
           title="Week-ends"
           description="Pour un break de quelques jours."
           ImageSVG={WeekendSVG}
+          onPress={() => chooseType("weekend")}
+          selected={eventType === "weekend"}
         />
         <ChooseEventCard
           title="Vacances"
           description="Pour prendre du bon temps !"
           ImageSVG={HolidaySVG}
+          onPress={() => chooseType("holidays")}
+          selected={eventType === "holidays"}
         />
         <ChooseEventCard
           title="EVG / EVJF"
           description="Soyez un bon témoin !"
           ImageSVG={EvgSVG}
+          onPress={() => chooseType("stagparty")}
+          selected={eventType === "stagparty"}
         />
         <ChooseEventCard
           title="Mariages"
           description="L’occasion d’être un “Yes man” !"
           ImageSVG={WeedingSVG}
+          onPress={() => chooseType("wedding")}
+          selected={eventType === "wedding"}
         />
         <ChooseEventCard
           title="Sur-mesure"
           description="Partez de zéro !"
           ImageSVG={OnMesureSVG}
+          onPress={() => chooseType("other")}
+          selected={eventType === "other"}
         />
       </View>
     </ModalLayout>

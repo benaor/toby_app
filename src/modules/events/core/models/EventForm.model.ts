@@ -8,9 +8,10 @@ export enum CreationStep {
 
 const eventTypes = [
   "birthday",
+  "weekend",
+  "holidays",
+  "stagparty",
   "wedding",
-  "anniversary",
-  "corporate",
   "other",
 ] as const;
 

@@ -10,15 +10,20 @@ import { CreationStep } from "@events/core/models/EventForm.model";
 export const CreateEventWorkflow = () => {
   const { step } = useCreateEventWorkflow();
 
-  return (
-    <>
-      {step === CreationStep.ChooseEvent && <ChooseEventModal />}
-      {step === CreationStep.EventInformations && <EventInformationsModal />}
-      {step === CreationStep.EventAdditionalInfos && (
-        <EventAdditionalInfosModal />
-      )}
-      {step === CreationStep.AddGuestsToEvent && <AddGuestsToEventModal />}
-      {step === CreationStep.AddEventModules && <AddEventModulesModal />}
-    </>
-  );
+  switch (step) {
+    case CreationStep.ChooseEvent:
+      return <ChooseEventModal />;
+
+    case CreationStep.EventInformations:
+      return <EventInformationsModal />;
+
+    case CreationStep.EventAdditionalInfos:
+      return <EventAdditionalInfosModal />;
+
+    case CreationStep.AddGuestsToEvent:
+      return <AddGuestsToEventModal />;
+
+    case CreationStep.AddEventModules:
+      return <AddEventModulesModal />;
+  }
 };
