@@ -1,7 +1,8 @@
-import { CreationStep } from "@events/core/models/EventForm.model";
+import { creationStepSelector } from "@events/core/selectors/creation.selector";
+import { useSelector } from "react-redux";
 
 export const useCreateEventWorkflow = () => {
-  const step = CreationStep.ChooseEvent;
+  const step = useSelector(creationStepSelector);
 
   return {
     step,

@@ -2,7 +2,11 @@ import { createTestState } from "@store/test-environment";
 
 import { initialCreationState } from "@events/core/slices/creation.slice";
 import { produce } from "immer";
-import { creationFormSelector } from "../creation.selector";
+import {
+  creationFormSelector,
+  creationStepSelector,
+} from "../creation.selector";
+import { CreationStep } from "@events/core/models/EventForm.model";
 
 describe("CreationSelector", () => {
   describe("creation form", () => {
@@ -30,6 +34,31 @@ describe("CreationSelector", () => {
 
       // Then
       expect(result).toStrictEqual(creation.form);
+    });
+  });
+  describe("creation Step", () => {
+    it("should return Step one (chooseEvent)", () => {
+      const state = createTestState();
+
+      // When
+      const result = creationStepSelector(state);
+
+      // Then
+      expect(result).toStrictEqual(CreationStep.ChooseEvent);
+    });
+
+    it("Should return step 3 (AddGuestsToEvent)", () => {
+      // Given
+      const creation = produce(initialCreationState, (draft) => {
+        draft.step = CreationStep.AddGuestsToEvent;
+      });
+      const state = createTestState({ creation });
+
+      // When
+      const result = creationStepSelector(state);
+
+      // Then
+      expect(result).toStrictEqual(CreationStep.AddGuestsToEvent);
     });
   });
 });
