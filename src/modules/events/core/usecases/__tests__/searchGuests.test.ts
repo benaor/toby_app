@@ -1,5 +1,4 @@
 import { createTestStore, waitForListeners } from "@store/test-environment";
-import { searchGuests } from "../searchGuests.usecase";
 import { StubGuestsRepository } from "@events/core/adapters/StubGuestsRepository";
 import { GuestFactory } from "@events/core/models/Guest.factory";
 
@@ -10,6 +9,7 @@ import {
 import { FailedGuestsRepository } from "@events/core/adapters/FailedGuestsRepository";
 import { AppStore } from "@store/store";
 import { CreationStep } from "@events/core/models/EventForm.model";
+import { searchGuests } from "../searchGuests";
 
 describe("Search guests", () => {
   describe("Happy path", () => {
