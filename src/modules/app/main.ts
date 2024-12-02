@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Dependencies } from "@app/dependencies/Dependencies.type";
 import { AppStore, createStore } from "@store/store";
 

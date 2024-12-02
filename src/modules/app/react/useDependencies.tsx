@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { createContext, ReactNode, useContext } from "react";
 import { Dependencies } from "../dependencies/Dependencies.type";
 import { app } from "@app/main";

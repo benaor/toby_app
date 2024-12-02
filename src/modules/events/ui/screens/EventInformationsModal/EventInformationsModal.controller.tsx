@@ -3,13 +3,16 @@ import { useCallback, useEffect, useState } from "react";
 import { EventFormGeneralsInfos } from "@events/core/models/EventForm.model";
 import { addGeneralsInformations } from "@events/core/usecases/addGeneralsInfos";
 import { useAppDispatch } from "@store/useAppDispatch";
+import { useSelector } from "react-redux";
+import { creationFormSelector } from "@events/core/selectors/creation.selector";
 
 export const useEventInformationsModal = () => {
   const dispatch = useAppDispatch();
+  const form = useSelector(creationFormSelector);
 
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [image, setImage] = useState<string>("");
+  const [title, setTitle] = useState(form.title);
+  const [description, setDescription] = useState(form.description);
+  const [image, setImage] = useState(form.image);
 
   const [titleError, setTitleError] = useState<string | null>(null);
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
@@ -29,17 +32,28 @@ export const useEventInformationsModal = () => {
         image: imageError,
       });
 
-    dispatch(addGeneralsInformations({ title, description, image }));
+    dispatch(
+      addGeneralsInformations({
+        title: title!,
+        description: description!,
+        image: image!,
+      }),
+    );
   };
 
   const validateTitle = useCallback(
-    () => setTitleError(title.length > 2 ? null : "Le titre est trop court"),
+    () =>
+      setTitleError(
+        title && title.length > 2 ? null : "Le titre est trop court",
+      ),
     [title],
   );
   const validateDescription = useCallback(
     () =>
       setDescriptionError(
-        description.length > 5 ? null : "La description est trop courte",
+        description && description.length > 5
+          ? null
+          : "La description est trop courte",
       ),
     [description],
   );
