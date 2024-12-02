@@ -6,6 +6,7 @@ const config: Config = {
   collectCoverage: true,
   transform: {},
   transformIgnorePatterns: [],
+  setupFilesAfterEnv: ["<rootDir>/setup-jest.ts"],
 };
 
 export default config;

@@ -62,4 +62,40 @@ describe("EventInformationsModal", () => {
       image: "Image",
     });
   });
+  it("Should keep the state in memory", async () => {
+    const store = createTestStore({
+      initialState: {
+        creation: produce(initialCreationState, (draft) => {
+          draft.form.title = "Title";
+          draft.form.description = "Description";
+          draft.form.image = "myImage";
+        }),
+      },
+    });
+
+    const spyUsecase = jest.spyOn(Usecase, "addGeneralsInformations");
+
+    const { result } = renderHook(useEventInformationsModal, { store });
+
+    expect(result.current.title).toStrictEqual("Title");
+    expect(result.current.description).toStrictEqual("Description");
+    expect(result.current.image).toStrictEqual("myImage");
+
+    act(() => {
+      result.current.submitGeneralInformations();
+    });
+
+    expect(result.current.errorMessage).toStrictEqual({
+      title: "",
+      description: "",
+      image: "",
+    });
+
+    expect(spyUsecase).toHaveBeenCalledTimes(1);
+    expect(spyUsecase).toHaveBeenCalledWith({
+      title: "Title",
+      description: "Description",
+      image: "myImage",
+    });
+  });
 });
