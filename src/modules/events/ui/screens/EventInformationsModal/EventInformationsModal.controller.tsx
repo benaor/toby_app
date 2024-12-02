@@ -68,9 +68,9 @@ export const useEventInformationsModal = () => {
 
   return {
     submitGeneralInformations,
-    title,
+    title: title ?? "",
     setTitle,
-    description,
+    description: description ?? "",
     setDescription,
     image,
     setImage,

@@ -22,8 +22,8 @@ describe("EventInformationsModal", () => {
 
     const { result } = renderHook(useEventInformationsModal, { store });
 
-    expect(result.current.title).toStrictEqual(null);
-    expect(result.current.description).toStrictEqual(null);
+    expect(result.current.title).toStrictEqual("");
+    expect(result.current.description).toStrictEqual("");
     expect(result.current.image).toStrictEqual(null);
 
     act(() => {
