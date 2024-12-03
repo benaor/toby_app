@@ -7,6 +7,7 @@ const config: Config = {
   transform: {},
   transformIgnorePatterns: [],
   setupFilesAfterEnv: ["<rootDir>/setup-jest.ts"],
+  detectOpenHandles: true,
 };
 
 export default config;

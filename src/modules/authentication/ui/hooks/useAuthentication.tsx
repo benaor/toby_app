@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { useDependencies } from "@app/react/useDependencies";
 import {
   AuthUseCaseResponse,

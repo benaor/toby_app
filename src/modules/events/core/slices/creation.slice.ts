@@ -32,8 +32,14 @@ export const initialCreationState: CreationState = {
     title: null,
     description: null,
     image: null,
-    location: null,
-    date: null,
+    location: {
+      name: null,
+      address: null,
+    },
+    date: {
+      start: null,
+      end: null,
+    },
     guests: [],
     modules: {
       location: false,

@@ -9,7 +9,14 @@ import { Switch } from "@components/Switch";
 import { Button } from "@components/Button";
 
 export const EventAdditionalInfosModal: FC = () => {
-  const { toggleHasEndDate, hasEndDate } = useEventAdditionalInfosModal();
+  const {
+    toggleHasEndDate,
+    hasEndDate,
+    setAddress,
+    address,
+    locationName,
+    setLocationName,
+  } = useEventAdditionalInfosModal();
 
   return (
     <ModalLayout title="Informations complémentaires">
@@ -18,8 +25,18 @@ export const EventAdditionalInfosModal: FC = () => {
           <Typography.Header size="medium" lvlColor="medium">
             Ajouter un lieu
           </Typography.Header>
-          <TextInput label="Nom" variant="filled" />
-          <TextInput label="Adresse" variant="filled" />
+          <TextInput
+            label="Nom"
+            variant="filled"
+            onChangeText={setLocationName}
+            value={locationName}
+          />
+          <TextInput
+            label="Adresse"
+            variant="filled"
+            onChangeText={setAddress}
+            value={address}
+          />
         </View>
 
         <View style={styles.dateSection}>

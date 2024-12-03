@@ -14,11 +14,11 @@ describe("Add additionals infos while creation", () => {
     const location = store.getState().creation.form.location;
     const date = store.getState().creation.form.date;
 
-    expect(location).toBeNull();
-    expect(date).toBeNull();
+    expect(location).toStrictEqual({ name: null, address: null });
+    expect(date).toStrictEqual({ start: null, end: null });
   });
 
-  it("Should see null for every additional information in form", () => {
+  it("Should see value for every additional information in form", () => {
     // Arrange
     const store = createTestStore();
 
