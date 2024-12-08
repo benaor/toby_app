@@ -13,7 +13,7 @@ type ISOString =
  *
  * */
 declare type ISO8601 =
-  | `${number}-${number}-${number}` // YYYY-MM-DD
+  | BasicDate // YYYY-MM-DD
   | `${number}-${number}-${number}T${number}:${number}:${number}` // YYYY-MM-DDTHH:MM:SS
   | `${number}-${number}-${number}T${number}:${number}:${number}.${number}` // YYYY-MM-DDTHH:MM:SS.sss
   | `${number}-${number}-${number}T${number}:${number}:${number}${"Z"}` // YYYY-MM-DDTHH:MM:SSZ
@@ -24,3 +24,6 @@ declare type ISO8601 =
 interface Date {
   toISOString(): ISOString;
 }
+
+declare type BasicTime = `${number}:${number}`;
+declare type BasicDate = `${number}-${number}-${number}`;

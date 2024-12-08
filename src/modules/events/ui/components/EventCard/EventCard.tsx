@@ -1,7 +1,7 @@
-import { toHumanDate } from "@/src/utils/dates/toHumanDate";
 import { Chip } from "@components/Chip";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
+import { ISO8601ToYYYYMMDD } from "@utils/dates/formatters";
 import { FC } from "react";
 import { Image, Pressable, View } from "react-native";
 
@@ -30,7 +30,8 @@ export const EventCard: FC<EventCardProps> = (props) => {
         </View>
         <Typography.Header size="medium">{props.title}</Typography.Header>
         <Typography.Body>
-          {props.nbOfGuest} pers. | {toHumanDate(props.date)}
+          {props.nbOfGuest} pers. |{" "}
+          {ISO8601ToYYYYMMDD(props.date.toISOString(), "/")}
         </Typography.Body>
       </View>
     </Pressable>
