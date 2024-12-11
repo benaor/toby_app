@@ -7,10 +7,13 @@ import { Typography } from "@components/Typography";
 import { TextInput } from "@components/TextInput";
 import { Switch } from "@components/Switch";
 import { Button } from "@components/Button";
+import { DateTimeInput } from "@components/DateTimeInput";
 
 export const EventAdditionalInfosModal: FC = () => {
   const {
     toggleHasEndDate,
+    startDate,
+    setStartDate,
     hasEndDate,
     setAddress,
     address,
@@ -43,7 +46,11 @@ export const EventAdditionalInfosModal: FC = () => {
           <Typography.Header size="medium" lvlColor="medium">
             Ajouter une date
           </Typography.Header>
-          <TextInput label="Date de début" variant="filled" />
+          <DateTimeInput
+            label="Date de début"
+            value={startDate}
+            onChange={setStartDate}
+          />
           <Switch
             label="Cet évènement a une date de fin"
             onChange={toggleHasEndDate}

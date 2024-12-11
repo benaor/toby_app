@@ -41,20 +41,22 @@ export const TextInput: FC<TextInputProps> = ({
     },
   }));
 
+  const Input = () => (
+    <RNTextInput
+      {...props}
+      style={[styles.input, variantStyles.input, !label && style]}
+    />
+  );
+
   if (label)
     return (
       <View style={[styles.container, style]}>
         <Typography.Body>{label}</Typography.Body>
-        <RNTextInput {...props} style={[styles.input, variantStyles.input]} />
+        <Input />
       </View>
     );
 
-  return (
-    <RNTextInput
-      {...props}
-      style={[styles.input, variantStyles.input, style]}
-    />
-  );
+  return <Input />;
 };
 
 const styles = createStyleSheet((theme) => ({
