@@ -6,6 +6,7 @@ export const createEvent = createAppAsyncThunk(
   async (_, { getState, extra }) => {
     const eventForm = getState().creation.form;
 
+    // istanbul ignore next - This validation never return false because throw an error instead
     if (isValidEventCreationForm(eventForm))
       await extra.eventRepository.createEvent(eventForm);
   },
