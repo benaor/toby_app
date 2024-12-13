@@ -16,8 +16,8 @@ export const calendarEventListToSectionList = (
       (section) => section.title === title,
     );
 
-    if (sectionOfMonth !== -1)
-      return arrayOfSection[sectionOfMonth].data.push(event);
+    if (sectionOfMonth !== -1 && arrayOfSection[sectionOfMonth])
+      return arrayOfSection[sectionOfMonth]!.data.push(event);
 
     return arrayOfSection.push({ title: title, data: [event] });
   });

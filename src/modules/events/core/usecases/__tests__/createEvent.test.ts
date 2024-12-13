@@ -104,6 +104,9 @@ describe("Create Event", () => {
       // Assert
       const { ids, entities } = store.getState().events;
       expect(ids).toHaveLength(1);
+
+      if (!ids[0]) throw new Error("Event id is not defined");
+
       expect(entities[ids[0]]).toBeDefined();
     });
 
@@ -119,16 +122,16 @@ describe("Create Event", () => {
 
   describe("Failed path", () => {
     describe("Error from useCase", () => {
-      type NullableKeyOfEventForm = Exclude<keyof EventForm, "modules">;
+      type NullableKeyOfEventForm = Exclude<
+        keyof EventForm,
+        "modules" | "date" | "location" | "guests"
+      >;
 
       it.each<[NullableKeyOfEventForm, string]>([
         ["type", "Event type is required"],
         ["title", "Title is required"],
         ["description", "Description is required"],
         ["image", "Image is required"],
-        ["date", "Date is required"],
-        ["location", "Location is required"],
-        ["guests", "Guests is required"],
       ])("Should throw an error if %s is not defined", async (field, error) => {
         // Arrange
         const eventRepository = new StubEventRepository();
@@ -145,6 +148,45 @@ describe("Create Event", () => {
         // Assert
         const { error: errorMessage } = store.getState().creation;
         expect(errorMessage).toBe(error);
+      });
+
+      it.each<keyof EventForm["location"]>(["address", "name"])(
+        "Should throw an error if location is not defined",
+        async (name) => {
+          // Arrange
+          const eventRepository = new StubEventRepository();
+          const store = createTestStore({
+            dependencies: { eventRepository },
+            initialState: produce(initialState, (draft) => {
+              draft.creation.form.location[name] = null;
+            }),
+          });
+
+          // Act
+          await store.dispatch(createEvent());
+
+          // Assert
+          const { error: errorMessage } = store.getState().creation;
+          expect(errorMessage).toBe("Location is required");
+        },
+      );
+
+      it("Should throw an error if date.start is not defined", async () => {
+        // Arrange
+        const eventRepository = new StubEventRepository();
+        const store = createTestStore({
+          dependencies: { eventRepository },
+          initialState: produce(initialState, (draft) => {
+            draft.creation.form.date.start = null;
+          }),
+        });
+
+        // Act
+        await store.dispatch(createEvent());
+
+        // Assert
+        const { error: errorMessage } = store.getState().creation;
+        expect(errorMessage).toBe("Start date is required");
       });
     });
 

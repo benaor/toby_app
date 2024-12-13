@@ -7,7 +7,7 @@ import { View } from "react-native";
 type DateTimeInputProps = {
   label?: string;
   value?: ISO8601;
-  onChange: (value?: ISO8601) => void;
+  onChange: (value?: ISO8601 | undefined) => void;
 };
 
 export const DateTimeInput: FC<DateTimeInputProps> = ({ label, ...props }) => {

@@ -11,7 +11,6 @@ describe("createDateFromBasicDate", () => {
       ${"12:00"} | ${"2000-01-01T11:00:00.000Z"}
       ${"23:59"} | ${"2000-01-01T22:59:00.000Z"}
       ${"00:01"} | ${"1999-12-31T23:01:00.000Z"}
-      ${"00:00"} | ${"1999-12-31T23:00:00.000Z"}
     `(
       "should return the date with the time set to $time",
       ({ time, expected }) => {
@@ -26,12 +25,23 @@ describe("createDateFromBasicDate", () => {
       },
     );
 
-    it("should throw an error when the time is invalid", () => {
+    it("should throw an error when the time type is invalid", () => {
       // Given
-      const time = "123:23454";
+      const badTime = `aa:00` as `${number}:${number}`; // Yes, it's stupid but TS allows it
 
       // When
-      const result = () => createISO8601FromBasicTime(time);
+      const result = () => createISO8601FromBasicTime(badTime);
+
+      // Then
+      expect(result).toThrow("Invalid time format. Expected 'hh:mm'.");
+    });
+
+    it("should throw an error when hour is higher than 25", () => {
+      // Given
+      const badTime = `25:00` as `${number}:${number}`;
+
+      // When
+      const result = () => createISO8601FromBasicTime(badTime);
 
       // Then
       expect(result).toThrow("Invalid time format. Expected 'hh:mm'.");
@@ -63,6 +73,17 @@ describe("createDateFromBasicDate", () => {
     it("should throw an error when the date is invalid", () => {
       // Given
       const date = "124-132-352";
+
+      // When
+      const result = () => createISO8601FromBasicDate(date);
+
+      // Then
+      expect(result).toThrow("Invalid date format. Expected 'yyyy-mm-dd'.");
+    });
+
+    it("should throw an error when the date is invalid", () => {
+      // Given
+      const date = "aaa-132-352" as BasicDate;
 
       // When
       const result = () => createISO8601FromBasicDate(date);

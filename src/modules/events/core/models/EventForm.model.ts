@@ -28,14 +28,14 @@ export type EventFormGeneralsInfos = {
 };
 
 export type EventFormAdditionalsInfos = {
-  location: Nullable<{
+  location: {
     name: string;
     address: string;
-  }>;
-  date: Nullable<{
+  };
+  date: {
     start: ISO8601;
     end: ISO8601 | null;
-  }>;
+  };
 };
 
 export type EventFormGuests = {
@@ -51,14 +51,10 @@ export type EventFormModules = {
   };
 };
 
-export type EventForm = Nullable<EventFormType> &
-  Nullable<EventFormGeneralsInfos> &
-  EventFormAdditionalsInfos &
-  Nullable<EventFormGuests> &
-  EventFormModules;
-
 export type EventCreationForm = EventFormType &
   EventFormGeneralsInfos &
   EventFormAdditionalsInfos &
   EventFormGuests &
   EventFormModules;
+
+export type EventForm = DeepNullableExcept<EventCreationForm, "modules">;

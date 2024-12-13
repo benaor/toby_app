@@ -29,7 +29,7 @@ export const EventInformationsModal: FC = () => {
       selectionLimit: 1,
     });
 
-    if (!result.canceled) {
+    if (!result.canceled && result.assets[0]) {
       setImage(result.assets[0].uri);
     }
   };

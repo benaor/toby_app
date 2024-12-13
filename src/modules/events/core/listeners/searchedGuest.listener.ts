@@ -12,7 +12,6 @@ export const eventCreationListener = (
     effect: async (action, { dispatch, delay }) => {
       const field = action.payload;
 
-      delay(1000);
       if (field.length > 3) {
         await (dispatch as AppDispatch)(fetchSearchedGuests(field)); // TODO Find solution to avoid the cast here
       }

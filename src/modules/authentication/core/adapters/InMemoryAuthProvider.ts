@@ -16,7 +16,7 @@ export class InMemoryAuthProvider implements AuthProvider {
   ];
 
   constructor() {
-    this.session.set(this.users[0]);
+    this.session.set(this.users[0] || null);
   }
 
   login = (credentials: Credentials) => {

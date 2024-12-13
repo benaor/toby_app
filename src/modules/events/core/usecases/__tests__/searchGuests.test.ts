@@ -26,7 +26,7 @@ describe("Search guests", () => {
     });
 
     it("search field should be : 'Benjamin' and array contains 5 items", async () => {
-      const guestsRepository = new StubGuestsRepository(arrayOfGuests);
+      const guestsRepository = new StubGuestsRepository([...arrayOfGuests]);
 
       // Arrange
       const guest = "Benjamin";
@@ -93,7 +93,7 @@ describe("Search guests", () => {
             searchGuests: {
               ...initialCreationState.searchGuests,
               field: "Benjamin",
-              guests: arrayOfGuests,
+              guests: [...arrayOfGuests],
               status: "idle",
             },
           },
@@ -123,7 +123,7 @@ describe("Add Guest to form", () => {
           ...initialCreationState,
           searchGuests: {
             ...initialCreationState.searchGuests,
-            guests: arrayOfGuests,
+            guests: [...arrayOfGuests],
           },
         },
       },
@@ -192,4 +192,4 @@ const arrayOfGuests = [
   GuestFactory.GUEST({ id: "3" }),
   GuestFactory.GUEST({ id: "4" }),
   GuestFactory.GUEST({ id: "5" }),
-];
+] as const;

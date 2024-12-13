@@ -8,8 +8,12 @@ export const useEventAdditionalInfosModal = () => {
   const [hasEndDate, setHasEndDate] = useState(false);
   const [locationName, setLocationName] = useState(location.name);
   const [address, setAddress] = useState(location.address);
-  const [startDate, setStartDate] = useState(date.start ?? undefined);
-  const [endDate, setEndDate] = useState(date.end ?? undefined);
+  const [startDate, setStartDate] = useState<ISO8601 | undefined>(
+    date.start ?? undefined,
+  );
+  const [endDate, setEndDate] = useState<ISO8601 | undefined>(
+    date.end ?? undefined,
+  );
 
   const toggleHasEndDate = () => setHasEndDate((prev) => !prev);
 
