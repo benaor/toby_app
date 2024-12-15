@@ -14,11 +14,14 @@ export const EventAdditionalInfosModal: FC = () => {
     toggleHasEndDate,
     startDate,
     setStartDate,
+    endDate,
+    setEndDate,
     hasEndDate,
     setAddress,
     address,
     locationName,
     setLocationName,
+    closeModal,
   } = useEventAdditionalInfosModal();
 
   return (
@@ -56,7 +59,13 @@ export const EventAdditionalInfosModal: FC = () => {
             onChange={toggleHasEndDate}
             value={hasEndDate}
           />
-          {hasEndDate && <TextInput label="Date de fin" variant="filled" />}
+          {hasEndDate && (
+            <DateTimeInput
+              label="Date de fin"
+              value={endDate}
+              onChange={setEndDate}
+            />
+          )}
         </View>
 
         <View style={styles.buttonSection}>
@@ -64,7 +73,7 @@ export const EventAdditionalInfosModal: FC = () => {
             <Button.Label label="Suivant" />
           </Button>
 
-          <Button variant="text">
+          <Button variant="text" onPress={closeModal}>
             <Button.Label label="Plus tard" />
           </Button>
         </View>

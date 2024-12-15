@@ -6,6 +6,7 @@ import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 import { SupabaseAuthProvider } from "@authentication/core/adapters/SupabaseAuthProvider";
 import { StubEventRepository } from "@events/core/adapters/StubEventRepository";
 import { StubGuestsRepository } from "@events/core/adapters/StubGuestsRepository";
+import { router } from "expo-router";
 
 // In the production dependencies, we must use the final dependencies
 
@@ -24,6 +25,7 @@ export const prodDependencies: Dependencies = {
   typedStorage,
   authProvider,
   alerter,
+  router,
   authenticator,
   eventRepository,
   guestsRepository,

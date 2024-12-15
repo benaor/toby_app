@@ -11,6 +11,7 @@ import { DependenciesProvider } from "@app/react/useDependencies";
 import { AuthContextProvider } from "@authentication/ui/hooks/useAuthentication";
 import { AppStore } from "@store/store";
 import { app } from "@app/main";
+import { RouterProvider } from "@app/router/useRouter";
 
 const Wrapper: ComponentType<{
   children: ReactNode;
@@ -20,14 +21,16 @@ const Wrapper: ComponentType<{
 }> = ({ children, dependencies, ExtendedWrapper, store }) => (
   <Provider store={store ?? app.store}>
     <DependenciesProvider dependencies={dependencies}>
-      <AuthContextProvider>
-        {ExtendedWrapper ? (
-          <ExtendedWrapper>{children}</ExtendedWrapper>
-        ) : (
-          children
-        )}
-        {children}
-      </AuthContextProvider>
+      <RouterProvider>
+        <AuthContextProvider>
+          {ExtendedWrapper ? (
+            <ExtendedWrapper>{children}</ExtendedWrapper>
+          ) : (
+            children
+          )}
+          {children}
+        </AuthContextProvider>
+      </RouterProvider>
     </DependenciesProvider>
   </Provider>
 );

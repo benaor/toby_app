@@ -1,5 +1,5 @@
 import { useFonts } from "expo-font";
-import { Slot } from "expo-router";
+import { router, Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -14,6 +14,7 @@ import { AuthContextProvider } from "@authentication/ui/hooks/useAuthentication"
 import { Provider } from "react-redux";
 import { app } from "@app/main";
 import { DependenciesProvider } from "@app/react/useDependencies";
+import { RouterProvider } from "@app/router/useRouter";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -33,15 +34,17 @@ export default function RootLayout() {
   return (
     <Provider store={app.store}>
       <ThemeProvider theme={theme}>
-        <DependenciesProvider>
-          <AuthContextProvider>
-            <FeatureFlagProvider>
-              <SafeAreaView style={styles.container}>
-                <Slot />
-              </SafeAreaView>
-            </FeatureFlagProvider>
-          </AuthContextProvider>
-        </DependenciesProvider>
+        <RouterProvider router={router}>
+          <DependenciesProvider>
+            <AuthContextProvider>
+              <FeatureFlagProvider>
+                <SafeAreaView style={styles.container}>
+                  <Slot />
+                </SafeAreaView>
+              </FeatureFlagProvider>
+            </AuthContextProvider>
+          </DependenciesProvider>
+        </RouterProvider>
       </ThemeProvider>
     </Provider>
   );

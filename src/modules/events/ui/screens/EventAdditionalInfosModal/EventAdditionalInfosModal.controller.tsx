@@ -1,8 +1,10 @@
+import { useRouter } from "@app/router/useRouter";
 import { creationFormSelector } from "@events/core/selectors/creation.selector";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
 export const useEventAdditionalInfosModal = () => {
+  const router = useRouter();
   const { location, date } = useSelector(creationFormSelector);
 
   const [hasEndDate, setHasEndDate] = useState(false);
@@ -16,6 +18,7 @@ export const useEventAdditionalInfosModal = () => {
   );
 
   const toggleHasEndDate = () => setHasEndDate((prev) => !prev);
+  const closeModal = () => router.dismiss(1);
 
   return {
     locationName: locationName ?? "",
@@ -28,5 +31,6 @@ export const useEventAdditionalInfosModal = () => {
     setAddress,
     toggleHasEndDate,
     hasEndDate,
+    closeModal,
   };
 };

@@ -6,6 +6,7 @@ import { InMemoryStorage } from "@shared/storage/InMemoryStorage";
 import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 import { InMemoryEventRepository } from "@events/core/adapters/InMemoryEventRepository";
 import { StubGuestsRepository } from "@events/core/adapters/StubGuestsRepository";
+import { router } from "expo-router";
 
 // In the dev environment, we should use Fake/InMemory or sometimes final dependencies
 const storage = new InMemoryStorage();
@@ -24,6 +25,7 @@ export const devDependencies: Dependencies = {
   typedStorage,
   authProvider,
   alerter,
+  router,
   authenticator,
   eventRepository,
   guestsRepository,

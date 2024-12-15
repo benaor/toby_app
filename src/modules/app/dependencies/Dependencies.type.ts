@@ -1,3 +1,4 @@
+import { Router } from "@app/router/Router.port";
 import { AuthProvider } from "@authentication/core/ports/AuthProvider.port";
 import { Authenticator } from "@authentication/core/useCases/Authenticator.usecase";
 import { EventRepository } from "@events/core/ports/EventRepository";
@@ -10,6 +11,7 @@ export type Dependencies = {
   authProvider: AuthProvider;
   typedStorage: TypedStorage;
   alerter: Alerter;
+  router: Router;
 
   // services
   authenticator: Authenticator;
