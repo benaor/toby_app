@@ -25,6 +25,7 @@ export default function TabLayout() {
         tabBarItemStyle: {
           marginBottom: Platform.OS === "web" ? 0 : -25,
         },
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tabs.Screen
