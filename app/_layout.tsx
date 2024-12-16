@@ -1,5 +1,5 @@
 import { useFonts } from "expo-font";
-import { router, Slot } from "expo-router";
+import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -34,8 +34,8 @@ export default function RootLayout() {
   return (
     <Provider store={app.store}>
       <ThemeProvider theme={theme}>
-        <RouterProvider router={router}>
-          <DependenciesProvider>
+        <DependenciesProvider>
+          <RouterProvider>
             <AuthContextProvider>
               <FeatureFlagProvider>
                 <SafeAreaView style={styles.container}>
@@ -43,8 +43,8 @@ export default function RootLayout() {
                 </SafeAreaView>
               </FeatureFlagProvider>
             </AuthContextProvider>
-          </DependenciesProvider>
-        </RouterProvider>
+          </RouterProvider>
+        </DependenciesProvider>
       </ThemeProvider>
     </Provider>
   );
