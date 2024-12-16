@@ -18,10 +18,10 @@ export const EventAdditionalInfosModal: FC = () => {
     setEndDate,
     hasEndDate,
     setAddress,
-    address,
-    locationName,
-    setLocationName,
+    setName,
+    errorMessage,
     closeModal,
+    setAdditionalsInfos,
   } = useEventAdditionalInfosModal();
 
   return (
@@ -34,14 +34,14 @@ export const EventAdditionalInfosModal: FC = () => {
           <TextInput
             label="Nom"
             variant="filled"
-            onChangeText={setLocationName}
-            value={locationName}
+            onChangeText={setName}
+            error={errorMessage.location.name}
           />
           <TextInput
             label="Adresse"
             variant="filled"
             onChangeText={setAddress}
-            value={address}
+            error={errorMessage.location.address}
           />
         </View>
 
@@ -53,6 +53,7 @@ export const EventAdditionalInfosModal: FC = () => {
             label="Date de début"
             value={startDate}
             onChange={setStartDate}
+            error={errorMessage.date.start}
           />
           <Switch
             label="Cet évènement a une date de fin"
@@ -64,12 +65,13 @@ export const EventAdditionalInfosModal: FC = () => {
               label="Date de fin"
               value={endDate}
               onChange={setEndDate}
+              error={errorMessage.date.end}
             />
           )}
         </View>
 
         <View style={styles.buttonSection}>
-          <Button color="primary" lvlColor="high">
+          <Button color="primary" lvlColor="high" onPress={setAdditionalsInfos}>
             <Button.Label label="Suivant" />
           </Button>
 

@@ -13,21 +13,18 @@ import { View } from "react-native";
 type TextInputProps = RNTextInputProps & {
   variant?: "outlined" | "filled";
   textarea?: boolean;
-} & (
-    | {
-        label?: string;
-        style?: StyleProp<ViewProps>;
-      }
-    | {
-        label?: never;
-        style?: StyleProp<TextProps>;
-      }
-  );
+  label?: string;
+  error?: string | null;
+  style?: StyleProp<ViewProps>;
+  inputStyle?: StyleProp<TextProps>;
+};
 
 export const TextInput: FC<TextInputProps> = ({
   label,
+  error,
   textarea,
   style,
+  inputStyle,
   variant = "outlined",
   ...props
 }) => {
@@ -38,16 +35,15 @@ export const TextInput: FC<TextInputProps> = ({
       borderWidth: variant === "outlined" ? 1 : 0,
       borderRadius: variant === "outlined" ? 4 : 10,
       minHeight: textarea ? 130 : 46,
+      inputStyle,
     },
   }));
 
   return (
     <View style={[styles.container, style]}>
       {label && <Typography.Body>{label}</Typography.Body>}
-      <RNTextInput
-        {...props}
-        style={[styles.input, variantStyles.input, !label && style]}
-      />
+      <RNTextInput {...props} style={[styles.input, variantStyles.input]} />
+      {error && <Typography.Body color="primary">{error}</Typography.Body>}
     </View>
   );
 };

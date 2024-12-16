@@ -18,7 +18,7 @@ export const useEventInformationsModal = () => {
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] =
-    useState<FormError>(initialErrorState);
+    useState<FormError<EventFormGeneralsInfos>>(initialErrorState);
 
   const isError = titleError || descriptionError || imageError;
 
@@ -78,9 +78,7 @@ export const useEventInformationsModal = () => {
   };
 };
 
-type FormError = Record<keyof EventFormGeneralsInfos, string | null>;
-
-const initialErrorState: FormError = {
+const initialErrorState: FormError<EventFormGeneralsInfos> = {
   title: "",
   description: "",
   image: "",

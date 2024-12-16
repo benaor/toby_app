@@ -7,27 +7,26 @@ import { View } from "react-native";
 type DateTimeInputProps = {
   label?: string;
   value?: ISO8601;
+  error?: string | null;
   onChange: (value?: ISO8601 | undefined) => void;
 };
 
-export const DateTimeInput: FC<DateTimeInputProps> = ({ label, ...props }) => {
-  const Input = () => (
-    <View style={styles.input}>
-      <DateTimePicker mode="date" {...props} />
-      <Typography.Body style={styles.separator}>à</Typography.Body>
-      <DateTimePicker mode="time" {...props} />
+export const DateTimeInput: FC<DateTimeInputProps> = ({
+  label,
+  error,
+  ...props
+}) => {
+  return (
+    <View style={styles.container}>
+      <Typography.Body>{label}</Typography.Body>
+      <View style={styles.input}>
+        <DateTimePicker mode="date" {...props} />
+        <Typography.Body style={styles.separator}>à</Typography.Body>
+        <DateTimePicker mode="time" {...props} />
+      </View>
+      {error && <Typography.Body color="primary">{error}</Typography.Body>}
     </View>
   );
-
-  if (label)
-    return (
-      <View style={styles.container}>
-        <Typography.Body>{label}</Typography.Body>
-        <Input />
-      </View>
-    );
-
-  return <Input />;
 };
 
 const styles = createStyleSheet((theme) => ({
