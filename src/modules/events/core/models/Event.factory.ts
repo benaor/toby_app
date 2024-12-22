@@ -1,10 +1,14 @@
 import { ArchivedEvent, UserEvent } from "./Event.model";
+import { GuestFactory } from "./Guest.factory";
 
 export class EventFactory {
   static USER_EVENT = (item: Partial<UserEvent>): UserEvent => {
     return {
       id: "1",
-      guests: ["John", "Doe"],
+      guests: [
+        GuestFactory.GUEST({ id: "john" }),
+        GuestFactory.GUEST({ id: "doe" }),
+      ],
       image: "https://picsum.photos/seed/picsum/200/300",
       isAdmin: false,
       notification: {
@@ -21,7 +25,7 @@ export class EventFactory {
   static ARCHIVED_EVENT = (item: Partial<ArchivedEvent>): ArchivedEvent => {
     return {
       id: "1",
-      guests: ["me"],
+      guests: [GuestFactory.GUEST({ id: "me" })],
       image: "https://picsum.photos/seed/picsum/200/300",
       isAdmin: false,
       notification: {

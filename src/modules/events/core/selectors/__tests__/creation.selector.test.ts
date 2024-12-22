@@ -4,9 +4,11 @@ import { initialCreationState } from "@events/core/slices/creation.slice";
 import { produce } from "immer";
 import {
   creationFormSelector,
+  creationSearchGuestsSelector,
   creationStepSelector,
 } from "../creation.selector";
 import { CreationStep } from "@events/core/models/EventForm.model";
+import { GuestFactory } from "@events/core/models/Guest.factory";
 
 describe("CreationSelector", () => {
   describe("creation form", () => {
@@ -59,6 +61,41 @@ describe("CreationSelector", () => {
 
       // Then
       expect(result).toStrictEqual(CreationStep.AddGuestsToEvent);
+    });
+  });
+
+  describe("creation search guests", () => {
+    it("should return empty search guests", () => {
+      const state = createTestState();
+
+      // When
+      const result = creationSearchGuestsSelector(state);
+
+      // Then
+      expect(result).toStrictEqual(initialCreationState.searchGuests);
+    });
+
+    it("should return search guests with value", () => {
+      const suggestedGuest = GuestFactory.GUEST({ id: "1", name: "John" });
+      const searchGuests = {
+        field: "john",
+        guests: [suggestedGuest],
+        status: "idle" as const,
+        error: null,
+      };
+
+      // Given
+      const creation = produce(initialCreationState, (draft) => {
+        draft.searchGuests = searchGuests;
+      });
+
+      const state = createTestState({ creation });
+
+      // When
+      const result = creationSearchGuestsSelector(state);
+
+      // Then
+      expect(result).toStrictEqual(searchGuests);
     });
   });
 });

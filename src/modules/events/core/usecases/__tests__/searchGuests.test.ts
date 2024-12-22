@@ -9,7 +9,7 @@ import {
 import { FailedGuestsRepository } from "@events/core/adapters/FailedGuestsRepository";
 import { AppStore } from "@store/store";
 import { CreationStep } from "@events/core/models/EventForm.model";
-import { searchGuests } from "../searchGuests";
+import { produce } from "immer";
 
 describe("Search guests", () => {
   describe("Happy path", () => {
@@ -43,7 +43,7 @@ describe("Search guests", () => {
         },
       });
 
-      store.dispatch(searchGuests(guest));
+      store.dispatch(creationActions.setSearchField(guest));
 
       const pending = store.getState().creation.searchGuests;
       expect(pending.field).toStrictEqual(guest);
@@ -69,7 +69,7 @@ describe("Search guests", () => {
       const store = createTestStore({ dependencies: { guestsRepository } });
 
       // act
-      store.dispatch(searchGuests(guest));
+      store.dispatch(creationActions.setSearchField(guest));
       await waitForListeners();
 
       // assert
@@ -101,7 +101,7 @@ describe("Search guests", () => {
       });
 
       // Act
-      store.dispatch(searchGuests("Benjamin"));
+      store.dispatch(creationActions.setSearchField("Benjamin"));
       await waitForListeners();
 
       // Assert
@@ -136,8 +136,8 @@ describe("Add Guest to form", () => {
   });
 
   it("Guest list Should be empty when state have jsut been initialized", () => {
-    const guestOne = arrayOfGuests[0].id;
-    const guestTwo = arrayOfGuests[1].id;
+    const guestOne = arrayOfGuests[0];
+    const guestTwo = arrayOfGuests[1];
 
     store.dispatch(creationActions.addGuestToForm(guestOne));
     store.dispatch(creationActions.addGuestToForm(guestTwo));
@@ -147,8 +147,8 @@ describe("Add Guest to form", () => {
   });
 
   it("Should not add the same guest twice", () => {
-    const guestOne = arrayOfGuests[0].id;
-    const guestTwo = arrayOfGuests[1].id;
+    const guestOne = arrayOfGuests[0];
+    const guestTwo = arrayOfGuests[1];
 
     store.dispatch(creationActions.addGuestToForm(guestOne));
     store.dispatch(creationActions.addGuestToForm(guestTwo));
@@ -156,6 +156,24 @@ describe("Add Guest to form", () => {
 
     const { form } = store.getState().creation;
     expect(form.guests).toStrictEqual([guestOne, guestTwo]);
+  });
+
+  it("Should remove the guest from the form", () => {
+    const guestOne = arrayOfGuests[0];
+    const guestTwo = arrayOfGuests[1];
+
+    const store = createTestStore({
+      initialState: {
+        creation: produce(initialCreationState, (draft) => {
+          draft.form.guests = [guestOne, guestTwo];
+        }),
+      },
+    });
+
+    store.dispatch(creationActions.removeGuestfromForm(guestOne.id));
+
+    const { form } = store.getState().creation;
+    expect(form.guests).toStrictEqual([guestTwo]);
   });
 });
 
@@ -170,7 +188,7 @@ describe("validate guests step", () => {
           step: CreationStep.AddGuestsToEvent,
           form: {
             ...initialCreationState.form,
-            guests: ["123", "456"],
+            guests: [...arrayOfGuests],
           },
         },
       },

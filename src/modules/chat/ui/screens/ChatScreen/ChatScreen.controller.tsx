@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { UserEvent } from "@events/core/models/Event.model";
 import { Message } from "../../../core/message.model";
 import { EventFactory } from "@events/core/models/Event.factory";
+import { GuestFactory } from "@events/core/models/Guest.factory";
 
 export const useChatScreen = (eventId: string) => {
   const { navigate } = useRouter();
@@ -15,7 +16,10 @@ export const useChatScreen = (eventId: string) => {
     title: "Anniversaire Marco",
     start: new Date().toISOString(),
     end: null,
-    guests: ["John", "Doe"],
+    guests: [
+      GuestFactory.GUEST({ id: "john" }),
+      GuestFactory.GUEST({ id: "doe" }),
+    ],
     notification: {
       count: 1,
     },

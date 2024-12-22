@@ -1,66 +1,64 @@
-import { useCallback, useState } from "react";
+import { Guest } from "@events/core/models/Guest.model";
+import {
+  creationFormSelector,
+  creationSearchGuestsSelector,
+} from "@events/core/selectors/creation.selector";
+import { creationActions } from "@events/core/slices/creation.slice";
+import { useAppDispatch } from "@store/useAppDispatch";
+import { useCallback } from "react";
+import { useSelector } from "react-redux";
 
 export const useAddGuestsToEventModal = () => {
-  const [guests, setGuests] = useState([
-    {
-      id: "1",
-      name: "Julie",
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "2",
-      name: "Julien",
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "3",
-      name: "Charles",
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "4",
-      name: "Grégoire",
-      image: "https://picsum.photos/200/300",
-    },
-  ]);
+  const dispatch = useAppDispatch();
 
-  const [guestsProposition, setGuestsProposition] = useState([
-    {
-      id: "5",
-      name: "Etienne",
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "6",
-      name: "François",
-      image: "https://picsum.photos/200/300",
-    },
-  ]);
+  const { guests: guestsForm } = useSelector(creationFormSelector);
+  const {
+    guests: guestsProposition,
+    field: searchField,
+    error: searchError,
+  } = useSelector(creationSearchGuestsSelector);
 
   const removeGuest = useCallback(
     (id: Identifier) => {
-      setGuests(guests.filter((guest) => guest.id !== id));
+      dispatch(creationActions.removeGuestfromForm(id));
     },
-    [guests],
+    [guestsForm],
   );
 
   const addGuest = useCallback(
-    (id: Identifier) => {
-      const guest = guestsProposition.find((guest) => guest.id === id);
-
-      if (!guest) return;
-      setGuests([...guests, guest]);
-      setGuestsProposition(
-        guestsProposition.filter((guest) => guest.id !== id),
-      );
+    (guest: Guest) => {
+      dispatch(creationActions.addGuestToForm(guest));
     },
-    [guests, guestsProposition],
+    [guestsForm, guestsProposition],
   );
 
+  const setSearchField = useCallback(
+    (field: string) => {
+      dispatch(creationActions.setSearchField(field));
+    },
+    [dispatch],
+  );
+
+  const isInvited = useCallback(
+    (id: Identifier) => {
+      return guestsForm.some((guest) => guest.id === id);
+    },
+    [guestsForm],
+  );
+
+  const validateGuestsStep = useCallback(() => {
+    dispatch(creationActions.validateGuestsStep());
+  }, [dispatch]);
+
   return {
-    guests,
+    guests: guestsForm,
     guestsProposition,
     removeGuest,
     addGuest,
+    searchField,
+    setSearchField,
+    isInvited,
+    searchError,
+    validateGuestsStep,
   };
 };

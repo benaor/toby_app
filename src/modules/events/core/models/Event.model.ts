@@ -1,3 +1,5 @@
+import { Guest } from "./Guest.model";
+
 export type Event = {
   id: Identifier;
   title: string;
@@ -5,7 +7,7 @@ export type Event = {
   image: string;
   start: ISO8601;
   end: ISO8601 | null;
-  guests: Identifier[];
+  guests: Guest[];
 };
 
 export type UserEvent = Event & {

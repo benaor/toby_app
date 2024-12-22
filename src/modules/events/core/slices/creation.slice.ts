@@ -82,12 +82,19 @@ const creationSlice = createSlice({
     setSearchField: (state, action: PayloadAction<string>) => {
       state.searchGuests.field = action.payload;
     },
-    addGuestToForm: (state, action: PayloadAction<Identifier>) => {
-      const isAlreadyInForm = state.form.guests?.includes(action.payload);
+    addGuestToForm: (state, action: PayloadAction<Guest>) => {
+      const isAlreadyInForm = state.form.guests?.some(
+        ({ id }) => id === action.payload.id,
+      );
 
       if (isAlreadyInForm) return;
 
       state.form.guests?.push(action.payload);
+    },
+    removeGuestfromForm: (state, action: PayloadAction<string>) => {
+      state.form.guests = state.form.guests?.filter(
+        (guest) => guest.id !== action.payload,
+      );
     },
     validateGuestsStep: (state) => {
       state.step = CreationStep.AddEventModules;

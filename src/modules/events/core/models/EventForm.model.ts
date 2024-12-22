@@ -1,3 +1,5 @@
+import { Guest } from "./Guest.model";
+
 export enum CreationStep {
   ChooseEvent = "ChooseEvent",
   EventInformations = "EventInformations",
@@ -39,7 +41,7 @@ export type EventFormAdditionalsInfos = {
 };
 
 export type EventFormGuests = {
-  guests: Identifier[];
+  guests: Guest[];
 };
 
 export type EventFormModules = {
@@ -57,4 +59,7 @@ export type EventCreationForm = EventFormType &
   EventFormGuests &
   EventFormModules;
 
-export type EventForm = DeepNullableExcept<EventCreationForm, "modules">;
+export type EventForm = DeepNullableExcept<
+  EventCreationForm,
+  "modules" | "guests"
+>;

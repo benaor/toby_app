@@ -10,13 +10,13 @@ type MemberInputProps =
   | {
       image: string;
       name: string;
-      onDelete: () => void;
+      onDelete: VoidFunction;
       onAddGuest?: never;
     }
   | {
       image: string;
       name: string;
-      onAddGuest: () => void;
+      onAddGuest: VoidFunction;
       onDelete?: never;
     };
 
