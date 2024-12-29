@@ -59,39 +59,39 @@ export const useEventSummaryScreen = () => {
   const { push, navigate } = useRouter();
 
   const openEditLocationModal = useCallback(() => {
-    push(screens.editLocations(event.id));
+    push(screens.routesWithId.editLocations(event.id));
   }, [event.id, push]);
 
   const openEditGuestsModal = useCallback(() => {
-    push(screens.editGuests(event.id));
+    push(screens.routesWithId.editGuests(event.id));
   }, [event.id, push]);
 
   const openEditDatesModal = useCallback(() => {
-    push(screens.editDates(event.id));
+    push(screens.routesWithId.editDates(event.id));
   }, [event.id, push]);
 
   const openEditImportantMsgModal = useCallback(() => {
-    push(screens.editImportantMsg(event.id));
+    push(screens.routesWithId.editImportantMsg(event.id));
   }, [event.id, push]);
 
   const openEditNotesModal = useCallback(() => {
-    push(screens.editNotes(event.id));
+    push(screens.routesWithId.editNotes(event.id));
   }, [event.id, push]);
 
   const openEditPoolsModal = useCallback(() => {
-    push(screens.editPools(event.id));
+    push(screens.routesWithId.editPools(event.id));
   }, [event.id, push]);
 
   const openAddBudgetModal = useCallback(() => {
-    push(screens.addBudget(event.id));
+    push(screens.routesWithId.addBudget(event.id));
   }, [event.id, push]);
 
   const goToCalendar = useCallback(() => {
-    navigate(screens.calendar);
+    navigate(screens.routes.calendar);
   }, [navigate]);
 
   const goToEventSettings = useCallback(() => {
-    navigate(screens.eventSettings(event.id));
+    navigate(screens.routesWithId.eventSettings(event.id));
   }, [navigate, event.id]);
 
   return {

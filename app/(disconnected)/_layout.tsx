@@ -5,20 +5,14 @@ import { Redirect, Stack } from "expo-router";
 export default function DisconnectedLayout() {
   const { session } = useAuthentication();
 
-  if (session) return <Redirect href="home" />;
+  if (session) return <Redirect href={screens.routes.home} />;
 
   return (
     <Stack>
-      <Stack.Screen
-        name={screens.onboarding}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name={screens.signIn} options={{ headerShown: false }} />
-      <Stack.Screen name={screens.signUp} options={{ headerShown: false }} />
-      <Stack.Screen
-        name={screens.forgotPassword}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+      <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+      <Stack.Screen name="sign-up" options={{ headerShown: false }} />
+      <Stack.Screen name="forgot-password" options={{ headerShown: false }} />
     </Stack>
   );
 }

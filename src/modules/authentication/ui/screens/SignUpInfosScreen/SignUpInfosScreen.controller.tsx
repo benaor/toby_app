@@ -33,7 +33,7 @@ export const useSignUpInfosScreen = () => {
   };
 
   const goToLoginScreen = useCallback(() => {
-    replace(screens.signIn);
+    replace(screens.routes.signIn);
   }, [replace]);
 
   return {

@@ -4,7 +4,7 @@ import { Redirect, Stack } from "expo-router";
 export default function ConnectedLayout() {
   const { session } = useAuthentication();
 
-  if (!session) return <Redirect href="onboarding" />;
+  if (!session) return <Redirect href="/onboarding" />;
 
   return (
     <Stack>

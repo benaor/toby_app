@@ -10,4 +10,6 @@ export class StubRouter implements Router {
   dismiss = jest.fn();
   dismissAll = jest.fn();
   canDismiss = jest.fn();
+  dismissTo = jest.fn();
+  reload = jest.fn();
 }

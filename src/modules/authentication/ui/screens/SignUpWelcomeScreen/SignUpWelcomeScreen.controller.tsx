@@ -6,7 +6,7 @@ export const useSignUpWelcomeScreen = () => {
   const { replace } = useRouter();
 
   const redirectToHome = useCallback(() => {
-    replace(screens.home);
+    replace(screens.routes.home);
   }, [replace]);
 
   return {

@@ -5,8 +5,8 @@ import {
   TextInputProps as RNTextInputProps,
   TextInput as RNTextInput,
   StyleProp,
-  ViewProps,
   TextProps,
+  ViewStyle,
 } from "react-native";
 import { View } from "react-native";
 
@@ -15,7 +15,7 @@ type TextInputProps = RNTextInputProps & {
   textarea?: boolean;
   label?: string;
   error?: string | null;
-  style?: StyleProp<ViewProps>;
+  style?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextProps>;
 };
 

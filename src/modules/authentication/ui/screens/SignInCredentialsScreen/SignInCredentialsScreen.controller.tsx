@@ -15,7 +15,7 @@ export const useSignInCredentialsScreen = () => {
 
   const signIn = useCallback(async () => {
     const session = await signInWithEmail(credentials);
-    if (session) navigate(screens.signInWelcome);
+    if (session) navigate(screens.routes.signInWelcome);
     else setError("Identifiant incorrect");
   }, [credentials, navigate, signInWithEmail]);
 
@@ -30,11 +30,11 @@ export const useSignInCredentialsScreen = () => {
   );
 
   const goToForgetPasswordScreen = useCallback(() => {
-    replace(screens.forgotPassword);
+    replace(screens.routes.forgotPassword);
   }, [replace]);
 
   const goToSignUpScreen = useCallback(() => {
-    replace(screens.signUp);
+    replace(screens.routes.signUp);
   }, [replace]);
 
   return {

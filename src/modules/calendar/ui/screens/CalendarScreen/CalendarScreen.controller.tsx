@@ -26,7 +26,7 @@ export const useCalendarScreen = () => {
 
   const goToEvent = useCallback(
     (id: string) => {
-      push(screens.event(id));
+      push(screens.routesWithId.event(id));
     },
     [push],
   );

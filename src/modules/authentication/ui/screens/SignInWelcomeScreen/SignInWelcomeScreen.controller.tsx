@@ -6,7 +6,7 @@ export const useSignInWelcomeScreen = () => {
   const { replace } = useRouter();
 
   const goToHome = useCallback(() => {
-    replace(screens.home);
+    replace(screens.routes.home);
   }, [replace]);
 
   return {

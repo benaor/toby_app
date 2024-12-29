@@ -18,7 +18,7 @@ export const useEditPoolsModal = () => {
 
   const deletePool = (id: string) => {};
   const addPool = useCallback(() => {
-    navigate(screens.addPool("1"));
+    navigate(screens.routesWithId.addPool("1"));
   }, [navigate]);
 
   return {

@@ -13,7 +13,7 @@ export const useEventsList = () => {
   const { status, error } = useSelector(eventsStateSelector);
 
   const goToEvent = useCallback(
-    (eventId: string) => navigate(screens.event(eventId)),
+    (eventId: string) => navigate(screens.routesWithId.event(eventId)),
     [navigate],
   );
 

@@ -8,16 +8,16 @@ export enum CreationStep {
   AddEventModules = "AddEventModules",
 }
 
-const eventTypes = [
+type EventTypes = [
   "birthday",
   "weekend",
   "holidays",
   "stagparty",
   "wedding",
   "other",
-] as const;
+];
 
-export type EventType = (typeof eventTypes)[number];
+export type EventType = EventTypes[number];
 
 export type EventFormType = {
   type: EventType;

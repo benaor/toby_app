@@ -12,8 +12,8 @@ module.exports = {
     semi: ["error", "always"],
     "no-console": ["warn", { allow: ["info", "error"] }],
     "@typescript-eslint/no-unused-vars": ["warn"],
-    "@typescript-eslint/ban-ts-comment": "off",
-    "no-unused-vars": "warn",
+    "@typescript-eslint/ban-ts-comment": "off", // I know what I'm doing
+    "@typescript-eslint/no-require-imports": "off", // I never use require unless it's in a config file
     "react-hooks/exhaustive-deps": "off",
   },
 };

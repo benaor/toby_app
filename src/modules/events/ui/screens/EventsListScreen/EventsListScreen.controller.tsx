@@ -21,11 +21,11 @@ export const useEventsListScreen = () => {
   }, []);
 
   const goToArchives = useCallback(() => {
-    push(screens.archives);
+    push(screens.routes.archives);
   }, [push]);
 
   const opencreateEventModal = useCallback(() => {
-    push(screens.newEvent);
+    push(screens.routes.newEvent);
   }, [push]);
 
   useEffect(() => {

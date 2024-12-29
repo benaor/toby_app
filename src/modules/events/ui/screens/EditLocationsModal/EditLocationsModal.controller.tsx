@@ -23,7 +23,7 @@ export const useEditLocationsModal = () => {
   const deleteLocation = useCallback((id: string) => {}, []);
 
   const addLocation = useCallback(() => {
-    push(screens.addLocation("1"));
+    push(screens.routesWithId.addLocation("1"));
   }, [push]);
 
   return {

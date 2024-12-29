@@ -103,7 +103,7 @@ export const useChatScreen = (eventId: string) => {
   ];
 
   const goToEventSummary = useCallback(
-    () => navigate(screens.eventSummary(eventId)),
+    () => navigate(screens.routesWithId.eventSummary(eventId)),
     [eventId, navigate],
   );
   return {

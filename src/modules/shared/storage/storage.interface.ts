@@ -1,4 +1,3 @@
-export interface AsyncStorage
-  extends PromisifyMethods<
-    Pick<Storage, "getItem" | "setItem" | "removeItem">
-  > {}
+export type AsyncStorage = PromisifyMethods<
+  Pick<Storage, "getItem" | "setItem" | "removeItem">
+>;

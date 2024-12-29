@@ -12,11 +12,11 @@ export default function OnboardingScreen() {
   const { replace } = useRouter();
 
   const goToSignUp = useCallback(() => {
-    replace(screens.signUp);
+    replace(screens.routes.signUp);
   }, [replace]);
 
   const goToSignIn = useCallback(() => {
-    replace(screens.signIn);
+    replace(screens.routes.signIn);
   }, [replace]);
 
   return (

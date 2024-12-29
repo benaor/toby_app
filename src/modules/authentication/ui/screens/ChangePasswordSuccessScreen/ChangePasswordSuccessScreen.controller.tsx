@@ -5,7 +5,7 @@ export const useChangePasswordSuccessScreen = () => {
   const { replace } = useRouter();
 
   const goToSignInScreen = () => {
-    replace(screens.signIn);
+    replace(screens.routes.signIn);
   };
 
   return {

@@ -1,14 +1,14 @@
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { FC } from "react";
-import { OnPressFunction, Pressable, View } from "react-native";
+import { GestureResponderEvent, Pressable, View } from "react-native";
 
 type ChooseEventCardProps = {
   title: string;
   description: string;
   ImageSVG: FC;
   selected?: boolean;
-  onPress?: OnPressFunction;
+  onPress?: (e: GestureResponderEvent) => void;
 };
 
 export const ChooseEventCard: FC<ChooseEventCardProps> = ({

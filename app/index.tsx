@@ -13,9 +13,9 @@ export default function RootScreen() {
   return (
     <>
       {session ? (
-        <Redirect href={screens.home} />
+        <Redirect href={screens.routes.home} />
       ) : (
-        <Redirect href={screens.onboarding} />
+        <Redirect href={screens.routes.onboarding} />
       )}
     </>
   );
