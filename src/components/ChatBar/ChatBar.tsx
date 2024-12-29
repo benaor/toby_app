@@ -8,29 +8,28 @@ import { InputAccessoryView, View } from "react-native";
 export const ChatBar: FC = () => {
   const theme = useTheme();
   return (
-    <InputAccessoryView
-      backgroundColor={theme.colors.background.low}
-      style={styles.container}
-    >
-      <View style={styles.leftButtons}>
-        <IconButton name="photo" size={20} />
-        <IconButton name="photo-camera" size={20} />
-      </View>
+    <InputAccessoryView>
+      <View style={styles.container}>
+        <View style={styles.leftButtons}>
+          <IconButton name="photo" size={20} />
+          <IconButton name="photo-camera" size={20} />
+        </View>
 
-      {/* @ts-ignore */}
-      <TextInput
-        style={styles.textInput}
-        variant="filled"
-        placeholder="Message..."
-      />
-
-      <View style={styles.rightButtons}>
-        <IconButton name="microphone" size={20} />
-        <IconButton
-          name="send-o"
-          size={20}
-          iconColor={theme.colors.primary.high}
+        <TextInput
+          style={styles.textInput}
+          inputStyle={styles.textInput}
+          variant="filled"
+          placeholder="Message..."
         />
+
+        <View style={styles.rightButtons}>
+          <IconButton name="microphone" size={20} />
+          <IconButton
+            name="send-o"
+            size={20}
+            iconColor={theme.colors.primary.high}
+          />
+        </View>
       </View>
     </InputAccessoryView>
   );
@@ -54,13 +53,12 @@ const styles = createStyleSheet((theme) => ({
   rightButtons: {
     flex: 2.5,
     flexDirection: "row",
-
     justifyContent: "space-around",
     alignItems: "center",
   },
   textInput: {
     flex: 5.1,
-    height: 25,
+    // height: 25,
     minHeight: undefined,
     margin: "auto",
     borderRadius: 100,

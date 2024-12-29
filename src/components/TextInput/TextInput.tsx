@@ -5,8 +5,8 @@ import {
   TextInputProps as RNTextInputProps,
   TextInput as RNTextInput,
   StyleProp,
-  TextProps,
   ViewStyle,
+  TextStyle,
 } from "react-native";
 import { View } from "react-native";
 
@@ -16,7 +16,7 @@ type TextInputProps = RNTextInputProps & {
   label?: string;
   error?: string | null;
   style?: StyleProp<ViewStyle>;
-  inputStyle?: StyleProp<TextProps>;
+  inputStyle?: StyleProp<TextStyle>;
 };
 
 export const TextInput: FC<TextInputProps> = ({
