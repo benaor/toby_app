@@ -14,6 +14,8 @@ export const eventCreationListener = (
 
       if (field.length > 3) {
         await (dispatch as AppDispatch)(fetchSearchedGuests(field)); // TODO Find solution to avoid the cast here
+      } else {
+        (dispatch as AppDispatch)(creationActions.clearSearchedGuests());
       }
     },
   });

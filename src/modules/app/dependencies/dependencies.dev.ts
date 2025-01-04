@@ -5,8 +5,8 @@ import { Authenticator } from "@authentication/core/useCases/Authenticator.useca
 import { InMemoryStorage } from "@shared/storage/InMemoryStorage";
 import { TypedStorageImpl } from "@shared/storage/TypedStorageImpl";
 import { InMemoryEventRepository } from "@events/core/adapters/InMemoryEventRepository";
-import { StubGuestsRepository } from "@events/core/adapters/StubGuestsRepository";
 import { router } from "expo-router";
+import { InMemoryGuestsRepository } from "@events/core/adapters/InMemoryGuestsRepository";
 
 // In the dev environment, we should use Fake/InMemory or sometimes final dependencies
 const storage = new InMemoryStorage();
@@ -19,7 +19,7 @@ const authenticator = new Authenticator(authProvider, typedStorage, alerter);
 
 // Repositories
 const eventRepository = new InMemoryEventRepository();
-const guestsRepository = new StubGuestsRepository();
+const guestsRepository = new InMemoryGuestsRepository();
 
 export const devDependencies: Dependencies = {
   typedStorage,

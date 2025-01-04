@@ -82,6 +82,9 @@ const creationSlice = createSlice({
     setSearchField: (state, action: PayloadAction<string>) => {
       state.searchGuests.field = action.payload;
     },
+    clearSearchedGuests: (state) => {
+      state.searchGuests.guests = [];
+    },
     addGuestToForm: (state, action: PayloadAction<Guest>) => {
       const isAlreadyInForm = state.form.guests?.some(
         ({ id }) => id === action.payload.id,

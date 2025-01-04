@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useAddGuestsToEventModal } from "./AddGuestsToEventModal.controller";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { Typography } from "@components/Typography";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { ModalLayout } from "@components/ModalLayout";
 import { TextInput } from "@components/TextInput";
 import { Button } from "@components/Button";
@@ -23,7 +23,7 @@ export const AddGuestsToEventModal: FC = () => {
 
   return (
     <ModalLayout title="Créer un évènement">
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Typography.Header size="medium" lvlColor="medium">
           Ajouter des membres
         </Typography.Header>
@@ -38,6 +38,12 @@ export const AddGuestsToEventModal: FC = () => {
         {searchField.length < 1 ? (
           <>
             <View style={styles.guestsList}>
+              {guests.length > 0 && (
+                <View style={styles.inviteGuestTitle}>
+                  <Typography.Body lvlColor="high">Invité(e)s</Typography.Body>
+                </View>
+              )}
+
               {guests.map((guest) => (
                 <MemberInput
                   key={guest.id}
@@ -58,6 +64,10 @@ export const AddGuestsToEventModal: FC = () => {
               </Button>
             </View>
           </>
+        ) : searchField.length < 4 ? (
+          <Typography.Body color="primary">
+            Minimum 4 caractères
+          </Typography.Body>
         ) : (
           <>
             <View style={styles.inviteGuestTitle}>
@@ -84,12 +94,12 @@ export const AddGuestsToEventModal: FC = () => {
             </View>
           </>
         )}
-      </View>
+      </ScrollView>
     </ModalLayout>
   );
 };
 
-const styles = createStyleSheet((theme) => ({
+const styles = createStyleSheet(() => ({
   container: {
     display: "flex",
     flexDirection: "column",

@@ -5,7 +5,7 @@ export class GuestFactory {
     return {
       id: "guest-id-1",
       name: "Benjamin",
-      image: "http://guest.factory.image/",
+      image: `https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 80)}.jpg`,
       email: "guest@factory.test",
       accepted: null,
       ...guest,
