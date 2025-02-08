@@ -1,5 +1,4 @@
 /* eslint-env node */
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { getDefaultConfig } = require("expo/metro-config");
 
 /** @type {import('expo/metro-config').MetroConfig} */

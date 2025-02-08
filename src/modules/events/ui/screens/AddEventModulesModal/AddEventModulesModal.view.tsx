@@ -8,7 +8,16 @@ import { Switch } from "@components/Switch";
 import { Button } from "@components/Button";
 
 export const AddEventModulesModal: FC = () => {
-  const presenter = useAddEventModulesModal();
+  const {
+    cagnotte,
+    activity,
+    budget,
+    location,
+    toggleActivity,
+    toggleBudget,
+    toggleCagnotte,
+    toggleLocation,
+  } = useAddEventModulesModal();
 
   return (
     <ModalLayout title="Ajouter des modules">
@@ -22,28 +31,44 @@ export const AddEventModulesModal: FC = () => {
             <Typography.Body size="medium" lvlColor="high" bold>
               Activer le module lieu
             </Typography.Body>
-            <Switch label="Le module lieu vous permet de mettre en avant le lieu sélectionné pour votre évènement." />
+            <Switch
+              label="Le module lieu vous permet de mettre en avant le lieu sélectionné pour votre évènement."
+              value={location}
+              onValueChange={toggleLocation}
+            />
           </View>
 
           <View style={styles.switchModuleOn}>
             <Typography.Body size="medium" lvlColor="high" bold>
               Activer le module cagnotte
             </Typography.Body>
-            <Switch label="Le module cagnotte vous permet de mettre en avant le lien vers la cagnotte de l’évènement." />
+            <Switch
+              label="Le module cagnotte vous permet de mettre en avant le lien vers la cagnotte de l’évènement."
+              value={cagnotte}
+              onValueChange={toggleCagnotte}
+            />
           </View>
 
           <View style={styles.switchModuleOn}>
             <Typography.Body size="medium" lvlColor="high" bold>
               Activer le module budget
             </Typography.Body>
-            <Switch label="Le module activités vous permet de lister les activité prévu pour l’évènement." />
+            <Switch
+              label="Le module activités vous permet de lister les activité prévu pour l’évènement."
+              value={budget}
+              onValueChange={toggleBudget}
+            />
           </View>
 
           <View style={styles.switchModuleOn}>
             <Typography.Body size="medium" lvlColor="high" bold>
               Activer le module activités
             </Typography.Body>
-            <Switch label="Le module lieu vous permet de mettre en avant le lieu sélectionné pour votre évènement. " />
+            <Switch
+              label="Le module lieu vous permet de mettre en avant le lieu sélectionné pour votre évènement. "
+              value={activity}
+              onValueChange={toggleActivity}
+            />
           </View>
         </View>
 
