@@ -17,6 +17,7 @@ export const AddEventModulesModal: FC = () => {
     toggleBudget,
     toggleCagnotte,
     toggleLocation,
+    createEvent,
   } = useAddEventModulesModal();
 
   return (
@@ -72,7 +73,7 @@ export const AddEventModulesModal: FC = () => {
           </View>
         </View>
 
-        <Button style={styles.button}>
+        <Button style={styles.button} onPress={createEvent}>
           <Button.Label label="Valider" />
         </Button>
       </View>

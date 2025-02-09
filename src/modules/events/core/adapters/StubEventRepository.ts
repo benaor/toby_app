@@ -4,24 +4,31 @@ import { EventForm } from "../models/EventForm.model";
 import { EventRepository } from "../ports/EventRepository";
 
 export class StubEventRepository implements EventRepository {
-  constructor(private events: EventList = []) {}
+  private _eventToCreate: UserEvent = EventFactory.USER_EVENT();
+  private _events: EventList = [];
+
+  setupEvent = (userEvent?: Partial<UserEvent>) => {
+    this._eventToCreate = EventFactory.USER_EVENT(userEvent);
+  };
+
+  setupEventsList = (events: EventList) => {
+    this._events = events;
+  };
 
   getAllMyEvents: () => Promise<EventList> = async () => {
-    return Promise.resolve(this.events);
+    return Promise.resolve(this._events);
   };
 
   getAllArchivedEvents: () => Promise<EventList> = async () => {
-    return Promise.resolve(this.events);
+    return Promise.resolve(this._events);
   };
 
   createEvent: (form: EventForm) => Promise<UserEvent> = jest
     .fn()
     .mockImplementation((form) =>
-      Promise.resolve(
-        EventFactory.USER_EVENT({
-          ...form,
-          id: "1",
-        }),
-      ),
+      Promise.resolve({
+        ...this._eventToCreate,
+        ...form,
+      }),
     );
 }

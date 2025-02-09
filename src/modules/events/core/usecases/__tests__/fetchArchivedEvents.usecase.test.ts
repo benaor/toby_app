@@ -53,7 +53,9 @@ describe("Fetch Archived Events Usecase", () => {
         title: "music party",
       });
 
-      const eventRepository = new StubEventRepository([myBirthday, musicParty]);
+      const eventRepository = new StubEventRepository();
+      eventRepository.setupEventsList([myBirthday, musicParty]);
+
       const store = createTestStore({ dependencies: { eventRepository } });
 
       // When

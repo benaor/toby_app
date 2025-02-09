@@ -8,7 +8,7 @@ export const createEvent = createAppAsyncThunk(
 
     // istanbul ignore next - This validation never return false because throw an error instead
     if (isValidEventCreationForm(eventForm))
-      await extra.eventRepository.createEvent(eventForm);
+      return await extra.eventRepository.createEvent(eventForm);
   },
 );
 

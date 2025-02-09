@@ -9,7 +9,7 @@ export const eventCreationListener = (
 ) => {
   listener.startListening({
     actionCreator: creationActions.setSearchField,
-    effect: async (action, { dispatch, delay }) => {
+    effect: async (action, { dispatch }) => {
       const field = action.payload;
 
       if (field.length > 3) {

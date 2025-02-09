@@ -15,7 +15,7 @@ import { EventForm } from "@events/core/models/EventForm.model";
 describe("Create Event", () => {
   describe("Happy path", () => {
     let store: AppStore;
-    let eventRepository: EventRepository;
+    let eventRepository: StubEventRepository;
 
     beforeEach(() => {
       eventRepository = new StubEventRepository();
@@ -91,7 +91,9 @@ describe("Create Event", () => {
         description: initialState.creation.form.description!,
       });
 
-      eventRepository = new StubEventRepository([userEvent]);
+      const eventRepository = new StubEventRepository();
+      eventRepository.setupEventsList([userEvent]);
+
       store = createTestStore({
         dependencies: { eventRepository },
         initialState,

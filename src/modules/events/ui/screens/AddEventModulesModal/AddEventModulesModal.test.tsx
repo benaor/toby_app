@@ -1,6 +1,13 @@
 import { renderHook } from "@app/react/renderHook";
 import { useAddEventModulesModal } from "./AddEventModulesModal.controller";
 import { act } from "@testing-library/react-native";
+import * as createEventUsecase from "@events/core/usecases/createEvent.usecase";
+import { StubRouter } from "@app/router/StubRouter";
+import { screens } from "@constants/screens";
+import { StubEventRepository } from "@events/core/adapters/StubEventRepository";
+import { initialCreationState } from "@events/core/slices/creation.slice";
+import { produce } from "immer";
+import { createTestStore } from "@store/test-environment";
 
 describe("AddEventModulesModal", () => {
   describe("modules should be disabled when hook is mounted for the first time", () => {
@@ -72,6 +79,53 @@ describe("AddEventModulesModal", () => {
 
       const cagnotteModule = result.current.cagnotte;
       expect(cagnotteModule).toBe(true);
+    });
+  });
+
+  describe("Should create event", () => {
+    it("should create event", async () => {
+      const eventId = "test-123";
+      const router = new StubRouter();
+      const eventRepository = new StubEventRepository();
+      eventRepository.setupEvent({ id: eventId });
+
+      const store = createTestStore({
+        initialState: {
+          creation: produce(initialCreationState, (draft) => {
+            draft.form.type = "holidays";
+            draft.form.title = "test";
+            draft.form.description = "test";
+            draft.form.image = "test";
+            draft.form.date.start = "2025-01-01";
+            draft.form.date.end = "2025-01-01";
+            draft.form.location = {
+              address: "My address",
+              name: "My location",
+            };
+            draft.form.guests = [];
+          }),
+        },
+        dependencies: {
+          eventRepository,
+        },
+      });
+
+      const { result } = renderHook(useAddEventModulesModal, {
+        store,
+        dependencies: { router, eventRepository },
+      });
+
+      const spyCreateEvent = jest.spyOn(createEventUsecase, "createEvent");
+
+      await act(async () => {
+        await result.current.createEvent();
+      });
+
+      expect(spyCreateEvent).toHaveBeenCalled();
+
+      expect(router.navigate).toHaveBeenCalledWith(
+        screens.routesWithId.eventSummary(eventId),
+      );
     });
   });
 });

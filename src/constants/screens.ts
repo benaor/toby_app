@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Href } from "expo-router";
 
 type Routes = [

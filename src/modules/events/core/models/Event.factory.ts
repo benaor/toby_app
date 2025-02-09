@@ -2,7 +2,7 @@ import { ArchivedEvent, UserEvent } from "./Event.model";
 import { GuestFactory } from "./Guest.factory";
 
 export class EventFactory {
-  static USER_EVENT = (item: Partial<UserEvent>): UserEvent => {
+  static USER_EVENT = (item?: Partial<UserEvent>): UserEvent => {
     return {
       id: "1",
       guests: [
