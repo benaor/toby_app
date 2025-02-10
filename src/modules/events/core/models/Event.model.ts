@@ -5,16 +5,31 @@ export type Event = {
   title: string;
   description: string;
   image: string;
-  start: ISO8601;
-  end: ISO8601 | null;
   guests: Guest[];
+  location: {
+    name: string;
+    address: string;
+  };
+  date: {
+    start: ISO8601;
+    end: ISO8601 | null;
+  };
+  survey?: {
+    title: string;
+    isPending: boolean;
+  };
 };
 
 export type UserEvent = Event & {
+  invitationAccepted?: boolean;
   notification: {
     count: number;
   };
   isAdmin: boolean;
+  pool?: {
+    title: string;
+    hasParticipated: boolean;
+  };
 };
 
 export type EventList = UserEvent[];

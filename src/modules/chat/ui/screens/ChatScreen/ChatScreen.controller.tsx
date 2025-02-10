@@ -14,8 +14,10 @@ export const useChatScreen = (eventId: string) => {
     id: "1",
     image: "https://picsum.photos/204",
     title: "Anniversaire Marco",
-    start: new Date().toISOString(),
-    end: null,
+    date: {
+      start: new Date().toISOString(),
+      end: null,
+    },
     guests: [
       GuestFactory.GUEST({ id: "john" }),
       GuestFactory.GUEST({ id: "doe" }),

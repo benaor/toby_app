@@ -5,8 +5,11 @@ export class CalendarEventFactory {
     return {
       id: "1",
       title: "new year",
-      start: "2024-01-01",
-      end: null,
+      date: {
+        start: "2024-01-01",
+        end: null,
+        ...event?.date,
+      },
       ...event,
     };
   }

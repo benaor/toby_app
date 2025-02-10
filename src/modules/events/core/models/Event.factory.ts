@@ -16,8 +16,18 @@ export class EventFactory {
       },
       title: "Event 1 from factory",
       description: "Description of event 1",
-      start: new Date("2020-01-01").toISOString(),
-      end: null,
+      date: {
+        start: new Date("2020-01-01").toISOString(),
+        end: null,
+      },
+      location: {
+        name: "Location 1",
+        address: "Address 1",
+      },
+      survey: {
+        title: "Vote pour la date !",
+        isPending: true,
+      },
       ...item,
     };
   };
@@ -33,8 +43,18 @@ export class EventFactory {
       },
       title: "Event 1 from factory",
       description: "Description of archived 1",
-      start: "2020-01-01",
-      end: null,
+      date: {
+        start: "2020-01-01",
+        end: null,
+      },
+      location: {
+        name: "National Archives 1",
+        address: "Address NA 1",
+      },
+      survey: {
+        title: "Vote pour la date !",
+        isPending: false,
+      },
       ...item,
     };
   };

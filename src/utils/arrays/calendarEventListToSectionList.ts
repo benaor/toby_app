@@ -7,7 +7,7 @@ export const calendarEventListToSectionList = (
   const arrayOfSection: ArrayOfSectionsListOfEvent = [];
 
   eventList.forEach((event) => {
-    const title = new Date(event.start).toLocaleDateString("fr-FR", {
+    const title = new Date(event.date.start).toLocaleDateString("fr-FR", {
       month: "long",
       year: "numeric",
     });
@@ -33,5 +33,6 @@ const sortDataSectionByDate = (data: ArrayOfSectionsListOfEvent) =>
 
 const sortCalendarEventDataByDate = (events: CalendarEventList) =>
   events.sort(
-    (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
+    (a, b) =>
+      new Date(a.date.start).getTime() - new Date(b.date.start).getTime(),
   );

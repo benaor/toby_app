@@ -8,30 +8,42 @@ export class InMemoryEventRepository implements EventRepository {
     EventFactory.USER_EVENT({
       id: "1",
       title: "Anniv. Benjamin",
-      start: "2021-12-24",
+      date: {
+        start: "2021-12-24",
+        end: "2021-12-24",
+      },
     }),
     EventFactory.USER_EVENT({
       id: "3",
       title: "Team building",
-      start: "2021-09-01",
-      end: "2021-09-02",
+      date: {
+        start: "2021-09-01",
+        end: "2021-09-02",
+      },
     }),
     EventFactory.USER_EVENT({
       id: "4",
       title: "Fête de Thomas",
-      start: "2021-08-03",
-      end: null,
+      date: {
+        start: "2021-08-03",
+        end: null,
+      },
     }),
     EventFactory.USER_EVENT({
       id: "5",
       title: "Vacances Suisse",
-      start: "2021-08-03",
-      end: "2021-08-12",
+      date: {
+        start: "2021-08-03",
+        end: "2021-08-12",
+      },
     }),
     EventFactory.USER_EVENT({
       id: "2",
       title: "Soirée de l'été",
-      start: "2021-07-01",
+      date: {
+        start: "2021-07-01",
+        end: null,
+      },
     }),
   ];
 
@@ -39,18 +51,26 @@ export class InMemoryEventRepository implements EventRepository {
     EventFactory.USER_EVENT({
       id: "60",
       title: "Nouvel an",
-      start: "2020-01-01",
+      date: {
+        start: "2020-01-01",
+        end: null,
+      },
     }),
     EventFactory.USER_EVENT({
       id: "70",
       title: "Caca chez Paul",
-      start: "2020-07-01",
+      date: {
+        start: "2020-07-01",
+        end: null,
+      },
     }),
     EventFactory.USER_EVENT({
       id: "80",
       title: "Team building",
-      start: "2020-09-01",
-      end: "2020-09-02",
+      date: {
+        start: "2020-09-01",
+        end: "2020-09-02",
+      },
     }),
   ];
 
@@ -68,13 +88,12 @@ export class InMemoryEventRepository implements EventRepository {
     const newEvent: Event = {
       ...form,
       id: Math.floor(Math.random() * 100).toString(),
-      start: form.date.start,
-      end: form.date.end,
     };
 
     this.events.push({
       ...newEvent,
       notification: { count: 0 },
+      invitationAccepted: true,
       isAdmin: true,
     });
 

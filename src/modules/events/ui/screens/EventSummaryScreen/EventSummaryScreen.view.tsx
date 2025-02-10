@@ -34,7 +34,6 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
 }) => {
   const {
     event,
-    survey,
     acceptInvitation,
     refuseInvitation,
     openEditLocationModal,
@@ -46,7 +45,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
     openAddBudgetModal,
     goToCalendar,
     goToEventSettings,
-  } = useEventSummaryScreen();
+  } = useEventSummaryScreen(eventId);
 
   const {
     locationModule,
@@ -56,7 +55,10 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
     surveyModule,
   } = useFeatureFlag();
 
-  const dates: Date[] = getDatesInRange(event.dates.start, event.dates.end);
+  const dates: Date[] = getDatesInRange(
+    new Date(event.date.start),
+    new Date(event.date.end ?? event.date.start),
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -78,12 +80,12 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
           <AcceptOrRefuseButton
             accept
             onAccept={acceptInvitation}
-            active={event.invitationAccepted}
+            active={event.invitationAccepted === true}
           />
           <AcceptOrRefuseButton
             refuse
             onRefuse={refuseInvitation}
-            active={event.invitationAccepted}
+            active={event.invitationAccepted === false}
           />
         </View>
         <View style={styles.infosContainer}>
@@ -91,7 +93,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
             <View style={styles.chipsContainer}>
               <View style={styles.chip}>
                 <Typography.Body lvlColor="low" textAlign="center">
-                  {event.dates.start.getFullYear()}
+                  {new Date(event.date.start).getFullYear()}
                 </Typography.Body>
               </View>
 
@@ -103,7 +105,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
 
               <View style={styles.chip}>
                 <Typography.Body lvlColor="low" textAlign="center">
-                  {event.address.city}
+                  {event.location.address}
                 </Typography.Body>
               </View>
             </View>
@@ -252,7 +254,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
             </SummarySubSection>
           )}
 
-          {cagnotteModule && (
+          {cagnotteModule && event.pool && (
             <SummarySubSection title="Cagnotte" onEdit={openEditPoolsModal}>
               <View style={styles.card}>
                 <View style={styles.cardLeftPart}>
@@ -279,23 +281,23 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
             </SummarySubSection>
           )}
 
-          {surveyModule && (
+          {surveyModule && event.survey && (
             <SummarySubSection title="Sondage" onEdit={() => {}}>
               <Typography.Body>
-                {survey.isPending ? "En cours ..." : "Terminé !"}
+                {event.survey.isPending ? "En cours ..." : "Terminé !"}
               </Typography.Body>
               <Pressable style={styles.surveyPressable} onPress={() => {}}>
                 <View style={styles.avatarsGrouped}>
-                  {survey.guests.map((guest, index) => (
+                  {event.guests.map((guest, index) => (
                     <Avatar
                       key={guest.id}
-                      uri={guest.avatar}
+                      uri={guest.image}
                       style={index !== 0 ? { marginLeft: -15 } : undefined}
                     />
                   ))}
                 </View>
                 <Typography.Body lvlColor="high">
-                  {survey.title}
+                  {event.survey.title}
                 </Typography.Body>
                 <Icon name="chevron-right" />
               </Pressable>

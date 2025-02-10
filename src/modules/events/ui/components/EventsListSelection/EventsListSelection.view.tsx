@@ -24,7 +24,7 @@ export const EventsListSelection: FC = () => {
               <CheckBox />
             </View>
             <EventCard
-              date={new Date(event.start)}
+              date={new Date(event.date.start)}
               isAdmin={event.isAdmin}
               image={event.image}
               nbOfGuest={event.guests.length}

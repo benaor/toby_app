@@ -20,7 +20,7 @@ export const CalendarScreen: FC = () => {
         renderItem={({ item }) => (
           <CalendarItem
             key={item.id}
-            date={item.start}
+            date={item.date.start}
             title={item.title}
             onPress={() => goToEvent(item.id)}
           />

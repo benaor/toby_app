@@ -1,56 +1,15 @@
+import { useRouter } from "@app/router/useRouter";
 import { screens } from "@constants/screens";
-import { useRouter } from "expo-router";
+import { eventsSelectors } from "@events/core/slices/event.slice";
+import { AppState } from "@store/store";
+
 import { useCallback } from "react";
+import { useSelector } from "react-redux";
 
-export const useEventSummaryScreen = () => {
-  const event = {
-    id: "1",
-    title: "Weekend Anniversaire",
-    description: `C’est l’anniversaire de Marco ! Notez bien la date dans vos agendas, ça va être une sacrée soirée, je compte sur vous ! \n\n Toutes les infos sur l’organisation 👇👇 `,
-    dates: {
-      start: new Date("2025-03-01"),
-      end: new Date("2025-03-03"),
-    },
-    image: "https://picsum.photos/200/300",
-    guests: [],
-    notification: {
-      count: 0,
-    },
-    isAdmin: false,
-    invitationAccepted: true,
-    address: {
-      city: "Paris",
-    },
-    pool: {
-      title: "cadeau d'anniversaire",
-      amount: 0,
-      participants: 0,
-      hasParticipated: true,
-    },
-  };
-
-  const survey = {
-    title: "Vote pour la date !",
-    isPending: true,
-    guests: [
-      {
-        id: "1",
-        avatar: "https://picsum.photos/200/300",
-      },
-      {
-        id: "2",
-        avatar: "https://picsum.photos/200/300",
-      },
-      {
-        id: "3",
-        avatar: "https://picsum.photos/200/300",
-      },
-      {
-        id: "4",
-        avatar: "https://picsum.photos/200/300",
-      },
-    ],
-  };
+export const useEventSummaryScreen = (eventId: Identifier) => {
+  const event = useSelector((state: AppState) =>
+    eventsSelectors.selectById(state.events, eventId),
+  )!; // If i'm here, the event must exists in the store
 
   const acceptInvitation = () => {};
 
@@ -60,7 +19,7 @@ export const useEventSummaryScreen = () => {
 
   const openEditLocationModal = useCallback(() => {
     push(screens.routesWithId.editLocations(event.id));
-  }, [event.id, push]);
+  }, [event?.id, push]);
 
   const openEditGuestsModal = useCallback(() => {
     push(screens.routesWithId.editGuests(event.id));
@@ -96,7 +55,6 @@ export const useEventSummaryScreen = () => {
 
   return {
     event,
-    survey,
     acceptInvitation,
     refuseInvitation,
     openEditLocationModal,
