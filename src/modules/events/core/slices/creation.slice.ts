@@ -60,6 +60,9 @@ const creationSlice = createSlice({
   name: "event/creation",
   initialState: initialCreationState,
   reducers: {
+    setStep: (state, action: PayloadAction<CreationStep>) => {
+      state.step = action.payload;
+    },
     chooseType: (state, action: PayloadAction<EventType>) => {
       state.form.type = action.payload;
       state.step = CreationStep.EventInformations;

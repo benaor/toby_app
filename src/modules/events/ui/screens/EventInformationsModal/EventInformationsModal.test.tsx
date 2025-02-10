@@ -5,6 +5,7 @@ import { initialCreationState } from "@events/core/slices/creation.slice";
 import { produce } from "immer";
 import { createTestStore } from "@store/test-environment";
 import * as Usecase from "@events/core/usecases/addGeneralsInfos";
+import * as goBackToPreviousStepUsecase from "@events/core/usecases/goBackToPreviousStep";
 
 describe("EventInformationsModal", () => {
   it("Should validate informations before saving", async () => {
@@ -97,5 +98,20 @@ describe("EventInformationsModal", () => {
       description: "Description",
       image: "myImage",
     });
+  });
+
+  it("should go back to the previous step", async () => {
+    const spyGoBackToPreviousStep = jest.spyOn(
+      goBackToPreviousStepUsecase,
+      "goBackToPreviousStep",
+    );
+
+    const { result } = renderHook(useEventInformationsModal);
+
+    act(() => {
+      result.current.goToPreviousStep();
+    });
+
+    expect(spyGoBackToPreviousStep).toHaveBeenCalled();
   });
 });

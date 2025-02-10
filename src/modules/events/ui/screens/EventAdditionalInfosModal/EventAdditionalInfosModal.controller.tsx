@@ -5,6 +5,7 @@ import { addAdditionalsInfos } from "@events/core/usecases/additionalsInfos";
 import { useAppDispatch } from "@store/useAppDispatch";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { goBackToPreviousStep } from "@events/core/usecases/goBackToPreviousStep";
 
 export const useEventAdditionalInfosModal = () => {
   const router = useRouter();
@@ -106,6 +107,10 @@ export const useEventAdditionalInfosModal = () => {
     dispatch(addAdditionalsInfos(form));
   };
 
+  const goToPreviousStep = () => {
+    dispatch(goBackToPreviousStep());
+  };
+
   useEffect(validateName, [name]);
   useEffect(validateAddress, [address]);
   useEffect(validateStartDate, [startDate]);
@@ -125,6 +130,7 @@ export const useEventAdditionalInfosModal = () => {
     closeModal,
     setAdditionalsInfos,
     errorMessage,
+    goToPreviousStep,
   };
 };
 

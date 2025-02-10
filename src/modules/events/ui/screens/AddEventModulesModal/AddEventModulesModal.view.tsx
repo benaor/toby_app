@@ -18,10 +18,11 @@ export const AddEventModulesModal: FC = () => {
     toggleCagnotte,
     toggleLocation,
     createEvent,
+    backPreviousStep,
   } = useAddEventModulesModal();
 
   return (
-    <ModalLayout title="Ajouter des modules">
+    <ModalLayout title="Ajouter des modules" onBack={backPreviousStep}>
       <View style={styles.container}>
         <Typography.Header size="medium" lvlColor="medium">
           Ajouter des modules

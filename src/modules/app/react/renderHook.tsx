@@ -2,9 +2,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   renderHook as originalRenderHook,
+  render as originalRender,
   RenderHookResult,
+  RenderOptions as OriginalRenderOptions,
 } from "@testing-library/react-native";
-import { ComponentType, ReactNode } from "react";
+import { ComponentType, ReactElement, ReactNode } from "react";
 import { Dependencies } from "@app/dependencies/Dependencies.type";
 import { Provider } from "react-redux";
 import { DependenciesProvider } from "@app/react/useDependencies";
@@ -13,7 +15,7 @@ import { AppStore } from "@store/store";
 import { app } from "@app/main";
 import { RouterProvider } from "@app/router/useRouter";
 
-const Wrapper: ComponentType<{
+export const Wrapper: ComponentType<{
   children: ReactNode;
   dependencies?: Partial<Dependencies>;
   store?: AppStore;
@@ -56,5 +58,29 @@ export function renderHook<Result, Props>(
         children={children}
       />
     ),
+    ...options,
+  });
+}
+
+interface RenderOptions extends OriginalRenderOptions {
+  dependencies?: Partial<Dependencies>;
+  store?: AppStore;
+  wrapper?: ComponentType<any>;
+}
+
+export function render<Props>(
+  component: ReactElement<Props, string | React.JSXElementConstructor<any>>,
+  options?: RenderOptions,
+) {
+  return originalRender<Props>(component, {
+    wrapper: ({ children }) => (
+      <Wrapper
+        dependencies={options?.dependencies}
+        store={options?.store}
+        ExtendedWrapper={options?.wrapper}
+        children={children}
+      />
+    ),
+    ...options,
   });
 }

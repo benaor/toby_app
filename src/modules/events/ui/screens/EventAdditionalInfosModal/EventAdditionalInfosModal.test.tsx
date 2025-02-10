@@ -6,6 +6,7 @@ import { produce } from "immer";
 import { createTestStore } from "@store/test-environment";
 import { initialCreationState } from "@events/core/slices/creation.slice";
 import * as Usecase from "@events/core/usecases/additionalsInfos";
+import * as goBackToPreviousStepUsecase from "@events/core/usecases/goBackToPreviousStep";
 
 describe("EventAdditionalInfosModal", () => {
   it("Should return empty state from controller", () => {
@@ -178,5 +179,20 @@ describe("EventAdditionalInfosModal", () => {
     expect(result.current.address).toBe("Address");
     expect(result.current.startDate).toBe("2022-01-01T00:00:00Z");
     expect(result.current.endDate).toBe("2022-01-02T00:00:00Z");
+  });
+
+  it("should go back to the previous step", async () => {
+    const spyGoBackToPreviousStep = jest.spyOn(
+      goBackToPreviousStepUsecase,
+      "goBackToPreviousStep",
+    );
+
+    const { result } = renderHook(useEventAdditionalInfosModal);
+
+    act(() => {
+      result.current.goToPreviousStep();
+    });
+
+    expect(spyGoBackToPreviousStep).toHaveBeenCalled();
   });
 });

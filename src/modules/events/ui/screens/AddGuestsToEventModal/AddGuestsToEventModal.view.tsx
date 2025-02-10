@@ -7,6 +7,7 @@ import { ModalLayout } from "@components/ModalLayout";
 import { TextInput } from "@components/TextInput";
 import { Button } from "@components/Button";
 import { MemberInput } from "@components/MemberInput";
+import React from "react";
 
 export const AddGuestsToEventModal: FC = () => {
   const {
@@ -19,10 +20,11 @@ export const AddGuestsToEventModal: FC = () => {
     isInvited,
     searchError,
     validateGuestsStep,
+    goToPreviousStep,
   } = useAddGuestsToEventModal();
 
   return (
-    <ModalLayout title="Créer un évènement">
+    <ModalLayout title="Créer un évènement" onBack={goToPreviousStep}>
       <ScrollView contentContainerStyle={styles.container}>
         <Typography.Header size="medium" lvlColor="medium">
           Ajouter des membres

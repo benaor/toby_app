@@ -5,6 +5,7 @@ import { UserEvent } from "@events/core/models/Event.model";
 import { creationFormSelector } from "@events/core/selectors/creation.selector";
 import { creationActions } from "@events/core/slices/creation.slice";
 import { createEvent as createEventUsecase } from "@events/core/usecases/createEvent.usecase";
+import { goBackToPreviousStep } from "@events/core/usecases/goBackToPreviousStep";
 import { useAppDispatch } from "@store/useAppDispatch";
 import { useSelector } from "react-redux";
 
@@ -30,13 +31,21 @@ export const useAddEventModulesModal = () => {
   const createEvent = async () => {
     try {
       const res = await dispatch(createEventUsecase());
+
+      router.back();
       router.navigate(
         screens.routesWithId.eventSummary((res.payload as UserEvent).id),
       );
+      // TODO: Clear the state of the creation
+
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       // TODO: Add errortoast
     }
+  };
+
+  const backPreviousStep = () => {
+    dispatch(goBackToPreviousStep());
   };
 
   return {
@@ -49,5 +58,6 @@ export const useAddEventModulesModal = () => {
     toggleActivity,
     toggleCagnotte,
     createEvent,
+    backPreviousStep,
   };
 };

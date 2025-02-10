@@ -8,6 +8,7 @@ import {
 } from "@events/core/slices/creation.slice";
 import { produce } from "immer";
 import { act, waitFor } from "@testing-library/react-native";
+import * as goBackToPreviousStepUsecase from "@events/core/usecases/goBackToPreviousStep";
 
 describe("AddGuestsToEventModal", () => {
   it("Should return an empty list as guests invited", () => {
@@ -179,5 +180,20 @@ describe("AddGuestsToEventModal", () => {
     });
 
     expect(spyAction).toHaveBeenCalled();
+  });
+
+  it("should go back to the previous step", async () => {
+    const spyGoBackToPreviousStep = jest.spyOn(
+      goBackToPreviousStepUsecase,
+      "goBackToPreviousStep",
+    );
+
+    const { result } = renderHook(useAddGuestsToEventModal);
+
+    act(() => {
+      result.current.goToPreviousStep();
+    });
+
+    expect(spyGoBackToPreviousStep).toHaveBeenCalled();
   });
 });

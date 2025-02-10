@@ -7,6 +7,7 @@ import { creationActions } from "@events/core/slices/creation.slice";
 import { useAppDispatch } from "@store/useAppDispatch";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
+import { goBackToPreviousStep } from "@events/core/usecases/goBackToPreviousStep";
 
 export const useAddGuestsToEventModal = () => {
   const dispatch = useAppDispatch();
@@ -50,6 +51,10 @@ export const useAddGuestsToEventModal = () => {
     dispatch(creationActions.validateGuestsStep());
   }, [dispatch]);
 
+  const goToPreviousStep = () => {
+    dispatch(goBackToPreviousStep());
+  };
+
   return {
     guests: guestsForm,
     guestsProposition,
@@ -60,5 +65,6 @@ export const useAddGuestsToEventModal = () => {
     isInvited,
     searchError,
     validateGuestsStep,
+    goToPreviousStep,
   };
 };

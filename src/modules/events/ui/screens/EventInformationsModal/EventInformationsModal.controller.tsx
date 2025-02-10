@@ -5,6 +5,7 @@ import { addGeneralsInformations } from "@events/core/usecases/addGeneralsInfos"
 import { useAppDispatch } from "@store/useAppDispatch";
 import { useSelector } from "react-redux";
 import { creationFormSelector } from "@events/core/selectors/creation.selector";
+import { goBackToPreviousStep } from "@events/core/usecases/goBackToPreviousStep";
 
 export const useEventInformationsModal = () => {
   const dispatch = useAppDispatch();
@@ -62,6 +63,10 @@ export const useEventInformationsModal = () => {
     [image],
   );
 
+  const goToPreviousStep = () => {
+    dispatch(goBackToPreviousStep());
+  };
+
   useEffect(validateTitle, [title]);
   useEffect(validateDescription, [description]);
   useEffect(validateImage, [image]);
@@ -75,6 +80,7 @@ export const useEventInformationsModal = () => {
     image,
     setImage,
     errorMessage,
+    goToPreviousStep,
   };
 };
 

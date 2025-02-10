@@ -22,10 +22,11 @@ export const EventAdditionalInfosModal: FC = () => {
     errorMessage,
     closeModal,
     setAdditionalsInfos,
+    goToPreviousStep,
   } = useEventAdditionalInfosModal();
 
   return (
-    <ModalLayout title="Informations complémentaires">
+    <ModalLayout title="Informations complémentaires" onBack={goToPreviousStep}>
       <View style={styles.container}>
         <View style={styles.placeSection}>
           <Typography.Header size="medium" lvlColor="medium">

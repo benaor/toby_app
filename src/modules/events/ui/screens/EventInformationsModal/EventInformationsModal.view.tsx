@@ -18,6 +18,7 @@ export const EventInformationsModal: FC = () => {
     image,
     setImage,
     errorMessage,
+    goToPreviousStep,
   } = useEventInformationsModal();
 
   const pickImage = async () => {
@@ -35,7 +36,7 @@ export const EventInformationsModal: FC = () => {
   };
 
   return (
-    <ModalLayout title="Créer un évènement">
+    <ModalLayout title="Créer un évènement" onBack={goToPreviousStep}>
       <ScrollView contentContainerStyle={styles.container}>
         <View>
           <TextInput
