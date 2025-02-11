@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import { fetchEventsList } from "../usecases/fetchEvent.usecase";
 import { UserEvent } from "../models/Event.model";
+import { Guest } from "../models/Guest.model";
 
 type State = {
   status: "idle" | "loading" | "error";
@@ -12,14 +13,14 @@ type State = {
 };
 
 const eventsAdapters = createEntityAdapter<UserEvent>();
-const initialState = eventsAdapters.getInitialState<State>({
+export const eventsInitialState = eventsAdapters.getInitialState<State>({
   status: "idle",
   error: "",
 });
 
 const eventSlice = createSlice({
   name: "event",
-  initialState,
+  initialState: eventsInitialState,
   reducers: {
     acceptInvitation: (state, action: PayloadAction<Identifier>) => {
       eventsAdapters.updateOne(state, {
@@ -51,6 +52,33 @@ const eventSlice = createSlice({
         },
       });
     },
+    removeGuest: (
+      state,
+      action: PayloadAction<{ eventId: Identifier; guestId: Identifier }>,
+    ) => {
+      eventsAdapters.updateOne(state, {
+        id: action.payload.eventId,
+        changes: {
+          guests: state.entities[action.payload.eventId]?.guests.filter(
+            (guest) => guest.id !== action.payload.guestId,
+          ),
+        },
+      });
+    },
+    addGuest: (
+      state,
+      action: PayloadAction<{ eventId: Identifier; guest: Guest }>,
+    ) => {
+      eventsAdapters.updateOne(state, {
+        id: action.payload.eventId,
+        changes: {
+          guests: [
+            ...(state.entities[action.payload.eventId]?.guests ?? []),
+            action.payload.guest,
+          ],
+        },
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -70,7 +98,7 @@ const eventSlice = createSlice({
   },
 });
 
-export type EventState = typeof initialState;
+export type EventState = typeof eventsInitialState;
 
 export const eventsSelectors = eventsAdapters.getSelectors();
 export const eventsReducer = eventSlice.reducer;

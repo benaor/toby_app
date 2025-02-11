@@ -12,6 +12,14 @@ export interface EventRepository {
 
   // Commands
   createEvent: (form: EventCreationForm) => Promise<Event>;
+
+  // commands as Admin
+  removeGuestFromEvent: (
+    eventId: Identifier,
+    guestId: Identifier,
+  ) => Promise<void>;
+
+  // commands as Guest
   acceptInvitation: (eventId: Identifier) => Promise<void>;
   declineInvitation: (eventId: Identifier) => Promise<void>;
 }

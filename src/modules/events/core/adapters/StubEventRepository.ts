@@ -32,7 +32,16 @@ export class StubEventRepository implements EventRepository {
       }),
     );
 
-  acceptInvitation: (eventId: Identifier) => Promise<void> = jest.fn();
+  acceptInvitation: (eventId: Identifier) => Promise<void> = jest
+    .fn()
+    .mockResolvedValue(Promise.resolve());
 
-  declineInvitation: (eventId: Identifier) => Promise<void> = jest.fn();
+  declineInvitation: (eventId: Identifier) => Promise<void> = jest
+    .fn()
+    .mockResolvedValue(Promise.resolve());
+
+  removeGuestFromEvent: (
+    eventId: Identifier,
+    guestId: Identifier,
+  ) => Promise<void> = jest.fn().mockResolvedValue(Promise.resolve());
 }

@@ -1,87 +1,40 @@
+import { useSelector } from "react-redux";
 import { Guest } from "../../../core/models/Guest.model";
+import { eventByIdSelector } from "@events/core/selectors/events.selector";
+import { useMemo, useCallback } from "react";
+import { useAppDispatch } from "@store/useAppDispatch";
+import { removeGuestFromEvent } from "@events/core/usecases/removeGuestFromEvent";
 
-export const useEditGuestsModal = () => {
-  const guestsWhoAreAccepted: Guest[] = [
-    {
-      id: "1",
-      name: "John",
-      email: "john@mail.com",
-      accepted: true,
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "2",
-      name: "Thomas",
-      email: "",
-      accepted: true,
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "3",
-      name: "Jane",
-      email: "",
-      accepted: true,
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "4",
-      name: "Rosaline",
-      email: "",
-      accepted: true,
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "5",
-      name: "Brigitte",
-      email: "",
-      accepted: true,
-      image: "https://picsum.photos/200/300",
-    },
-  ];
+export const useEditGuestsModal = (eventId: Identifier) => {
+  const dispatch = useAppDispatch();
+  const event = useSelector(eventByIdSelector(eventId));
 
-  const guestsWhoAreRefused: Guest[] = [
-    {
-      id: "90",
-      name: "John",
-      email: "john@mail.com",
-      accepted: false,
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "91",
-      name: "Thomas",
-      email: "",
-      accepted: false,
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "92",
-      name: "Jane",
-      email: "",
-      accepted: false,
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "93",
-      name: "Rosaline",
-      email: "",
-      accepted: false,
-      image: "https://picsum.photos/200/300",
-    },
-    {
-      id: "94",
-      name: "Brigitte",
-      email: "",
-      accepted: false,
-      image: "https://picsum.photos/200/300",
-    },
-  ];
+  const guestsWhoAreAccepted: Guest[] =
+    event?.guests.filter((guest) => guest.accepted === true) ?? [];
 
-  const removeGuest = (id: string) => {};
+  const guestsWhoAreRefused: Guest[] =
+    event?.guests.filter((guest) => guest.accepted === false) ?? [];
+
+  const guestsWhoAreNotDecided: Guest[] =
+    event?.guests.filter(
+      (guest) => !guest.accepted && guest.accepted !== false,
+    ) ?? [];
+
+  const removeGuest = useCallback(
+    (guestId: string) => {
+      dispatch(removeGuestFromEvent({ eventId, guestId }));
+    },
+    [dispatch, eventId],
+  );
+
+  const isAdmin = useMemo(() => event?.isAdmin, [event]);
 
   return {
     guestsWhoAreAccepted,
     guestsWhoAreRefused,
+    guestsWhoAreNotDecided,
     removeGuest,
+    isAdmin,
+    isReady: !!event,
   };
 };

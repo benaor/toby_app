@@ -1,6 +1,7 @@
 import { EventFactory } from "../models/Event.factory";
 import { ArchivedEventList, EventList, Event } from "../models/Event.model";
 import { EventCreationForm } from "../models/EventForm.model";
+import { GuestFactory } from "../models/Guest.factory";
 import { EventRepository } from "../ports/EventRepository";
 
 export class InMemoryEventRepository implements EventRepository {
@@ -12,6 +13,12 @@ export class InMemoryEventRepository implements EventRepository {
         start: "2021-12-24",
         end: "2021-12-24",
       },
+      guests: [
+        GuestFactory.GUEST({ id: "1", accepted: true }),
+        GuestFactory.GUEST({ id: "2" }),
+        GuestFactory.GUEST({ id: "3", accepted: false }),
+      ],
+      isAdmin: true,
     }),
     EventFactory.USER_EVENT({
       id: "3",
@@ -111,6 +118,13 @@ export class InMemoryEventRepository implements EventRepository {
     const event = this.events.find((event) => event.id === eventId);
     if (event) {
       event.invitationAccepted = false;
+    }
+  };
+
+  removeGuestFromEvent = async (eventId: Identifier, guestId: Identifier) => {
+    const event = this.events.find((event) => event.id === eventId);
+    if (event) {
+      event.guests = event.guests.filter((guest) => guest.id !== guestId);
     }
   };
 }

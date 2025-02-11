@@ -3,13 +3,25 @@ import { ModalLayout } from "@components/ModalLayout";
 import { TextInput } from "@components/TextInput";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
-import { FC } from "react";
+import React, { FC } from "react";
 import { ScrollView, View } from "react-native";
 import { useEditGuestsModal } from "./EditGuestsModal.controller";
 
-export const EditGuestsModal: FC = () => {
-  const { guestsWhoAreAccepted, guestsWhoAreRefused, removeGuest } =
-    useEditGuestsModal();
+type EditGuestsModalProps = {
+  eventId: Identifier;
+};
+
+export const EditGuestsModal: FC<EditGuestsModalProps> = ({ eventId }) => {
+  const {
+    guestsWhoAreAccepted,
+    guestsWhoAreRefused,
+    guestsWhoAreNotDecided,
+    removeGuest,
+    isAdmin,
+    isReady,
+  } = useEditGuestsModal(eventId);
+
+  if (!isReady) return <Typography.Body>Loading...</Typography.Body>; // TODO: add a loading state
 
   return (
     <ModalLayout title="Gérer les membres">
@@ -26,7 +38,7 @@ export const EditGuestsModal: FC = () => {
               key={guest.id}
               image={guest.image}
               name={guest.name}
-              onDelete={() => removeGuest(guest.id)}
+              onDelete={isAdmin ? () => removeGuest(guest.id) : undefined}
             />
           ))}
         </View>
@@ -43,10 +55,29 @@ export const EditGuestsModal: FC = () => {
               key={guest.id}
               image={guest.image}
               name={guest.name}
-              onDelete={() => removeGuest(guest.id)}
+              onDelete={isAdmin ? () => removeGuest(guest.id) : undefined}
             />
           ))}
         </View>
+
+        {guestsWhoAreNotDecided.length > 0 && (
+          <>
+            <Typography.Header size="medium" color="primary">
+              En attente de réponse
+            </Typography.Header>
+
+            <View style={styles.guestsList}>
+              {guestsWhoAreNotDecided.map((guest) => (
+                <MemberInput
+                  key={guest.id}
+                  image={guest.image}
+                  name={guest.name}
+                  onDelete={isAdmin ? () => removeGuest(guest.id) : undefined}
+                />
+              ))}
+            </View>
+          </>
+        )}
       </ScrollView>
     </ModalLayout>
   );

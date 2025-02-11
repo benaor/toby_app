@@ -10,13 +10,13 @@ type MemberInputProps =
   | {
       image: string;
       name: string;
-      onDelete: VoidFunction;
+      onDelete?: VoidFunction;
       onAddGuest?: never;
     }
   | {
       image: string;
       name: string;
-      onAddGuest: VoidFunction;
+      onAddGuest?: VoidFunction;
       onDelete?: never;
     };
 
@@ -38,6 +38,7 @@ export const MemberInput: FC<MemberInputProps> = ({
           <Typography.Body lvlColor="high">Ajouter</Typography.Body>
         </Pressable>
       )}
+      {!onDelete && !onAddGuest && <View />}
     </View>
   );
 };

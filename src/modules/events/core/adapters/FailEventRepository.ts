@@ -20,4 +20,8 @@ export class FailEventRepository implements EventRepository {
   declineInvitation = jest
     .fn()
     .mockRejectedValue(() => new Error(this.message));
+
+  removeGuestFromEvent = jest
+    .fn()
+    .mockRejectedValue(() => new Error(this.message));
 }
