@@ -1,5 +1,9 @@
 import { createTestState } from "@store/test-environment";
-import { allEventsSelector, eventsStateSelector } from "../events.selector";
+import {
+  allEventsSelector,
+  eventByIdSelector,
+  eventsStateSelector,
+} from "../events.selector";
 import { EventState } from "../../slices/event.slice";
 import { EventFactory } from "../../models/Event.factory";
 
@@ -101,6 +105,28 @@ describe("Events Selector", () => {
 
       // Then
       expect(result).toStrictEqual(events);
+    });
+  });
+
+  describe("eventByIdSelector", () => {
+    it("should return the event", () => {
+      // Given
+      const event = EventFactory.USER_EVENT();
+
+      const events: EventState = {
+        ids: [event.id],
+        entities: { [event.id]: event },
+        status: "idle",
+        error: null,
+      };
+
+      const state = createTestState({ events });
+
+      // When
+      const result = eventByIdSelector(event.id)(state);
+
+      // Then
+      expect(result).toStrictEqual(event);
     });
   });
 });

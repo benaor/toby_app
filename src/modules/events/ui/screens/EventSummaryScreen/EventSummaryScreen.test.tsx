@@ -208,7 +208,7 @@ describe("useEventSummaryScreen", () => {
       });
 
       waitFor(() => {
-        expect(result.current.event.invitationAccepted).toBe(true);
+        expect(result.current.event?.invitationAccepted).toBe(true);
       });
     });
 
@@ -227,7 +227,7 @@ describe("useEventSummaryScreen", () => {
       });
 
       waitFor(() => {
-        expect(result.current.event.invitationAccepted).toBe(false);
+        expect(result.current.event?.invitationAccepted).toBe(false);
       });
     });
   });

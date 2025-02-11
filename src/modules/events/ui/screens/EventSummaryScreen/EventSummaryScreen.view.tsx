@@ -55,6 +55,8 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
     surveyModule,
   } = useFeatureFlag();
 
+  if (!event) return <Typography.Body>Loading ...</Typography.Body>; // TODO: handle this case
+
   const dates: Date[] = getDatesInRange(
     new Date(event.date.start),
     new Date(event.date.end ?? event.date.start),

@@ -1,18 +1,15 @@
 import { useRouter } from "@app/router/useRouter";
 import { screens } from "@constants/screens";
-import { eventsSelectors } from "@events/core/slices/event.slice";
+import { eventByIdSelector } from "@events/core/selectors/events.selector";
 import { acceptInvitation as acceptInvitationUseCase } from "@events/core/usecases/acceptInvitation";
 import { declineInvitation as declineInvitationUseCase } from "@events/core/usecases/declineInvitation";
-import { AppState } from "@store/store";
 import { useAppDispatch } from "@store/useAppDispatch";
 
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
 
 export const useEventSummaryScreen = (eventId: Identifier) => {
-  const event = useSelector((state: AppState) =>
-    eventsSelectors.selectById(state.events, eventId),
-  )!; // If i'm here, the event must exists in the store
+  const event = useSelector(eventByIdSelector(eventId));
 
   const dispatch = useAppDispatch();
 
@@ -27,40 +24,40 @@ export const useEventSummaryScreen = (eventId: Identifier) => {
   const { push, navigate } = useRouter();
 
   const openEditLocationModal = useCallback(() => {
-    push(screens.routesWithId.editLocations(event.id));
-  }, [event?.id, push]);
+    push(screens.routesWithId.editLocations(eventId));
+  }, [eventId, push]);
 
   const openEditGuestsModal = useCallback(() => {
-    push(screens.routesWithId.editGuests(event.id));
-  }, [event.id, push]);
+    push(screens.routesWithId.editGuests(eventId));
+  }, [eventId, push]);
 
   const openEditDatesModal = useCallback(() => {
-    push(screens.routesWithId.editDates(event.id));
-  }, [event.id, push]);
+    push(screens.routesWithId.editDates(eventId));
+  }, [eventId, push]);
 
   const openEditImportantMsgModal = useCallback(() => {
-    push(screens.routesWithId.editImportantMsg(event.id));
-  }, [event.id, push]);
+    push(screens.routesWithId.editImportantMsg(eventId));
+  }, [eventId, push]);
 
   const openEditNotesModal = useCallback(() => {
-    push(screens.routesWithId.editNotes(event.id));
-  }, [event.id, push]);
+    push(screens.routesWithId.editNotes(eventId));
+  }, [eventId, push]);
 
   const openEditPoolsModal = useCallback(() => {
-    push(screens.routesWithId.editPools(event.id));
-  }, [event.id, push]);
+    push(screens.routesWithId.editPools(eventId));
+  }, [eventId, push]);
 
   const openAddBudgetModal = useCallback(() => {
-    push(screens.routesWithId.addBudget(event.id));
-  }, [event.id, push]);
+    push(screens.routesWithId.addBudget(eventId));
+  }, [eventId, push]);
 
   const goToCalendar = useCallback(() => {
     navigate(screens.routes.calendar);
   }, [navigate]);
 
   const goToEventSettings = useCallback(() => {
-    navigate(screens.routesWithId.eventSettings(event.id));
-  }, [navigate, event.id]);
+    navigate(screens.routesWithId.eventSettings(eventId));
+  }, [navigate, eventId]);
 
   return {
     event,
