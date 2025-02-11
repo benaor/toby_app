@@ -71,7 +71,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
       />
       <Image
         source={{
-          uri: "https://picsum.photos/200/300",
+          uri: event.image,
         }}
         style={styles.coverPicture}
       />

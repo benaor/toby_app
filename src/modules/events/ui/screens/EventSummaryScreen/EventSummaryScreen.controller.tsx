@@ -1,7 +1,10 @@
 import { useRouter } from "@app/router/useRouter";
 import { screens } from "@constants/screens";
 import { eventsSelectors } from "@events/core/slices/event.slice";
+import { acceptInvitation as acceptInvitationUseCase } from "@events/core/usecases/acceptInvitation";
+import { declineInvitation as declineInvitationUseCase } from "@events/core/usecases/declineInvitation";
 import { AppState } from "@store/store";
+import { useAppDispatch } from "@store/useAppDispatch";
 
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
@@ -11,9 +14,15 @@ export const useEventSummaryScreen = (eventId: Identifier) => {
     eventsSelectors.selectById(state.events, eventId),
   )!; // If i'm here, the event must exists in the store
 
-  const acceptInvitation = () => {};
+  const dispatch = useAppDispatch();
 
-  const refuseInvitation = () => {};
+  const acceptInvitation = () => {
+    dispatch(acceptInvitationUseCase(eventId));
+  };
+
+  const refuseInvitation = () => {
+    dispatch(declineInvitationUseCase(eventId));
+  };
 
   const { push, navigate } = useRouter();
 

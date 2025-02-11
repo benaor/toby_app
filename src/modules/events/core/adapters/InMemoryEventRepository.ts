@@ -99,4 +99,18 @@ export class InMemoryEventRepository implements EventRepository {
 
     return Promise.resolve(newEvent);
   };
+
+  acceptInvitation = async (eventId: Identifier) => {
+    const event = this.events.find((event) => event.id === eventId);
+    if (event) {
+      event.invitationAccepted = true;
+    }
+  };
+
+  declineInvitation = async (eventId: Identifier) => {
+    const event = this.events.find((event) => event.id === eventId);
+    if (event) {
+      event.invitationAccepted = false;
+    }
+  };
 }

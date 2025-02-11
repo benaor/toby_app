@@ -31,4 +31,8 @@ export class StubEventRepository implements EventRepository {
         ...form,
       }),
     );
+
+  acceptInvitation: (eventId: Identifier) => Promise<void> = jest.fn();
+
+  declineInvitation: (eventId: Identifier) => Promise<void> = jest.fn();
 }

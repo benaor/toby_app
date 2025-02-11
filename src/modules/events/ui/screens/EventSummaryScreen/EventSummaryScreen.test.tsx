@@ -7,6 +7,7 @@ import { StubRouter } from "@app/router/StubRouter";
 import { screens } from "@constants/screens";
 import { Router } from "@app/router/Router.port";
 import { AppStore } from "@store/store";
+import { act, waitFor } from "@testing-library/react-native";
 
 describe("useEventSummaryScreen", () => {
   let router: Router;
@@ -188,6 +189,46 @@ describe("useEventSummaryScreen", () => {
       expect(router.push).toHaveBeenCalledWith(
         screens.routesWithId.editLocations(musicParty.id),
       );
+    });
+  });
+
+  describe("Write", () => {
+    it("should accept invitation", () => {
+      const eventRepository = new StubEventRepository();
+      eventRepository.setupEventsList([myBirthday, musicParty]);
+
+      const { result } = renderHook(useEventSummaryScreen, {
+        initialProps: musicParty.id,
+        dependencies: { eventRepository },
+        store,
+      });
+
+      act(() => {
+        result.current.acceptInvitation();
+      });
+
+      waitFor(() => {
+        expect(result.current.event.invitationAccepted).toBe(true);
+      });
+    });
+
+    it("should decline invitation", () => {
+      const eventRepository = new StubEventRepository();
+      eventRepository.setupEventsList([myBirthday, musicParty]);
+
+      const { result } = renderHook(useEventSummaryScreen, {
+        initialProps: musicParty.id,
+        dependencies: { eventRepository },
+        store,
+      });
+
+      act(() => {
+        result.current.refuseInvitation();
+      });
+
+      waitFor(() => {
+        expect(result.current.event.invitationAccepted).toBe(false);
+      });
     });
   });
 });

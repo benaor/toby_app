@@ -1,4 +1,8 @@
-import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import {
+  createEntityAdapter,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { fetchEventsList } from "../usecases/fetchEvent.usecase";
 import { UserEvent } from "../models/Event.model";
 
@@ -16,7 +20,38 @@ const initialState = eventsAdapters.getInitialState<State>({
 const eventSlice = createSlice({
   name: "event",
   initialState,
-  reducers: {},
+  reducers: {
+    acceptInvitation: (state, action: PayloadAction<Identifier>) => {
+      eventsAdapters.updateOne(state, {
+        id: action.payload,
+        changes: {
+          invitationAccepted: true,
+        },
+      });
+    },
+    declineInvitation: (state, action: PayloadAction<Identifier>) => {
+      eventsAdapters.updateOne(state, {
+        id: action.payload,
+        changes: {
+          invitationAccepted: false,
+        },
+      });
+    },
+    resetInvitation: (
+      state,
+      action: PayloadAction<{
+        eventId: Identifier;
+        initialValue: UserEvent["invitationAccepted"];
+      }>,
+    ) => {
+      eventsAdapters.updateOne(state, {
+        id: action.payload.eventId,
+        changes: {
+          invitationAccepted: action.payload.initialValue,
+        },
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchEventsList.pending, (state) => {
