@@ -78,4 +78,34 @@ describe("removeGuestFromEvent", () => {
     updatedEvent = store.getState().events.entities[event.id];
     expect(updatedEvent?.guests).toContain(guestOne);
   });
+
+  it("should never call the server if the guest is not in the event", async () => {
+    const eventRepository = new StubEventRepository();
+    const guestOne = GuestFactory.GUEST({ id: "1" });
+
+    const event = EventFactory.USER_EVENT({
+      guests: [guestOne],
+    });
+
+    const store = createTestStore({
+      dependencies: { eventRepository },
+      initialState: {
+        events: {
+          ids: [event.id],
+          entities: { [event.id]: event },
+          status: "idle",
+          error: null,
+        },
+      },
+    });
+
+    await store.dispatch(
+      removeGuestFromEvent({
+        eventId: event.id,
+        guestId: "2",
+      }),
+    );
+
+    expect(eventRepository.removeGuestFromEvent).not.toHaveBeenCalled();
+  });
 });

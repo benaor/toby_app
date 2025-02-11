@@ -28,6 +28,7 @@ export const useEditGuestsModal = (eventId: Identifier) => {
   );
 
   const isAdmin = useMemo(() => event?.isAdmin, [event]);
+  const isReady = useMemo(() => !!event, [event]);
 
   return {
     guestsWhoAreAccepted,
@@ -35,6 +36,6 @@ export const useEditGuestsModal = (eventId: Identifier) => {
     guestsWhoAreNotDecided,
     removeGuest,
     isAdmin,
-    isReady: !!event,
+    isReady,
   };
 };

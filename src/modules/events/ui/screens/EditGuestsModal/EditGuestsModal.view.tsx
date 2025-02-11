@@ -1,6 +1,5 @@
 import { MemberInput } from "@components/MemberInput";
 import { ModalLayout } from "@components/ModalLayout";
-import { TextInput } from "@components/TextInput";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import React, { FC } from "react";
@@ -26,8 +25,6 @@ export const EditGuestsModal: FC<EditGuestsModalProps> = ({ eventId }) => {
   return (
     <ModalLayout title="Gérer les membres">
       <ScrollView contentContainerStyle={styles.container}>
-        <TextInput placeholder="Rechercher" variant="filled" />
-
         <Typography.Header size="medium" color="primary">
           {guestsWhoAreAccepted.length > 1 ? "Participants" : "Participant"}
         </Typography.Header>

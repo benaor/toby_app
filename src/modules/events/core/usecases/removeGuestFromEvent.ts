@@ -13,16 +13,20 @@ export const removeGuestFromEvent = createAppAsyncThunk(
       (guest) => guest.id === guestId,
     );
 
-    if (!guestToRemove) return;
-
     dispatch(eventsActions.removeGuest({ eventId, guestId }));
 
     try {
       await extra.eventRepository.removeGuestFromEvent(eventId, guestId);
     } catch (e) {
-      dispatch(eventsActions.addGuest({ eventId, guest: guestToRemove }));
+      dispatch(eventsActions.addGuest({ eventId, guest: guestToRemove! })); // guestToRemove is not undefined because of the condition
 
       throw e;
     }
+  },
+  {
+    condition: ({ eventId, guestId }, { getState }) => {
+      const event = getState().events.entities[eventId];
+      return !!event?.guests.find((guest) => guest.id === guestId);
+    },
   },
 );

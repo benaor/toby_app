@@ -9,6 +9,22 @@ import { act } from "@testing-library/react-native";
 
 describe("EditGuestsModal", () => {
   describe("Lists of guests", () => {
+    it("should return empty lists if event is not loaded yet", () => {
+      const { result } = renderHook(useEditGuestsModal, {
+        initialProps: "non-existing-event-id",
+      });
+
+      const {
+        guestsWhoAreAccepted,
+        guestsWhoAreRefused,
+        guestsWhoAreNotDecided,
+      } = result.current;
+
+      expect(guestsWhoAreAccepted).toStrictEqual([]);
+      expect(guestsWhoAreRefused).toStrictEqual([]);
+      expect(guestsWhoAreNotDecided).toStrictEqual([]);
+    });
+
     describe("lists of guests who have accepted", () => {
       it("should return an empty list as guests who are accepted", () => {
         const event = EventFactory.USER_EVENT({

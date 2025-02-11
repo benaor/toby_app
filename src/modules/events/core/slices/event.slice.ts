@@ -73,7 +73,7 @@ const eventSlice = createSlice({
         id: action.payload.eventId,
         changes: {
           guests: [
-            ...(state.entities[action.payload.eventId]?.guests ?? []),
+            ...state.entities[action.payload.eventId]!.guests,
             action.payload.guest,
           ],
         },
