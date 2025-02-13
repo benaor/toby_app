@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Guest } from "./Guest.model";
 
 export enum CreationStep {

@@ -20,4 +20,6 @@ export class FailEventRepository implements EventRepository {
   declineInvitation = jest.fn().mockRejectedValue(null);
 
   removeGuestFromEvent = jest.fn().mockRejectedValue(null);
+
+  changeDateOfEvent = jest.fn().mockRejectedValue(null);
 }

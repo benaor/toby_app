@@ -19,6 +19,14 @@ export interface EventRepository {
     guestId: Identifier,
   ) => Promise<void>;
 
+  changeDateOfEvent: (
+    eventId: Identifier,
+    dates: {
+      start: ISO8601;
+      end: ISO8601 | null;
+    },
+  ) => Promise<void>;
+
   // commands as Guest
   acceptInvitation: (eventId: Identifier) => Promise<void>;
   declineInvitation: (eventId: Identifier) => Promise<void>;

@@ -6,6 +6,7 @@ import {
 import { fetchEventsList } from "../usecases/fetchEvent.usecase";
 import { UserEvent } from "../models/Event.model";
 import { Guest } from "../models/Guest.model";
+import { ChangeDateOfEvent } from "../usecases/ChangeDateOfEvent";
 
 type State = {
   status: "idle" | "loading" | "error";
@@ -95,6 +96,13 @@ const eventSlice = createSlice({
         eventsAdapters.removeAll(state);
         state.error = action.error.message || "Une erreur est survenue";
       });
+
+    builder.addCase(ChangeDateOfEvent.fulfilled, (state, action) => {
+      eventsAdapters.updateOne(state, {
+        id: action.payload.eventId,
+        changes: { date: action.payload.dates },
+      });
+    });
   },
 });
 

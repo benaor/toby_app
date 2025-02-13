@@ -127,4 +127,14 @@ export class InMemoryEventRepository implements EventRepository {
       event.guests = event.guests.filter((guest) => guest.id !== guestId);
     }
   };
+
+  changeDateOfEvent = async (
+    eventId: Identifier,
+    dates: { start: ISO8601; end: ISO8601 | null },
+  ) => {
+    const event = this.events.find((event) => event.id === eventId);
+    if (event) {
+      event.date = dates;
+    }
+  };
 }

@@ -44,4 +44,9 @@ export class StubEventRepository implements EventRepository {
     eventId: Identifier,
     guestId: Identifier,
   ) => Promise<void> = jest.fn().mockResolvedValue(Promise.resolve());
+
+  changeDateOfEvent: (
+    eventId: Identifier,
+    dates: { start: ISO8601; end: ISO8601 | null },
+  ) => Promise<void> = jest.fn().mockResolvedValue(Promise.resolve());
 }
