@@ -1,5 +1,5 @@
 import { createStyleSheet } from "@themes/createStyleSheet";
-import { FC } from "react";
+import React, { FC } from "react";
 import { Image, Pressable, ScrollView, View } from "react-native";
 import { useEventSummaryScreen } from "./EventSummaryScreen.controller";
 import { AcceptOrRefuseButton } from "@components/AcceptOrRefuseButton";
@@ -47,7 +47,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
     goToEventSettings,
   } = useEventSummaryScreen(eventId);
 
-  const { modules } = useFeatureFlag();
+  const { modules, events, features } = useFeatureFlag();
 
   if (!event) return <Typography.Body>Loading ...</Typography.Body>; // TODO: handle this case
 
@@ -57,320 +57,334 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
   );
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Header
-        button="settings"
-        onButtonPress={goToEventSettings}
-        style={styles.header}
-        contrast
-        canGoBack
-      />
+    <>
       <Image
         source={{
           uri: event.image,
         }}
         style={styles.coverPicture}
       />
-      <View style={styles.summaryView}>
-        <View style={styles.acceptOrRefuseSection}>
-          <AcceptOrRefuseButton
-            accept
-            onAccept={acceptInvitation}
-            active={event.invitationAccepted === true}
-          />
-          <AcceptOrRefuseButton
-            refuse
-            onRefuse={refuseInvitation}
-            active={event.invitationAccepted === false}
-          />
-        </View>
-        <View style={styles.infosContainer}>
-          <SummarySubSection title="Résumé">
-            <View style={styles.chipsContainer}>
-              <View style={styles.chip}>
-                <Typography.Body lvlColor="low" textAlign="center">
-                  {new Date(event.date.start).getFullYear()}
-                </Typography.Body>
-              </View>
 
-              <View style={styles.chip}>
-                <Typography.Body lvlColor="low" textAlign="center">
-                  {event.guests.length ?? 0} pers.
-                </Typography.Body>
-              </View>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Header
+          button="settings"
+          onButtonPress={goToEventSettings}
+          style={styles.header}
+          contrast
+          canGoBack
+        />
 
-              <View style={styles.chip}>
-                <Typography.Body lvlColor="low" textAlign="center">
-                  {event.location.address}
-                </Typography.Body>
-              </View>
-            </View>
+        <View style={styles.pictureSpace} />
 
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.infoSquareBtnList}
-            >
-              <View style={styles.infoSquareBtn}>
-                <SquareButton onPress={openEditGuestsModal}>
-                  <MemberSVG />
-                </SquareButton>
-                <Typography.Body>Membres</Typography.Body>
-              </View>
+        <View style={styles.summaryView}>
+          <View style={styles.acceptOrRefuseSection}>
+            <AcceptOrRefuseButton
+              accept
+              onAccept={acceptInvitation}
+              active={event.invitationAccepted === true}
+            />
+            <AcceptOrRefuseButton
+              refuse
+              onRefuse={refuseInvitation}
+              active={event.invitationAccepted === false}
+            />
+          </View>
 
-              <View style={styles.infoSquareBtn}>
-                <SquareButton onPress={openEditDatesModal}>
-                  <CalendarSVG />
-                </SquareButton>
-                <Typography.Body>Dates</Typography.Body>
-              </View>
-
-              {modules.location && (
-                <View style={styles.infoSquareBtn}>
-                  <SquareButton onPress={openEditLocationModal}>
-                    <MapSvg />
-                  </SquareButton>
-                  <Typography.Body>Lieux</Typography.Body>
+          <View style={styles.infosContainer}>
+            <SummarySubSection title="Résumé">
+              <View style={styles.chipsContainer}>
+                <View style={styles.chip}>
+                  <Typography.Body lvlColor="low" textAlign="center">
+                    {new Date(event.date.start).getFullYear()}
+                  </Typography.Body>
                 </View>
-              )}
 
-              <View style={styles.infoSquareBtn}>
-                <SquareButton onPress={openEditImportantMsgModal}>
-                  <EnvelopSVG />
-                </SquareButton>
-                <Typography.Body>Importants</Typography.Body>
+                <View style={styles.chip}>
+                  <Typography.Body lvlColor="low" textAlign="center">
+                    {event.guests.length ?? 0} pers.
+                  </Typography.Body>
+                </View>
+
+                <View style={styles.chip}>
+                  <Typography.Body lvlColor="low" textAlign="center">
+                    {event.location.address}
+                  </Typography.Body>
+                </View>
               </View>
 
-              <View style={styles.infoSquareBtn}>
-                <SquareButton onPress={openEditNotesModal}>
-                  <NotesSVG />
-                </SquareButton>
-                <Typography.Body>Notes</Typography.Body>
-              </View>
-
-              <View style={styles.infoSquareBtn}>
-                <SquareButton onPress={goToCalendar}>
-                  <BellSVG />
-                </SquareButton>
-                <Typography.Body>Calendrier</Typography.Body>
-              </View>
-            </ScrollView>
-          </SummarySubSection>
-
-          <SummarySubSection title="Description">
-            <Typography.Body>{event.description}</Typography.Body>
-          </SummarySubSection>
-
-          {modules.location && (
-            <SummarySubSection title="Lieu">
-              <LocationSVG />
-            </SummarySubSection>
-          )}
-
-          {modules.activity && (
-            <SummarySubSection title="Activités" onEdit={() => null}>
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.activityScrollView}
+                contentContainerStyle={styles.infoSquareBtnList}
               >
-                {dates.map((date, i) =>
-                  i === 0 ? (
-                    <Button
-                      key={date.toISOString()}
-                      variant="contained"
-                      color="background"
-                      lvlColor="high"
-                    >
-                      <Button.Label
-                        label={date.toLocaleDateString()}
-                        colors={["typography", "low"]}
-                      />
-                    </Button>
-                  ) : (
-                    <Button
-                      key={date.toISOString()}
-                      variant="contained"
-                      color="background"
-                      lvlColor="medium"
-                    >
-                      <Button.Label
-                        label={date.toLocaleDateString()}
-                        colors={["typography", "high"]}
-                      />
-                    </Button>
-                  ),
+                <View style={styles.infoSquareBtn}>
+                  <SquareButton onPress={openEditGuestsModal}>
+                    <MemberSVG />
+                  </SquareButton>
+                  <Typography.Body>Membres</Typography.Body>
+                </View>
+
+                <View style={styles.infoSquareBtn}>
+                  <SquareButton onPress={openEditDatesModal}>
+                    <CalendarSVG />
+                  </SquareButton>
+                  <Typography.Body>Dates</Typography.Body>
+                </View>
+
+                {modules.location && (
+                  <View style={styles.infoSquareBtn}>
+                    <SquareButton onPress={openEditLocationModal}>
+                      <MapSvg />
+                    </SquareButton>
+                    <Typography.Body>Lieux</Typography.Body>
+                  </View>
                 )}
+
+                {events.importantMessage && (
+                  <View style={styles.infoSquareBtn}>
+                    <SquareButton onPress={openEditImportantMsgModal}>
+                      <EnvelopSVG />
+                    </SquareButton>
+                    <Typography.Body>Importants</Typography.Body>
+                  </View>
+                )}
+
+                {events.notes && (
+                  <View style={styles.infoSquareBtn}>
+                    <SquareButton onPress={openEditNotesModal}>
+                      <NotesSVG />
+                    </SquareButton>
+                    <Typography.Body>Notes</Typography.Body>
+                  </View>
+                )}
+
+                <View style={styles.infoSquareBtn}>
+                  <SquareButton onPress={goToCalendar}>
+                    <BellSVG />
+                  </SquareButton>
+                  <Typography.Body>Calendrier</Typography.Body>
+                </View>
               </ScrollView>
-              <View style={styles.activityList}>
-                <ActivityItem
-                  schedule="14h"
-                  title="Five"
-                  info="Rendez-vous à 13H30"
-                  onPress={() => null}
-                />
-                <ActivityItem
-                  schedule="14h"
-                  title="Restaurant"
-                  info="Réservation au nom de Pierre"
-                  onPress={() => null}
-                />
-                <ActivityItem
-                  schedule="14h"
-                  title="soirée café OZ"
-                  info="Entrée gratuite jusqu’à 23h"
-                  onPress={() => null}
-                />
-                <Button style={styles.marginAuto} width={160}>
-                  <Button.Label label="Ajouter une activité" />
-                </Button>
-              </View>
             </SummarySubSection>
-          )}
 
-          {modules.budget && (
-            <SummarySubSection title="Budget" onEdit={openAddBudgetModal}>
-              <View style={styles.card}>
-                <View style={styles.cardLeftPart}>
-                  <BirthdaySVG />
-                </View>
-                <View style={styles.cardRightPart}>
-                  <Typography.Header size="small" lvlColor="high">
-                    {event.title}
-                  </Typography.Header>
-                  <Button variant="text" width={120}>
-                    <Button.Icon name="clipboard" />
-                    <Button.Label label="Copier le lien" />
-                  </Button>
-                  <Button width={120}>
-                    <Button.Label label="Voir le budget" />
-                  </Button>
-                </View>
-              </View>
+            <SummarySubSection title="Description">
+              <Typography.Body>{event.description}</Typography.Body>
             </SummarySubSection>
-          )}
 
-          {modules.cagnotte && event.pool && (
-            <SummarySubSection title="Cagnotte" onEdit={openEditPoolsModal}>
-              <View style={styles.card}>
-                <View style={styles.cardLeftPart}>
-                  <Icon name="gift" size={40} />
-                  <Typography.Body size="small" lvlColor="medium">
-                    {event.pool.hasParticipated
-                      ? "J'ai Participé !"
-                      : "Je n'ai pas participé !"}
-                  </Typography.Body>
-                </View>
-                <View style={styles.cardRightPart}>
-                  <Typography.Header size="small" lvlColor="high">
-                    {event.pool.title}
-                  </Typography.Header>
-                  <Button variant="text" width={120}>
-                    <Button.Icon name="clipboard" />
-                    <Button.Label label="Copier le lien" />
-                  </Button>
-                  <Button width={120}>
-                    <Button.Label label="Voir la cagnotte" />
-                  </Button>
-                </View>
-              </View>
-            </SummarySubSection>
-          )}
+            {modules.location && (
+              <SummarySubSection title="Lieu">
+                <LocationSVG />
+              </SummarySubSection>
+            )}
 
-          {modules.survey && event.survey && (
-            <SummarySubSection title="Sondage" onEdit={() => {}}>
-              <Typography.Body>
-                {event.survey.isPending ? "En cours ..." : "Terminé !"}
-              </Typography.Body>
-              <Pressable style={styles.surveyPressable} onPress={() => {}}>
-                <View style={styles.avatarsGrouped}>
-                  {event.guests.map((guest, index) => (
-                    <Avatar
-                      key={guest.id}
-                      uri={guest.image}
-                      style={index !== 0 ? { marginLeft: -15 } : undefined}
-                    />
-                  ))}
+            {modules.activity && (
+              <SummarySubSection title="Activités" onEdit={() => null}>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.activityScrollView}
+                >
+                  {dates.map((date, i) =>
+                    i === 0 ? (
+                      <Button
+                        key={date.toISOString()}
+                        variant="contained"
+                        color="background"
+                        lvlColor="high"
+                      >
+                        <Button.Label
+                          label={date.toLocaleDateString()}
+                          colors={["typography", "low"]}
+                        />
+                      </Button>
+                    ) : (
+                      <Button
+                        key={date.toISOString()}
+                        variant="contained"
+                        color="background"
+                        lvlColor="medium"
+                      >
+                        <Button.Label
+                          label={date.toLocaleDateString()}
+                          colors={["typography", "high"]}
+                        />
+                      </Button>
+                    ),
+                  )}
+                </ScrollView>
+                <View style={styles.activityList}>
+                  <ActivityItem
+                    schedule="14h"
+                    title="Five"
+                    info="Rendez-vous à 13H30"
+                    onPress={() => null}
+                  />
+                  <ActivityItem
+                    schedule="14h"
+                    title="Restaurant"
+                    info="Réservation au nom de Pierre"
+                    onPress={() => null}
+                  />
+                  <ActivityItem
+                    schedule="14h"
+                    title="soirée café OZ"
+                    info="Entrée gratuite jusqu’à 23h"
+                    onPress={() => null}
+                  />
+                  <Button style={styles.marginAuto} width={160}>
+                    <Button.Label label="Ajouter une activité" />
+                  </Button>
                 </View>
-                <Typography.Body lvlColor="high">
-                  {event.survey.title}
+              </SummarySubSection>
+            )}
+
+            {modules.budget && (
+              <SummarySubSection title="Budget" onEdit={openAddBudgetModal}>
+                <View style={styles.card}>
+                  <View style={styles.cardLeftPart}>
+                    <BirthdaySVG />
+                  </View>
+                  <View style={styles.cardRightPart}>
+                    <Typography.Header size="small" lvlColor="high">
+                      {event.title}
+                    </Typography.Header>
+                    <Button variant="text" width={120}>
+                      <Button.Icon name="clipboard" />
+                      <Button.Label label="Copier le lien" />
+                    </Button>
+                    <Button width={120}>
+                      <Button.Label label="Voir le budget" />
+                    </Button>
+                  </View>
+                </View>
+              </SummarySubSection>
+            )}
+
+            {modules.cagnotte && event.pool && (
+              <SummarySubSection title="Cagnotte" onEdit={openEditPoolsModal}>
+                <View style={styles.card}>
+                  <View style={styles.cardLeftPart}>
+                    <Icon name="gift" size={40} />
+                    <Typography.Body size="small" lvlColor="medium">
+                      {event.pool.hasParticipated
+                        ? "J'ai Participé !"
+                        : "Je n'ai pas participé !"}
+                    </Typography.Body>
+                  </View>
+                  <View style={styles.cardRightPart}>
+                    <Typography.Header size="small" lvlColor="high">
+                      {event.pool.title}
+                    </Typography.Header>
+                    <Button variant="text" width={120}>
+                      <Button.Icon name="clipboard" />
+                      <Button.Label label="Copier le lien" />
+                    </Button>
+                    <Button width={120}>
+                      <Button.Label label="Voir la cagnotte" />
+                    </Button>
+                  </View>
+                </View>
+              </SummarySubSection>
+            )}
+
+            {modules.survey && event.survey && (
+              <SummarySubSection title="Sondage" onEdit={() => {}}>
+                <Typography.Body>
+                  {event.survey.isPending ? "En cours ..." : "Terminé !"}
                 </Typography.Body>
-                <Icon name="chevron-right" />
-              </Pressable>
-              <View style={styles.surveyButtons}>
-                <Button width={160}>
-                  <Button.Label label="Tous les sondages" />
-                </Button>
+                <Pressable style={styles.surveyPressable} onPress={() => {}}>
+                  <View style={styles.avatarsGrouped}>
+                    {event.guests.map((guest, index) => (
+                      <Avatar
+                        key={guest.id}
+                        uri={guest.image}
+                        style={index !== 0 ? { marginLeft: -15 } : undefined}
+                      />
+                    ))}
+                  </View>
+                  <Typography.Body lvlColor="high">
+                    {event.survey.title}
+                  </Typography.Body>
+                  <Icon name="chevron-right" />
+                </Pressable>
+                <View style={styles.surveyButtons}>
+                  <Button width={160}>
+                    <Button.Label label="Tous les sondages" />
+                  </Button>
 
-                <Button width={160} color="background" lvlColor="medium">
+                  <Button width={160} color="background" lvlColor="medium">
+                    <Button.Label
+                      colors={["typography", "medium"]}
+                      label="Créer un sondage"
+                    />
+                  </Button>
+                </View>
+              </SummarySubSection>
+            )}
+            {events.gallery && (
+              <SummarySubSection title="Album photos">
+                <View style={styles.imageCard}>
+                  <View style={[styles.imgViewCol1, styles.paddingImg1]}>
+                    <Image
+                      style={styles.img1}
+                      source={{ uri: "https://picsum.photos/200/300" }}
+                    />
+                  </View>
+
+                  <View style={styles.imgViewCol2}>
+                    <View style={styles.paddingImg2}>
+                      <Image
+                        style={styles.img2}
+                        source={{ uri: "https://picsum.photos/200/300" }}
+                      />
+                    </View>
+
+                    <View style={styles.paddingImg3}>
+                      <Image
+                        style={styles.img3}
+                        source={{ uri: "https://picsum.photos/200/300" }}
+                      />
+                    </View>
+                  </View>
+                </View>
+              </SummarySubSection>
+            )}
+
+            {features.sendReminder && (
+              <SummarySubSection title="Options" subTitle="administrateur">
+                <Typography.Body style={styles.mt10} color="primary">
+                  Relance automatique :
+                </Typography.Body>
+
+                <Pressable style={styles.card} onPress={() => {}}>
+                  <Typography.Body>
+                    Relancer les invités n’ayant pas répondus
+                  </Typography.Body>
+                  <Icon name="chevron-right" />
+                </Pressable>
+
+                <Typography.Body style={styles.mt10} color="primary">
+                  Autres :
+                </Typography.Body>
+
+                <Button variant="text">
+                  <Button.Label label="Quitter l'évènement" />
+                </Button>
+                <Button variant="text">
+                  <Button.Label label="Archiver l'évènement" />
+                </Button>
+                <Button variant="text">
                   <Button.Label
-                    colors={["typography", "medium"]}
-                    label="Créer un sondage"
+                    colors={["primary", "high"]}
+                    label="Supprimer l'évènement"
                   />
                 </Button>
-              </View>
-            </SummarySubSection>
-          )}
-
-          <SummarySubSection title="Album photos">
-            <View style={styles.imageCard}>
-              <View style={[styles.imgViewCol1, styles.paddingImg1]}>
-                <Image
-                  style={styles.img1}
-                  source={{ uri: "https://picsum.photos/200/300" }}
-                />
-              </View>
-
-              <View style={styles.imgViewCol2}>
-                <View style={styles.paddingImg2}>
-                  <Image
-                    style={styles.img2}
-                    source={{ uri: "https://picsum.photos/200/300" }}
-                  />
-                </View>
-
-                <View style={styles.paddingImg3}>
-                  <Image
-                    style={styles.img3}
-                    source={{ uri: "https://picsum.photos/200/300" }}
-                  />
-                </View>
-              </View>
-            </View>
-          </SummarySubSection>
-
-          <SummarySubSection title="Options" subTitle="administrateur">
-            <Typography.Body style={styles.mt10} color="primary">
-              Relance automatique :
-            </Typography.Body>
-
-            <Pressable style={styles.card} onPress={() => {}}>
-              <Typography.Body>
-                Relancer les invités n’ayant pas répondus
-              </Typography.Body>
-              <Icon name="chevron-right" />
-            </Pressable>
-
-            <Typography.Body style={styles.mt10} color="primary">
-              Autres :
-            </Typography.Body>
-
-            <Button variant="text">
-              <Button.Label label="Quitter l'évènement" />
-            </Button>
-            <Button variant="text">
-              <Button.Label label="Archiver l'évènement" />
-            </Button>
-            <Button variant="text">
-              <Button.Label
-                colors={["primary", "high"]}
-                label="Supprimer l'évènement"
-              />
-            </Button>
-          </SummarySubSection>
+              </SummarySubSection>
+            )}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
 
@@ -378,26 +392,30 @@ const styles = createStyleSheet((theme) => ({
   container: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
-    backgroundColor: theme.colors.background.low,
+    justifyContent: "flex-start",
     gap: -20,
-    paddingBottom: 300,
+  },
+  coverPicture: {
+    position: "absolute",
+    height: "32%",
+    maxHeight: "32%",
+    width: "100%",
   },
   header: {
     position: "absolute",
     backgroundColor: "transparent",
-    zIndex: 1,
   },
-  coverPicture: {
+  pictureSpace: {
     height: "32%",
     maxHeight: "32%",
-    width: "100%",
+    backgroundColor: "transparent",
   },
   summaryView: {
     paddingHorizontal: 24,
     borderRadius: 20,
     transform: [{ translateY: -20 }],
     backgroundColor: theme.colors.background.low,
+    minHeight: 800,
   },
   acceptOrRefuseSection: {
     display: "flex",

@@ -8,6 +8,15 @@ type FeatureFlagContext = {
     cagnotte: boolean;
     survey: boolean;
   };
+  events: {
+    importantMessage: boolean;
+    notes: boolean;
+    location: boolean;
+    gallery: boolean;
+  };
+  features: {
+    sendReminder: boolean;
+  };
 };
 
 const featureFlags: FeatureFlagContext = {
@@ -17,6 +26,15 @@ const featureFlags: FeatureFlagContext = {
     budget: false,
     cagnotte: false,
     survey: false,
+  },
+  events: {
+    importantMessage: false,
+    notes: false,
+    location: false,
+    gallery: false,
+  },
+  features: {
+    sendReminder: false,
   },
 };
 
