@@ -1,19 +1,23 @@
 import { createContext, PropsWithChildren, useContext } from "react";
 
 type FeatureFlagContext = {
-  locationModule: boolean;
-  activityModule: boolean;
-  budgetModule: boolean;
-  cagnotteModule: boolean;
-  surveyModule: boolean;
+  modules: {
+    location: boolean;
+    activity: boolean;
+    budget: boolean;
+    cagnotte: boolean;
+    survey: boolean;
+  };
 };
 
 const featureFlags: FeatureFlagContext = {
-  locationModule: true,
-  activityModule: true,
-  budgetModule: true,
-  cagnotteModule: true,
-  surveyModule: true,
+  modules: {
+    location: false,
+    activity: false,
+    budget: false,
+    cagnotte: false,
+    survey: false,
+  },
 };
 
 const featureFlagContext = createContext<FeatureFlagContext | null>(null);

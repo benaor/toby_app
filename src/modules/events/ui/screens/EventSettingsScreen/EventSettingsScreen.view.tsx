@@ -8,9 +8,11 @@ import { Switch } from "@components/Switch";
 import { Icon } from "@components/Icon";
 import { MemberInput } from "@components/MemberInput";
 import { Button } from "@components/Button";
+import { useFeatureFlag } from "@/src/ui/contexts/useFeatureFlag";
 
 export const EventSettingsScreen: FC = () => {
   const { admins } = useEventSettingsScreen();
+  const { modules } = useFeatureFlag();
 
   return (
     <>
@@ -67,19 +69,23 @@ export const EventSettingsScreen: FC = () => {
           <Switch label="Le module lieu vous permet de mettre en avant le lieu sélectionné pour votre évènement." />
         </View>
 
-        <View style={styles.switchModuleOn}>
-          <Typography.Body size="medium" lvlColor="high" bold>
-            Activer le module cagnotte
-          </Typography.Body>
-          <Switch label="Le module cagnotte vous permet de mettre en avant le lien vers la cagnotte de l’évènement." />
-        </View>
+        {modules.cagnotte && (
+          <View style={styles.switchModuleOn}>
+            <Typography.Body size="medium" lvlColor="high" bold>
+              Activer le module cagnotte
+            </Typography.Body>
+            <Switch label="Le module cagnotte vous permet de mettre en avant le lien vers la cagnotte de l’évènement." />
+          </View>
+        )}
 
-        <View style={styles.switchModuleOn}>
-          <Typography.Body size="medium" lvlColor="high" bold>
-            Activer le module budget
-          </Typography.Body>
-          <Switch label="Le module activités vous permet de lister les activité prévu pour l’évènement." />
-        </View>
+        {modules.budget && (
+          <View style={styles.switchModuleOn}>
+            <Typography.Body size="medium" lvlColor="high" bold>
+              Activer le module budget
+            </Typography.Body>
+            <Switch label="Le module activités vous permet de lister les activité prévu pour l’évènement." />
+          </View>
+        )}
 
         <View>
           <Typography.Header color="primary">

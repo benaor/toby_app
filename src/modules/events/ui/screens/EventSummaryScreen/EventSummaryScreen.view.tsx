@@ -47,13 +47,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
     goToEventSettings,
   } = useEventSummaryScreen(eventId);
 
-  const {
-    locationModule,
-    activityModule,
-    budgetModule,
-    cagnotteModule,
-    surveyModule,
-  } = useFeatureFlag();
+  const { modules } = useFeatureFlag();
 
   if (!event) return <Typography.Body>Loading ...</Typography.Body>; // TODO: handle this case
 
@@ -131,7 +125,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
                 <Typography.Body>Dates</Typography.Body>
               </View>
 
-              {locationModule && (
+              {modules.location && (
                 <View style={styles.infoSquareBtn}>
                   <SquareButton onPress={openEditLocationModal}>
                     <MapSvg />
@@ -167,13 +161,13 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
             <Typography.Body>{event.description}</Typography.Body>
           </SummarySubSection>
 
-          {locationModule && (
+          {modules.location && (
             <SummarySubSection title="Lieu">
               <LocationSVG />
             </SummarySubSection>
           )}
 
-          {activityModule && (
+          {modules.activity && (
             <SummarySubSection title="Activités" onEdit={() => null}>
               <ScrollView
                 horizontal
@@ -234,7 +228,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
             </SummarySubSection>
           )}
 
-          {budgetModule && (
+          {modules.budget && (
             <SummarySubSection title="Budget" onEdit={openAddBudgetModal}>
               <View style={styles.card}>
                 <View style={styles.cardLeftPart}>
@@ -256,7 +250,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
             </SummarySubSection>
           )}
 
-          {cagnotteModule && event.pool && (
+          {modules.cagnotte && event.pool && (
             <SummarySubSection title="Cagnotte" onEdit={openEditPoolsModal}>
               <View style={styles.card}>
                 <View style={styles.cardLeftPart}>
@@ -283,7 +277,7 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
             </SummarySubSection>
           )}
 
-          {surveyModule && event.survey && (
+          {modules.survey && event.survey && (
             <SummarySubSection title="Sondage" onEdit={() => {}}>
               <Typography.Body>
                 {event.survey.isPending ? "En cours ..." : "Terminé !"}

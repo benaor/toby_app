@@ -6,6 +6,7 @@ import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
 import { Switch } from "@components/Switch";
 import { Button } from "@components/Button";
+import { useFeatureFlag } from "@/src/ui/contexts/useFeatureFlag";
 
 export const AddEventModulesModal: FC = () => {
   const {
@@ -20,6 +21,7 @@ export const AddEventModulesModal: FC = () => {
     createEvent,
     backPreviousStep,
   } = useAddEventModulesModal();
+  const { modules } = useFeatureFlag();
 
   return (
     <ModalLayout title="Ajouter des modules" onBack={backPreviousStep}>
@@ -40,27 +42,31 @@ export const AddEventModulesModal: FC = () => {
             />
           </View>
 
-          <View style={styles.switchModuleOn}>
-            <Typography.Body size="medium" lvlColor="high" bold>
-              Activer le module cagnotte
-            </Typography.Body>
-            <Switch
-              label="Le module cagnotte vous permet de mettre en avant le lien vers la cagnotte de l’évènement."
-              value={cagnotte}
-              onValueChange={toggleCagnotte}
-            />
-          </View>
+          {modules.cagnotte && (
+            <View style={styles.switchModuleOn}>
+              <Typography.Body size="medium" lvlColor="high" bold>
+                Activer le module cagnotte
+              </Typography.Body>
+              <Switch
+                label="Le module cagnotte vous permet de mettre en avant le lien vers la cagnotte de l’évènement."
+                value={cagnotte}
+                onValueChange={toggleCagnotte}
+              />
+            </View>
+          )}
 
-          <View style={styles.switchModuleOn}>
-            <Typography.Body size="medium" lvlColor="high" bold>
-              Activer le module budget
-            </Typography.Body>
-            <Switch
-              label="Le module activités vous permet de lister les activité prévu pour l’évènement."
-              value={budget}
-              onValueChange={toggleBudget}
-            />
-          </View>
+          {modules.budget && (
+            <View style={styles.switchModuleOn}>
+              <Typography.Body size="medium" lvlColor="high" bold>
+                Activer le module budget
+              </Typography.Body>
+              <Switch
+                label="Le module activités vous permet de lister les activité prévu pour l’évènement."
+                value={budget}
+                onValueChange={toggleBudget}
+              />
+            </View>
+          )}
 
           <View style={styles.switchModuleOn}>
             <Typography.Body size="medium" lvlColor="high" bold>

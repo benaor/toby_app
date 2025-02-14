@@ -6,11 +6,13 @@ import { createStyleSheet } from "@themes/createStyleSheet";
 import { DraggableItem } from "@components/DraggableItem";
 import { Button } from "@components/Button";
 import { useEditPoolsModal } from "./EditPoolsModal.controller";
+import { useFeatureFlag } from "@/src/ui/contexts/useFeatureFlag";
 
 export const EditPoolsModal: React.FC = () => {
   const { pools, deletePool, addPool } = useEditPoolsModal();
+  const { modules } = useFeatureFlag();
 
-  return (
+  return modules.cagnotte ? (
     <ModalLayout title="Modifier la cagnotte">
       <View style={styles.container}>
         <Typography.Body size="small">
@@ -29,7 +31,7 @@ export const EditPoolsModal: React.FC = () => {
         </Button>
       </View>
     </ModalLayout>
-  );
+  ) : null;
 };
 
 const styles = createStyleSheet(() => ({

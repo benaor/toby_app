@@ -22,3 +22,6 @@ expo-env.d.ts
 
 # testing
 coverage/
+
+# todo
+todo.md

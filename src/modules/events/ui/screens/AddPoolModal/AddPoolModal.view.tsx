@@ -3,6 +3,7 @@ import { ModalLayout } from "@components/ModalLayout";
 import { TextInput } from "@components/TextInput";
 import { Typography } from "@components/Typography";
 import { createStyleSheet } from "@themes/createStyleSheet";
+import { useFeatureFlag } from "@/src/ui/contexts/useFeatureFlag";
 import { FC } from "react";
 import { View } from "react-native";
 import { useAddPoolModal } from "./AddPoolModal.controller";
@@ -10,8 +11,9 @@ import { Chip } from "@components/Chip";
 
 export const AddPoolModal: FC = () => {
   const { createPool } = useAddPoolModal();
+  const { modules } = useFeatureFlag();
 
-  return (
+  return modules.cagnotte ? (
     <ModalLayout title="Créer une cagnotte">
       <View style={styles.container}>
         <TextInput
@@ -33,7 +35,7 @@ export const AddPoolModal: FC = () => {
         </Button>
       </View>
     </ModalLayout>
-  );
+  ) : null;
 };
 
 const styles = createStyleSheet(() => ({
