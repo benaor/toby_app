@@ -67,11 +67,12 @@ export const EventSummaryScreen: FC<EventSummaryScreenProps> = ({
 
       <ScrollView contentContainerStyle={styles.container}>
         <Header
-          button="settings"
-          onButtonPress={goToEventSettings}
           style={styles.header}
           contrast
           canGoBack
+          {...(event.isAdmin
+            ? { button: "settings", onButtonPress: goToEventSettings }
+            : { button: undefined, onButtonPress: undefined })}
         />
 
         <View style={styles.pictureSpace} />

@@ -16,6 +16,7 @@ type FeatureFlagContext = {
   };
   features: {
     sendReminder: boolean;
+    newsAdmin: boolean;
   };
 };
 
@@ -35,6 +36,7 @@ const featureFlags: FeatureFlagContext = {
   },
   features: {
     sendReminder: false,
+    newsAdmin: false,
   },
 };
 

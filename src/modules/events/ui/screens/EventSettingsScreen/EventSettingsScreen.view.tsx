@@ -12,7 +12,7 @@ import { useFeatureFlag } from "@/src/ui/contexts/useFeatureFlag";
 
 export const EventSettingsScreen: FC = () => {
   const { admins } = useEventSettingsScreen();
-  const { modules } = useFeatureFlag();
+  const { modules, features } = useFeatureFlag();
 
   return (
     <>
@@ -53,38 +53,44 @@ export const EventSettingsScreen: FC = () => {
           </View>
         </View>
 
-        <View>
-          <Typography.Header color="primary">
-            Les modules de l'évènement
-          </Typography.Header>
-          <Typography.Body>
-            Les différents modules actif sur cet évènement
-          </Typography.Body>
-        </View>
+        {(modules.location || modules.cagnotte || modules.budget) && (
+          <>
+            <View>
+              <Typography.Header color="primary">
+                Les modules de l'évènement
+              </Typography.Header>
+              <Typography.Body>
+                Les différents modules actif sur cet évènement
+              </Typography.Body>
+            </View>
 
-        <View style={styles.switchModuleOn}>
-          <Typography.Body size="medium" lvlColor="high" bold>
-            Activer le module lieu
-          </Typography.Body>
-          <Switch label="Le module lieu vous permet de mettre en avant le lieu sélectionné pour votre évènement." />
-        </View>
+            {modules.location && (
+              <View style={styles.switchModuleOn}>
+                <Typography.Body size="medium" lvlColor="high" bold>
+                  Activer le module lieu
+                </Typography.Body>
+                <Switch label="Le module lieu vous permet de mettre en avant le lieu sélectionné pour votre évènement." />
+              </View>
+            )}
 
-        {modules.cagnotte && (
-          <View style={styles.switchModuleOn}>
-            <Typography.Body size="medium" lvlColor="high" bold>
-              Activer le module cagnotte
-            </Typography.Body>
-            <Switch label="Le module cagnotte vous permet de mettre en avant le lien vers la cagnotte de l’évènement." />
-          </View>
-        )}
+            {modules.cagnotte && (
+              <View style={styles.switchModuleOn}>
+                <Typography.Body size="medium" lvlColor="high" bold>
+                  Activer le module cagnotte
+                </Typography.Body>
+                <Switch label="Le module cagnotte vous permet de mettre en avant le lien vers la cagnotte de l’évènement." />
+              </View>
+            )}
 
-        {modules.budget && (
-          <View style={styles.switchModuleOn}>
-            <Typography.Body size="medium" lvlColor="high" bold>
-              Activer le module budget
-            </Typography.Body>
-            <Switch label="Le module activités vous permet de lister les activité prévu pour l’évènement." />
-          </View>
+            {modules.budget && (
+              <View style={styles.switchModuleOn}>
+                <Typography.Body size="medium" lvlColor="high" bold>
+                  Activer le module budget
+                </Typography.Body>
+                <Switch label="Le module activités vous permet de lister les activité prévu pour l’évènement." />
+              </View>
+            )}
+          </>
         )}
 
         <View>
@@ -126,12 +132,14 @@ export const EventSettingsScreen: FC = () => {
           />
         ))}
 
-        <Button variant="text">
-          <Button.Label
-            colors={["primary", "high"]}
-            label="Ajouter un administrateur"
-          />
-        </Button>
+        {features.newsAdmin && (
+          <Button variant="text">
+            <Button.Label
+              colors={["primary", "high"]}
+              label="Ajouter un administrateur"
+            />
+          </Button>
+        )}
       </ScrollView>
     </>
   );
